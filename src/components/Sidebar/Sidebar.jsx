@@ -14,7 +14,8 @@ import {
   AccordionIcon,
   Box,
   Badge,
-  Text,Flex
+  Text,
+  Flex,
 } from "@chakra-ui/react";
 
 const arr = [
@@ -31,54 +32,58 @@ function Sidebar() {
       <div className={show ? styles.sidebar1 : styles.sidebar}>
         <ul>
           <li className={styles.main} onClick={() => setShow(!show)}>
-            <img  src={hamburger} alt="" />
+            <img src={hamburger} alt="" />
           </li>
           <li>
             <img src={home} alt="" />
-            { <p>Home</p>}
+            {<p>Home</p>}
           </li>
           <li>
             <img src={course} alt="" />
-            { <p>Courses</p>}
+            {<p>Courses</p>}
           </li>
           <li>
             <img src={selflearning} alt="" />
-            { <p style={{height:"10px"}}>Self Learning</p>}
+            {<p style={{ height: "10px" }}>Self Learning</p>}
           </li>
           <li className={styles.activities}>
             <img src={activities} alt="" />
-            {<Accordion allowToggle >
-              <AccordionItem border="0px">
-                
-                  <AccordionButton 
-                  _hover={{ bg: 'none' }}
-                  border="0px"
-                  >
+            {
+              <Accordion allowToggle>
+                <AccordionItem border="0px">
+                  <AccordionButton _hover={{ bg: "none" }} border="0px">
                     <Flex>
-                    <Text fontSize="16px" fontWeight="600" color="var(--primary-red-900, #0A0103);">Activities</Text>
-                    <Badge
-                      rounded="full"
-                      px="2"
-                      fontSize="0.8em"
-                      colorScheme="red"
-                    >
-                      New
-                    </Badge>
+                      <Text
+                        fontSize="16px"
+                        fontWeight="600"
+                        color="var(--primary-red-900, #0A0103);"
+                      >
+                        Activities
+                      </Text>
+                      <Badge
+                        rounded="full"
+                        px="2"
+                        fontSize="0.8em"
+                        colorScheme="red"
+                      >
+                        New
+                      </Badge>
                     </Flex>
                     <AccordionIcon />
                   </AccordionButton>
-                
-                <AccordionPanel className={styles.subnav}>
-                MasterClass
-                </AccordionPanel>
-                <AccordionPanel className={styles.subnav}>
-                  Events
-                </AccordionPanel>
-                <AccordionPanel className={styles.subnav}>
-                  Contests
-                </AccordionPanel>
-              </AccordionItem>
-            </Accordion>}
+
+                  <AccordionPanel className={styles.subnav}>
+                    MasterClass
+                  </AccordionPanel>
+                  <AccordionPanel className={styles.subnav}>
+                    Events
+                  </AccordionPanel>
+                  <AccordionPanel className={styles.subnav}>
+                    Contests
+                  </AccordionPanel>
+                </AccordionItem>
+              </Accordion>
+            }
           </li>
         </ul>
       </div>
