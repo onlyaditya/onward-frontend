@@ -1,3 +1,4 @@
+
 "use client";
  import logo from "../../assets/allsvgimages/logo.svg"
  import referandearn from "../../assets/allsvgimages/referandearn.svg"
@@ -139,3 +140,4 @@ export default function Navbar() {
     </>
   );
 }
+

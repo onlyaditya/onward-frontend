@@ -1,12 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-import DashboardLanding from './pages/DashboardLanding';
+
+
+
+
+
+import "./App.css";
+import { Activities } from "./pages/Activities/Activities";
 
 function App() {
   return (
-    <div>
-     <DashboardLanding/>
-    </div>
+    <>
+      <Activities />
+    </>
+
   );
 }
 
