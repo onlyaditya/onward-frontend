@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.sidebar {
+  height: 100vh;
+  width: 264px;
+  border-right: 1px solid var(--neutral-grey-200, #d9d9d9);
+  background: #fff;
+  transition: width 2s ease;
+  position: fixed;
+  overflow: hidden;
+  
+}
+.sidebar1 {
+  height: 100vh;
+  width: 60px;
+  border-right: 1px solid var(--neutral-grey-200, #d9d9d9);
+  background: #fff;
+  transition: width 2s ease;
+  position: fixed;
+  overflow: hidden;
+}
+
+ul {
+
+}
+li {
+  display: flex;
+  padding: 16px 8px 16px 24px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--secondary-blue-500, #3470e4);
+  font-family: Open Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+li > p {
+  color: var(--primary-red-900, #0a0103);
+  /* Body 1/Medium */
+  font-family: Open Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; /* 150% */
+}
+
+.main {
+  cursor: pointer;
+}
+
+.subnav {
+    color: var(--neutral-grey-800, #3B3435);
+  font-family: Open Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; 
+  width: 164px;
+}
+
+.activities{
+   
+}
+
+@media screen and (width<=767px) {
+  .forPhone {
+    display: none;
+  }
+}

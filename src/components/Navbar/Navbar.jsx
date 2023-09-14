@@ -50,8 +50,9 @@ export default function Navbar() {
 
   return (
     <>
-      <Box>
+      <Box  position="sticky" top="0" zIndex={"10000"} background="white">
         <Flex
+       
           padding={["8px 16px 8px 16px","8px 32px 8px 32px"]}
           boxShadow={
             "0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10)"
