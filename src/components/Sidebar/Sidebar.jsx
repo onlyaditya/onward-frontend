@@ -1,93 +1,110 @@
-import { useState } from "react";
-import styles from "./Sidebar.module.css";
-
-import hamburger from "../../assets/allsvgimages/hamburger.svg";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Badge,
+  Box,
+  Flex,
+  Hide,
+  Image,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 import home from "../../assets/allsvgimages/home.svg";
 import course from "../../assets/allsvgimages/course.svg";
 import selflearning from "../../assets/allsvgimages/selflearning.svg";
 import activities from "../../assets/allsvgimages/activities.svg";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  Box,
-  Badge,
-  Text,
-  Flex,
-} from "@chakra-ui/react";
 
-const arr = [
-  { name: "Home", path: "/" },
-  { name: "Home", path: "/courses" },
-  { name: "Home", path: "/learn" },
-  { name: "Home", path: "/activities" },
-];
+export const SideBar = () => {
+  const [activeTab, setActiveTab] = useState("Home");
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
 
-function Sidebar() {
-  const [show, setShow] = useState(false);
   return (
-    <div className={styles.forPhone}>
-      <div className={show ? styles.sidebar1 : styles.sidebar}>
-        <ul>
-          <li className={styles.main} onClick={() => setShow(!show)}>
-            <img src={hamburger} alt="" />
-          </li>
-          <li>
-            <img src={home} alt="" />
-            {<p>Home</p>}
-          </li>
-          <li>
-            <img src={course} alt="" />
-            {<p>Courses</p>}
-          </li>
-          <li>
-            <img src={selflearning} alt="" />
-            {<p style={{ height: "10px" }}>Self Learning</p>}
-          </li>
-          <li className={styles.activities}>
-            <img src={activities} alt="" />
-            {
-              <Accordion allowToggle>
-                <AccordionItem border="0px">
-                  <AccordionButton _hover={{ bg: "none" }} border="0px">
-                    <Flex>
-                      <Text
-                        fontSize="16px"
-                        fontWeight="600"
-                        color="var(--primary-red-900, #0A0103);"
-                      >
-                        Activities
-                      </Text>
-                      <Badge
-                        rounded="full"
-                        px="2"
-                        fontSize="0.8em"
-                        colorScheme="red"
-                      >
-                        New
-                      </Badge>
-                    </Flex>
-                    <AccordionIcon />
-                  </AccordionButton>
+    <Hide below="md">
+      <Box
+        bg="gray.200"
+        w="250px"
+        h="100vh"
+        left="0"
+        boxShadow="lg"
+        position="sticky"
+        top="100"
+        zIndex={"1000"}
+        background="white"
+        display={""}
+      >
+        <Stack spacing={1} p={4}>
+          <SidebarItem
+            imageSrc={home}
+            label="Home"
+            isActive={activeTab === "Home"}
+            onClick={() => handleTabClick("Home")}
+          />
+          <SidebarItem
+            imageSrc={course}
+            label="Courses"
+            isActive={activeTab === "Courses"}
+            onClick={() => handleTabClick("Courses")}
+          />
+          <SidebarItem
+            imageSrc={selflearning}
+            label="Self Learning"
+            isActive={activeTab === "Self Learning"}
+            onClick={() => handleTabClick("Self Learning")}
+          />
 
-                  <AccordionPanel className={styles.subnav}>
-                    MasterClass
-                  </AccordionPanel>
-                  <AccordionPanel className={styles.subnav}>
-                    Events
-                  </AccordionPanel>
-                  <AccordionPanel className={styles.subnav}>
-                    Contests
-                  </AccordionPanel>
-                </AccordionItem>
-              </Accordion>
-            }
-          </li>
-        </ul>
-      </div>
-    </div>
+          <Accordion allowToggle>
+            <AccordionItem border="0px">
+              <AccordionButton _hover={{ bg: "none" }} border="0px">
+                <Flex align={"center"} justify={"flex-start"} gap={"10px"}>
+                  <Image
+                    src={activities}
+                    alt={"Activities"}
+                    width="24px"
+                    height="24px"
+                  />
+                  <Text ml={"1"}>Activities</Text>
+                  <Badge
+                    rounded="full"
+                    px="1"
+                    fontSize="0.8em"
+                    colorScheme="orange"
+                  >
+                    New
+                  </Badge>
+                </Flex>
+                <AccordionIcon />
+              </AccordionButton>
+              <AccordionPanel ml={"8"}>MasterClass</AccordionPanel>
+              <AccordionPanel ml={"8"}>Events</AccordionPanel>
+              <AccordionPanel ml={"8"}>Contests</AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+        </Stack>
+      </Box>
+    </Hide>
   );
-}
-export default Sidebar;
+};
+
+const SidebarItem = ({ imageSrc, label, onClick, isActive }) => {
+  return (
+    <Flex
+      align="center"
+      background={`${isActive ? "Highlight" : null}`}
+      cursor={"pointer"}
+      padding={"4"}
+      borderLeftWidth={isActive ? "4px" : "0px"} // Add left border when active
+      borderColor="blue.500" // Border color when active
+      onClick={onClick}
+      transition={"ease-out"}
+    >
+      <img src={imageSrc} alt={label} width="24px" height="24px" />
+      <Text ml={2}>{label}</Text>
+    </Flex>
+  );
+};

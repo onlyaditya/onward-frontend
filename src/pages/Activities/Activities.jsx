@@ -1,15 +1,16 @@
 import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import { Box } from "@chakra-ui/react";
+import { SideBar } from "../../components/SideBar/SideBar";
 
 export const Activities = () => {
   return (
     <div>
       <Navbar />
       <div>
-        <div>
-          <Sidebar />
-        </div>
+        <Box>
+          <SideBar />
+        </Box>
       </div>
     </div>
   );
