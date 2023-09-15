@@ -1,12 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-import OurCoursesPage from './pages/Courses/OurCoursesPage';
+
+
+
+
+
+
+import "./App.css";
+import { Activities } from "./pages/Activities/Activities";
 
 function App() {
   return (
-   <>
-  <OurCoursesPage/>
-   </>
+    <>
+      <Activities />
+    </>
   );
 }
 
