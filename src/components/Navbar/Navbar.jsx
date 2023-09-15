@@ -1,10 +1,10 @@
-
 "use client";
- import logo from "../../assets/allsvgimages/logo.svg"
- import referandearn from "../../assets/allsvgimages/referandearn.svg"
- import callback from "../../assets/allsvgimages/callback.svg"
- import notification from "../../assets/allsvgimages/notification.svg"
- import bottomarrow from "../../assets/allsvgimages/bottomarrow.svg"
+import logo from "../../assets/allsvgimages/logo.svg";
+import referandearn from "../../assets/allsvgimages/referandearn.svg";
+import callback from "../../assets/allsvgimages/callback.svg";
+import notification from "../../assets/allsvgimages/notification.svg";
+import bottomarrow from "../../assets/allsvgimages/bottomarrow.svg";
+import callImage from "../../assets/images/call.png";
 import {
   Box,
   Flex,
@@ -51,14 +51,13 @@ export default function Navbar() {
 
   return (
     <>
-      <Box  position="sticky" top="0" zIndex={"10000"} background="white">
+      <Box position="sticky" top="0" zIndex={"10000"} background="white">
         <Flex
-       
-          padding={["8px 16px 8px 16px","8px 32px 8px 32px"]}
+          padding={["8px 16px 8px 16px", "8px 32px 8px 32px"]}
           boxShadow={
             "0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10)"
           }
-          h={"56px"}
+          h={"70px"}
           flex-shrink={"0"}
           alignItems={"center"}
           justifyContent={"space-between"}
@@ -71,8 +70,8 @@ export default function Navbar() {
             onClick={isOpen ? onClose : onOpen}
           />
           {/* <HStack spacing={8} alignItems={'center'}> */}
-          <Box display="flex" >
-            <Image src={logo}/>
+          <Box display="flex">
+            <Image src={logo} />
           </Box>
 
           {/* {right side navbar} */}
@@ -82,49 +81,57 @@ export default function Navbar() {
             alignItems="center"
             gap="24px"
           >
-            <Flex display={{ base: 'none', md: 'flex' }} padding="1px 8px 1px 1px" border="1px solid var(--alert-warning, #FF832B)" borderRadius="32px" alignItems="center" gap="4px">
-              <Image src={referandearn}/>
+            <Flex
+              display={{ base: "none", md: "flex" }}
+              padding="1px 8px 1px 1px"
+              border="1px solid var(--alert-warning, #FF832B)"
+              borderRadius="32px"
+              alignItems="center"
+              gap="4px"
+            >
+              <Image src={referandearn} />
               <Text
-                color="var(--primary-red-900, #0A0103)" 
+                color="var(--primary-red-900, #0A0103)"
                 textAlign="center"
                 fontFamily="Open Sans"
                 fontSize="14px"
                 fontWeight="600"
                 lineHeight="24px"
-                
               >
                 Refer and Earn
               </Text>
             </Flex>
-            <Flex border="1px solid var(--extended-blue-400, #5D8DE9)" background="#F2F6FF" borderRadius="32px" alignItems="center" gap="4px" >
-              <Box  fill="var(--secondary-blue-500, #3470E4)">
-              <Image src={callback}/>
-              </Box>
+            <Flex
+              display={{ base: "none", md: "flex" }}
+              padding="1px 8px 1px 1px"
+              border="1px solid var(--alert-warning, #2b3dff)"
+              borderRadius="32px"
+              alignItems="center"
+              gap="4px"
+            >
+              <Image src={callImage} />
               <Text
-                color="var(--primary-red-900, #0A0103)" // You can replace this with your actual color value
+                color="var(--primary-red-900, #0A0103)"
                 textAlign="center"
                 fontFamily="Open Sans"
                 fontSize="14px"
                 fontWeight="600"
                 lineHeight="24px"
-                display={{base:"none",md:"block"}}
-                padding="6px 8px 6px 0px"
               >
                 Request Callback
               </Text>
             </Flex>
-
-            <Box display={{base:"none" ,md:"block"}}>
-             <Image src={notification}/>
+            <Box display={{ base: "none", md: "block" }}>
+              <Image src={notification} />
             </Box>
-            <Flex
-            justifyContent="flex-end"
-            alignItems="center"
-            gap="2px"
-            >
-              <Avatar width="24px" height="24px" src='https://bit.ly/dan-abramov'/>
-              <Box display={{base:"none",md:"block"}}>
-              <Image src={bottomarrow}/>
+            <Flex justifyContent="flex-end" alignItems="center" gap="2px">
+              <Avatar
+                width="24px"
+                height="24px"
+                src="https://bit.ly/dan-abramov"
+              />
+              <Box display={{ base: "none", md: "block" }}>
+                <Image src={bottomarrow} />
               </Box>
             </Flex>
           </Flex>
@@ -136,8 +143,6 @@ export default function Navbar() {
           </Box>
         ) : null}
       </Box>
-
     </>
   );
 }
-
