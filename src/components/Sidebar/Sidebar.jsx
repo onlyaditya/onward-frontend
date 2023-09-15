@@ -91,7 +91,7 @@ export const SideBar = () => {
   );
 };
 
-const SidebarItem = ({ imageSrc, label, onClick, isActive }) => {
+function SidebarItem({ imageSrc, label, onClick, isActive }) {
   return (
     <Flex
       align="center"
@@ -107,4 +107,4 @@ const SidebarItem = ({ imageSrc, label, onClick, isActive }) => {
       <Text ml={2}>{label}</Text>
     </Flex>
   );
-};
+}
