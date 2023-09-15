@@ -3,7 +3,7 @@ export const myCourses = [
     applied: true, icon:"code"},
   { title: "Backend Web Development",icon:"spiral" },
   { title: "Mobile Development" , icon:"mobile"},
-  { title: "Data Analytics" , icon:"chart"},
+  { title: "Data Analytics" , icon:"graph"},
   { title: "Software Automation Testing" , icon:"robo"},
 ];
 
