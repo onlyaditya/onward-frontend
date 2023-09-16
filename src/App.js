@@ -1,9 +1,3 @@
-
-
-
-
-
-import "./App.css";
 import { Activities } from "./pages/Activities/Activities";
 
 function App() {
@@ -11,7 +5,6 @@ function App() {
     <>
       <Activities />
     </>
-
   );
 }
 
