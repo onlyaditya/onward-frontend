@@ -1,10 +1,10 @@
 import React from "react";
-import { BsCodeSquare } from "react-icons/bs";
-import { PiRobot } from "react-icons/pi";
-import { ImMobile } from "react-icons/im";
-import { TbVectorTriangle } from "react-icons/tb";
-import { BsGraphUpArrow } from "react-icons/bs";
 import { Image } from "@chakra-ui/image";
+import code from "../../assets/icons/code.png";
+import graph from "../../assets/icons/graph.png";
+import mobile from "../../assets/icons/mobile.png";
+import robo from "../../assets/icons/robo.png";
+import spiral from "../../assets/icons/spiral.png";
 import man from "../../assets/icons/man.png";
 import bag from "../../assets/icons/bag.png";
 import monitor from "../../assets/icons/monitor.png";
@@ -16,15 +16,15 @@ import spark from "../../assets/icons/spark.png";
 const Icons = ({ iconName }) => {
   {
     return iconName === "code" ? (
-      <BsCodeSquare color="purple" size={"30px"} />
+      <Image src={code} />
     ) : iconName === "spiral" ? (
-      <TbVectorTriangle color="purple" size={"30px"} />
+      <Image src={spiral} />
     ) : iconName === "mobile" ? (
-      <ImMobile color="purple" size={"30px"} />
-    ) : iconName === "chart" ? (
-      <BsGraphUpArrow color="purple" size={"30px"} />
+      <Image src={mobile} />
+    ) : iconName === "graph" ? (
+      <Image src={graph} />
     ) : iconName === "robo" ? (
-      <PiRobot color="purple" size={"30px"} />
+      <Image src={robo} />
     ) : iconName === "man" ? (
       <Image src={man} />
     ) : iconName === "bag" ? (
