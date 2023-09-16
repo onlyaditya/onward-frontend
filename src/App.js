@@ -1,9 +1,3 @@
-
-
-
-
-
-import "./App.css";
 import { Activities } from "./pages/Activities/Activities";
 import DashboardLanding from "./pages/DashboardLanding";
 
@@ -13,7 +7,6 @@ function App() {
       {/* <Activities /> */}
       <DashboardLanding/>
     </>
-
   );
 }
 

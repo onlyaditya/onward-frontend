@@ -28,15 +28,12 @@ export const Sidebar = () => {
     <Hide below="md">
       <Box
         bg="gray.200"
-        w="250px"
         h="100vh"
-        left="0"
         boxShadow="lg"
-        position="sticky"
-        top="100"
-        zIndex={"1000"}
         background="white"
-        display={""}
+        position={"fixed"}
+        w={"60"}
+        left={"0"}
       >
         <Stack spacing={1} p={4}>
           <SidebarItem
@@ -97,11 +94,12 @@ function SidebarItem({ imageSrc, label, onClick, isActive }) {
       align="center"
       background={`${isActive ? "Highlight" : null}`}
       cursor={"pointer"}
-      padding={"4"}
+      p={"4"}
       borderLeftWidth={isActive ? "4px" : "0px"} // Add left border when active
       borderColor="blue.500" // Border color when active
       onClick={onClick}
       transition={"ease-out"}
+      width={"full"}
     >
       <img src={imageSrc} alt={label} width="24px" height="24px" />
       <Text ml={2}>{label}</Text>
