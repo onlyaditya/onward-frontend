@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { Box } from "@chakra-ui/react";
-import { SideBar } from "../../components/SideBar/Sidebar";
+import { Sidebar } from "../../components/Sidebar/Sidebar";
 
 export const Activities = () => {
   return (
@@ -9,7 +9,7 @@ export const Activities = () => {
       <Navbar />
       <div>
         <Box>
-          <SideBar />
+          <Sidebar />
         </Box>
       </div>
     </div>

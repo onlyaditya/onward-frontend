@@ -18,7 +18,7 @@ import course from "../../assets/allsvgimages/course.svg";
 import selflearning from "../../assets/allsvgimages/selflearning.svg";
 import activities from "../../assets/allsvgimages/activities.svg";
 
-export const SideBar = () => {
+export const Sidebar = () => {
   const [activeTab, setActiveTab] = useState("Home");
   const handleTabClick = (tab) => {
     setActiveTab(tab);
