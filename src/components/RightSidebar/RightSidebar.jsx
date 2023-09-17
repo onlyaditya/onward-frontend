@@ -27,39 +27,32 @@ let students = [
       "Lorem ipsum dolor sit amet, conse ctetur adipiscing elit. Fri pul viar quam ipsum dolor sit amet, co...",
   },
   {
-    id: 4,
+    id: 3,
     name: "Sunil",
     company: "Masai",
     quote:
       "Lorem ipsum dolor sit amet, conse ctetur adipiscing elit. Fri pul viar quam ipsum dolor sit amet, co...",
   },
-  {
-    id:53,
-    name: "Sunil",
-    company: "Masai",
-    quote:
-      "Lorem ipsum dolor sit amet, conse ctetur adipiscing elit. Fri pul viar quam ipsum dolor sit amet, co...",
-  },
+  
 ];
 
 const RightSidebar = () => {
   return (
-    <Flex>
+    <Flex 
+    
+    >
       <Flex
         border-left="1px solid var(--neutral-grey-200, #D9D9D9)"
-        h="100vh"
-        w="260px"
-        p="14px 14px 0px 14px"
+        w="100%"
+        p="14px 14px 100px 14px"
         flexDirection="column"
         //  justifyContent="flex-end"
         //  align-items='flex-start'
         bgColor="87C8D5"
-        border="1px solid red"
         backgroundColor="var(--extended-green-300, #9FDEBE)"
-        overflow={"scroll"}
       >
         <Box
-          w="232px"
+          w="100%"
           h="240px"
           border="0.676px solid var(--neutral-grey-100, #E5E5E5)"
           borderRadius="12px"
@@ -80,7 +73,7 @@ const RightSidebar = () => {
               fontStyle="normal"
               fontWeight="600"
               lineHeight="16.233px"
-              width="182px"
+              
             >
               Join our telegram community to connect with your fellow mates
             </Text>
@@ -137,6 +130,7 @@ const RightSidebar = () => {
           {students.map((el) => {
             return (
               <Box
+             w={"100%"}
                 display={"flex"}
                 flexDir={"column"}
                 padding={"16px"}
