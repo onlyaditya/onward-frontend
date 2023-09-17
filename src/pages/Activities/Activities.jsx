@@ -2,11 +2,8 @@ import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { Box, Flex } from "@chakra-ui/react";
 import { SideBar } from "../../components/Sidebar/Sidebar";
-import { Banner } from "../../components/Activities/Banner";
-import { ActivitiesTabs } from "../../components/Activities/ActivitiesTabs";
-import { ActivityCard } from "../../components/ActivityCard.jsx/ActivityCard";
 
-export const Activities = () => {
+export const Activities = ({ children }) => {
   return (
     <div>
       <Navbar />
@@ -14,11 +11,7 @@ export const Activities = () => {
         <Box width={"full"}>
           <Flex>
             <SideBar />
-            <Box w={"8xl"} px={"4"} margin={"0 auto"}>
-              <Banner />
-              <ActivitiesTabs />
-              <ActivityCard />
-            </Box>
+            {children}
           </Flex>
         </Box>
       </div>
