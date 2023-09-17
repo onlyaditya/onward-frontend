@@ -32,7 +32,7 @@ export const Sidebar = () => {
         boxShadow="lg"
         background="white"
         position={"fixed"}
-        w={"60"}
+        w={"16%"}
         left={"0"}
       >
         <Stack spacing={1} p={4}>
@@ -65,7 +65,9 @@ export const Sidebar = () => {
                     width="24px"
                     height="24px"
                   />
-                  <Text ml={"1"}>Activities</Text>
+                  <Hide below={"lg"}>
+                    <Text ml={"1"}>Activities</Text>
+                  </Hide>
                   <Badge
                     rounded="full"
                     px="1"
@@ -102,7 +104,11 @@ function SidebarItem({ imageSrc, label, onClick, isActive }) {
       width={"full"}
     >
       <img src={imageSrc} alt={label} width="24px" height="24px" />
-      <Text ml={2}>{label}</Text>
+      <Hide below={"lg"}>
+        <Text fontSize={{ sm: "x-small", md: "smaller", lg: "large" }} ml={2}>
+          {label}
+        </Text>
+      </Hide>
     </Flex>
   );
 }

@@ -1,10 +1,10 @@
-import { Activities } from "./pages/Activities/Activities";
+import { AppRoutes } from "./Routes/AppRoutes";
 import DashboardLanding from "./pages/DashboardLanding";
 
 function App() {
   return (
     <>
-      {/* <Activities /> */}
+      {/* <AppRoutes /> */}
       <DashboardLanding/>
     </>
   );

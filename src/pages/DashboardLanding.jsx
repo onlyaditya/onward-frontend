@@ -9,8 +9,8 @@ const DashboardLanding = () => {
   return (
     <Box>
       <Navbar />
-      <Flex gap="0px">
-        <Box display={{ base: "none", lg: "inline-block" }} width={"16%"}>
+      <Flex  border="1px solid red">
+        <Box display={{ base: "none", lg: "inline-block" }} width={"15%"}>
           <Sidebar />
         </Box>
         <Box
