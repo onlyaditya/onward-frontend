@@ -1,0 +1,66 @@
+.MainHeading{
+color: #000;
+font-family: Poppins;
+font-size: 48px;
+font-style: normal;
+font-weight: 800;
+line-height: 62px;
+align-self: stretch;
+}
+
+.MainHeadingSpam{
+color:  #ED0331;
+font-family: Poppins;
+font-size: 48px;
+font-style: normal;
+font-weight: 800;
+line-height: 62px;
+}
+
+.vectorimage{
+    /* width: 350px; */
+    position: absolute;
+    left: 150px;
+    top: 110px;
+    }
+
+.subtital{
+color: #21191B;
+font-family: Open Sans;
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: 34px; /* 141.667% */
+margin: 16px 0 32px 0;
+}
+
+.GetYourDreamJobButton{
+font-family: Open Sans;
+font-size: 18px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 133.333% */
+text-transform: uppercase;
+padding: 12px 20px;
+}
+
+
+
+.Component20{
+display: flex;
+width: 780px;
+height: 572px;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+top:95px;
+/* left:650px; */
+right:80px
+/* margin: 7px 60px 43px 0px; */
+}
+
+.ReviewCard{
+border-radius: 24px;
+background: linear-gradient(90deg, rgba(245, 245, 245, 0.32) 2.5%, rgba(255, 255, 255, 0.70) 99.54%);
+box-shadow: 0px 4px 7px 0px rgba(189, 189, 189, 0.25);
+}

@@ -1,0 +1,21 @@
+.Linktext{
+/* display: flex; */
+padding: 8px 16px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+border-radius: 6px;
+text-decoration: "none";
+font-weight: 600;
+flex-shrink: 0;
+font-family: 'Open Sans', sans-serif;
+
+}
+
+.material-symbols-outlined{
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+}
