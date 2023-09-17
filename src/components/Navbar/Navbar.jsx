@@ -51,7 +51,13 @@ export default function Navbar() {
 
   return (
     <>
-      <Box position="sticky" top="0" zIndex={"10000"} background="white">
+      <Box
+        position="sticky"
+        top="0"
+        zIndex={"10000"}
+        background="white"
+        width={"full"}
+      >
         <Flex
           padding={["8px 16px 8px 16px", "8px 32px 8px 32px"]}
           boxShadow={

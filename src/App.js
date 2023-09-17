@@ -1,9 +1,9 @@
-import { Activities } from "./pages/Activities/Activities";
+import { AppRoutes } from "./Routes/AppRoutes";
 
 function App() {
   return (
     <>
-      <Activities />
+      <AppRoutes />
     </>
   );
 }
