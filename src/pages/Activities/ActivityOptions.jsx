@@ -8,8 +8,8 @@ export const ActivityOptions = () => {
   return (
     <Box
       w={"75%"}
-      px={"4"}
-      marginLeft={"12%"}
+      px={["4", "6", "7"]}
+      marginLeft={{ lg: "240px", md: "64px", sm: "64px" }}
       bg={"var(--extended-blue-50, #F2F6FF)"}
     >
       <Banner />

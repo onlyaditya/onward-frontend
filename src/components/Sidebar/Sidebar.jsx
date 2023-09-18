@@ -34,6 +34,7 @@ export const SideBar = () => {
         position={"fixed"}
         w={"12%"}
         left={"0"}
+        minW={{ lg: "240px", md: "64px", sm: "64px" }}
       >
         <Stack spacing={1} p={4}>
           <SidebarItem
@@ -68,14 +69,16 @@ export const SideBar = () => {
                   <Hide below={"lg"}>
                     <Text ml={"1"}>Activities</Text>
                   </Hide>
-                  <Badge
-                    rounded="full"
-                    px="1"
-                    fontSize="0.8em"
-                    colorScheme="orange"
-                  >
-                    New
-                  </Badge>
+                  <Hide below={"lg"}>
+                    <Badge
+                      rounded="full"
+                      px="1"
+                      fontSize="0.8em"
+                      colorScheme="orange"
+                    >
+                      New
+                    </Badge>
+                  </Hide>
                 </Flex>
                 <AccordionIcon />
               </AccordionButton>

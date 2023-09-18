@@ -4,7 +4,7 @@ import { ActivityDetailView } from "../../components/Activities/ActivityDetailVi
 
 export const ActivityDetail = () => {
   return (
-    <Box w={"88%"} marginLeft={"12%"}>
+    <Box w={"88%"} marginLeft={{ lg: "240px", md: "64px", sm: "64px" }}>
       <ActivityDetailView />
     </Box>
   );

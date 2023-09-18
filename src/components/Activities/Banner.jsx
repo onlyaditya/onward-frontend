@@ -14,7 +14,7 @@ export const Banner = () => {
       pr={6}
       m={5}
       borderRadius={"md"}
-      width={"full"}
+      width={"95%"}
     >
       <Flex justifyContent={"center"} alignItems="center" flexGrow={1}>
         <Text
