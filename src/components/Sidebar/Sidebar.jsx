@@ -32,9 +32,9 @@ export const SideBar = () => {
         boxShadow="lg"
         background="white"
         position={"fixed"}
-        w={"12%"}
+        w={"12vw"}
         left={"0"}
-        minW={{ lg: "240px", md: "64px", sm: "64px" }}
+        // minW={{ lg: "240px", md: "64px", sm: "64px" }}
       >
         <Stack spacing={1} p={4}>
           <SidebarItem
@@ -58,7 +58,17 @@ export const SideBar = () => {
 
           <Accordion allowToggle>
             <AccordionItem border="0px">
-              <AccordionButton _hover={{ bg: "none" }} border="0px">
+              <AccordionButton
+                align="center"
+                background={`${activeTab === "activity" ? "Highlight" : null}`}
+                cursor={"pointer"}
+                p={"4"}
+                borderLeftWidth={activeTab === "activity" ? "4px" : "0px"} // Add left border when active
+                borderColor="blue.500" // Border color when active
+                onClick={() => setActiveTab("activity")}
+                transition={"ease-out"}
+                width={"full"}
+              >
                 <Flex align={"center"} justify={"flex-start"} gap={"10px"}>
                   <Image
                     src={activities}
