@@ -1,11 +1,11 @@
-import { Box } from "@chakra-ui/react";
 import React from "react";
 import { ActivityDetailView } from "../../components/Activities/ActivityDetailView";
+import { CommonLayout } from "../../components/CommonLayout";
 
 export const ActivityDetail = () => {
   return (
-    <Box w={"88%"} marginLeft={"12%"}>
+    <CommonLayout>
       <ActivityDetailView />
-    </Box>
+    </CommonLayout>
   );
 };
