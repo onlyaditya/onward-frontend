@@ -4,9 +4,8 @@ import { Box, Text, Image } from "@chakra-ui/react";
 
 export default function Instructor({ image, name, company, exp }) {
   return (
-    <Box w={"300px"} height={"179px"} borderRadius={"12px"}>
+    <Box height={"179px"} borderRadius={"12px"}>
       <Image
-        w={"300px"}
         height={"130px"}
         src={image}
         alt="#"

@@ -3,12 +3,10 @@ import React from "react";
 import activity_logo from "../../assets/images/activities-logo.png";
 import activity_polygon from "../../assets/images/activities-polygon.png";
 
-export const Banner = () => {
+export const Banner = ({ bgColor, text }) => {
   return (
     <Box
-      background={
-        "radial-gradient(112.5% 111.22% at 104.39% 0%, #84BAC7 0%, #1A9FBD 100%)"
-      }
+      background={bgColor}
       display={"flex"}
       alignItems={"center"}
       pr={6}
@@ -24,7 +22,7 @@ export const Banner = () => {
           fontSize={"2xl"}
           fontWeight={"bold"}
         >
-          Activities
+          {text}
         </Text>
       </Flex>
 
