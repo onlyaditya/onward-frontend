@@ -12,7 +12,12 @@ export const ActivityOptions = () => {
       py={"4"}
       bg={"var(--extended-blue-50, #F2F6FF)"}
     >
-      <Banner />
+      <Banner
+        bgColor={
+          "radial-gradient(112.5% 111.22% at 104.39% 0%, #84BAC7 0%, #1A9FBD 100%)"
+        }
+        text={"Activities"}
+      />
       <ActivitiesTabs />
       <ActivityCard />
     </Box>

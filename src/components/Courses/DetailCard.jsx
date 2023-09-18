@@ -5,11 +5,11 @@ import Icons from "./Icons";
 const DetailCard = ({ icon, text }) => {
   return (
     <Box
-      border={"1px solid black"}
       w={"200px"}
       h={"108px"}
       borderRadius={"16px"}
       p={"16px"}
+      background="rgba(247, 247, 255, 1)"
     >
       <Box display={"flex"} justifyContent={"center"}>
         <Icons iconName={icon} />

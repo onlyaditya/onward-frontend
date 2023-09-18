@@ -1,5 +1,5 @@
 import { AppRoutes } from "./Routes/AppRoutes";
-
+import './Scrollbar.css'
 function App() {
   return (
     <>
