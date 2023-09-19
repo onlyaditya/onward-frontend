@@ -17,13 +17,15 @@ import home from "../../assets/allsvgimages/home.svg";
 import course from "../../assets/allsvgimages/course.svg";
 import selflearning from "../../assets/allsvgimages/selflearning.svg";
 import activities from "../../assets/allsvgimages/activities.svg";
+import { useNavigate } from "react-router";
 
 export const SideBar = () => {
   const [activeTab, setActiveTab] = useState("Home");
+  const navigate = useNavigate();
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+    navigate(`/${tab}`);
   };
-
   return (
     <Hide below="md">
       <Box
@@ -40,32 +42,32 @@ export const SideBar = () => {
           <SidebarItem
             imageSrc={home}
             label="Home"
-            isActive={activeTab === "Home"}
-            onClick={() => handleTabClick("Home")}
+            // isActive={activeTab === ""}
+            onClick={() => handleTabClick("")}
           />
           <SidebarItem
             imageSrc={course}
             label="Courses"
-            isActive={activeTab === "Courses"}
-            onClick={() => handleTabClick("Courses")}
+            // isActive={acstiveTab === "courses"}/
+            onClick={() => handleTabClick("courses")}
           />
           <SidebarItem
             imageSrc={selflearning}
             label="Self Learning"
-            isActive={activeTab === "Self Learning"}
-            onClick={() => handleTabClick("Self Learning")}
+            // onClick={() => handleTabClick("Self Learning")}
           />
 
-          <Accordion allowToggle>
+          <Accordion allowToggle onClick={() => handleTabClick("activities")}>
             <AccordionItem border="0px">
               <AccordionButton
                 align="center"
-                background={`${activeTab === "activity" ? "Highlight" : null}`}
+                background={`${
+                  activeTab === "activities" ? "Highlight" : null
+                }`}
                 cursor={"pointer"}
                 p={"4"}
-                borderLeftWidth={activeTab === "activity" ? "4px" : "0px"} // Add left border when active
+                borderLeftWidth={activeTab === "activities" ? "4px" : "0px"} // Add left border when active
                 borderColor="blue.500" // Border color when active
-                onClick={() => setActiveTab("activity")}
                 transition={"ease-out"}
                 width={"full"}
               >
