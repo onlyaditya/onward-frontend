@@ -1,23 +1,11 @@
 import React from "react";
-import Navbar from "../../components/Navbar/Navbar";
+import { CommonLayout } from "../../components/CommonLayout";
+import { ActivityOptions } from "./ActivityOptions";
 
-import { Sidebar } from "../../components/Sidebar/Sidebar";
-
-import { Box, Flex } from "@chakra-ui/react";
-// import { Sidear } from "../../components/Sidebar/Sidebar";
-
-export const Activities = ({ children }) => {
+export const Activities = () => {
   return (
-    <div>
-      <Navbar />
-      <div>
-        <Box width={"full"}>
-          <Flex>
-            <Sidebar />
-            {children}
-          </Flex>
-        </Box>
-      </div>
-    </div>
+    <CommonLayout>
+      <ActivityOptions />
+    </CommonLayout>
   );
 };

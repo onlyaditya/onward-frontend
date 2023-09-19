@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, Text, border } from "@chakra-ui/react";
+import { Box, Button, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import sampleThumbNail from "../../assets/images/sampleActivityThumbnail.png";
 import fire_icon from "../../assets/images/fire-icon.png";
