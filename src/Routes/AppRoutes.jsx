@@ -10,23 +10,9 @@ export const AppRoutes = () => {
   return (
     <>
       <Routes>
-        <Route
-          path="/activities"
-          element={
-            <Activities>
-              <ActivityOptions />
-            </Activities>
-          }
-        />
+        <Route path="/activities" element={<Activities />} />
         <Route path="/courses" element={<OurCoursesPage />} />
-        <Route
-          path="/activity/detail/:id"
-          element={
-            <Activities>
-              <ActivityDetail />
-            </Activities>
-          }
-        />
+        <Route path="/activity/detail/:id" element={<ActivityDetail />} />
         <Route
           path="*"
           element={
