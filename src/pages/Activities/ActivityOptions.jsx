@@ -9,6 +9,7 @@ export const ActivityOptions = () => {
     <Box
       width={"full"}
       height={"full"}
+      minH={"100vh"}
       py={"4"}
       bg={"var(--extended-blue-50, #F2F6FF)"}
     >
