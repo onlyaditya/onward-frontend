@@ -26,7 +26,14 @@ import {
   StepTitle,
   Stepper,
   useSteps,
+  useDisclosure,
+  ModalOverlay,
+  ModalHeader,
+  ModalContent,
+  ModalBody,
+  Modal,
 } from "@chakra-ui/react";
+import StartMsat from "./StartMsat";
 
 const steps = [
   { title: "First", description: "Contact Info" },
@@ -36,7 +43,7 @@ const steps = [
 
 const Home = () => {
   const [completedSteps, setCompletedSteps] = useState([false, false]);
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { activeStep } = useSteps({
     index: 1,
     count: steps.length,
@@ -53,13 +60,13 @@ const Home = () => {
   };
 
   return (
-    <Box 
-    width="100%"
-  display="inline-flex"
-  padding="16px 251px 0px 24px"
-  alignItems="center"
+    <Box
+      width="100%"
+      display="inline-flex"
+      padding="16px 251px 0px 24px"
+      alignItems="center"
     >
-      <Box >
+      <Box>
         <Box className={styles.student_greeting_heading}>
           <Text>Hey Abhishek!</Text>
           <Text>Welcome to Masai!</Text>
@@ -371,6 +378,7 @@ background: #FFF;"
                           flexDirection="row-reverse"
                         >
                           <Button
+                          onClick={onOpen}
                             borderRadius="8px"
                             background="var(--primary-white-fff, #FFF)"
                             border="1px solid var(--neutral-grey-300, #CCC)"
@@ -379,6 +387,14 @@ background: #FFF;"
                           >
                             Start Msat
                           </Button>
+                          <Modal isOpen={isOpen} onClose={onClose} >
+                            <ModalOverlay />
+                            <ModalContent background="var(--primary-white-fff, transparent)">
+                              <ModalBody>
+                                <StartMsat onClose={onClose} />
+                              </ModalBody>
+                            </ModalContent>
+                          </Modal>
                         </Box>
                       </AccordionPanel>
                     </AccordionItem>
@@ -399,7 +415,7 @@ background: #FFF;"
               />
             </StepIndicator>
 
-            <Box flexShrink="0" >
+            <Box flexShrink="0">
               <StepDescription>
                 <Box
                   width="571px"
@@ -408,7 +424,7 @@ background: #FFF;"
                   boxShadow="0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10);"
                 >
                   <Accordion defaultIndex={[0]} allowMultiple>
-                    <AccordionItem   border="0px" padding="0px 16px 16px 16px">
+                    <AccordionItem border="0px" padding="0px 16px 16px 16px">
                       <AccordionButton
                         border="0px"
                         _hover={{ bg: "none" }}
