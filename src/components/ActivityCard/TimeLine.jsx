@@ -1,12 +1,18 @@
 import { Box, Slider, SliderThumb, SliderTrack, Text } from "@chakra-ui/react";
 import React from "react";
+import { convertTime } from "../../utils/convertTime";
+import { findDuration } from "../../utils/findDuration";
 
-export const TimeLine = () => {
+export const TimeLine = ({ startDate, endDate }) => {
+  const [startH, startM, startAP] = convertTime(startDate);
+  const [endH, endM, endAP] = convertTime(endDate);
   return (
     <Box gap={2} display={"flex"} width={"full"}>
       <Box textAlign={"left"}>
-        <Text>6:00</Text>
-        <Text>PM</Text>
+        <Text>
+          {startH}:{startM}
+        </Text>
+        <Text>{startAP}</Text>
       </Box>
       <Box
         textAlign={"center"}
@@ -14,7 +20,7 @@ export const TimeLine = () => {
         flexDirection={"column"}
         flexGrow={"1"}
       >
-        <Text>1h 30min</Text>
+        <Text>{findDuration(startDate, endDate)}</Text>
         <Slider value={100}>
           <SliderTrack bg={"rgba(255, 205, 30, 1)"}></SliderTrack>
           <SliderThumb />
@@ -22,8 +28,10 @@ export const TimeLine = () => {
         <Text>Duration</Text>
       </Box>
       <Box textAlign={"right"}>
-        <Text>7:30</Text>
-        <Text>PM</Text>
+        <Text>
+          {endH}:{endM}
+        </Text>
+        <Text>{endAP}</Text>
       </Box>
     </Box>
   );
