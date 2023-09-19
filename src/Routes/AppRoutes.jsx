@@ -7,6 +7,7 @@ import OurCoursesPage from "../pages/Courses/OurCoursesPage";
 import { ActivityOptions } from "../pages/Activities/ActivityOptions";
 import { HomePage } from "../pages/HomePage";
 import DashboardLanding from "../pages/DashboardLanding";
+import TestPage from "../components/TestPage/TestPage";
 
 export const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<DashboardLanding/>}/>
+        <Route path="/test" element={<TestPage/>}/>
         <Route path="/activities" element={<Activities />} />
         <Route path="/courses" element={<OurCoursesPage />} />
         <Route path="/activity/detail/:id" element={<ActivityDetail />} />
