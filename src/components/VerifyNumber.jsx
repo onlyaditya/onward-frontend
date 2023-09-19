@@ -13,7 +13,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-export default function VerifyNumber({ mobile }) {
+export default function VerifyNumber({ mobile, setReg }) {
   const [errorMessageWrongOTP, setErrorMessageWrongOTP] = useState("");
   const [seconds, setSeconds] = useState(30);
   const [pin, setPin] = useState("");

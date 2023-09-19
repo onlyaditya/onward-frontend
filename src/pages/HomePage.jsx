@@ -1,15 +1,14 @@
 import React from "react";
-import  Hero  from "../components/Hero";
+import Hero from "../components/Hero";
+import { Navbar } from "../components/Navbar";
 import HeroBottom from "../components/HeroBottom";
-import SignUpDrawer from "../components/SignUpDrawer";
-import VerifyNumber from "../components/VerifyNumber";
+import SignIn from "../components/SignIn";
 
 export const HomePage = () => {
   return (
-  
-//<div>HomePage</div>;
-<div>
-<Hero/>
-</div>
-  )
+    <div>
+      <Hero />
+      {/* <SignIn /> */}
+    </div>
+  );
 };

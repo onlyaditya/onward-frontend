@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Box,
   Button,
@@ -12,9 +12,10 @@ import {
   DrawerContent,
   Spinner,
   useToast,
+  useDisclosure,
 } from "@chakra-ui/react";
 
-function SignUpDrawer({ mobile, setMobile, setReg }) {
+function SignUpDrawer({ mobile, setMobile, setReg, setSignIn }) {
   const [isSigned, setIsSigned] = useState(false);
 
   const [fullName, setFullName] = useState("");
@@ -118,6 +119,10 @@ function SignUpDrawer({ mobile, setMobile, setReg }) {
     }
   }
 
+  // function OpenSignInPage(){
+
+  // }
+
   return (
     <div className="SignUpContainer" style={{ display: "flex" }}>
       <div style={{ width: "100vw" }}></div>
@@ -180,8 +185,11 @@ function SignUpDrawer({ mobile, setMobile, setReg }) {
                 fontFamily={"Open Sans"}
                 color={"#4358F6"}
                 _hover={{ cursor: "pointer" }}
+                onClick={() => {
+                  setSignIn(true);
+                }}
               >
-                Sign in
+                Sign In
               </Text>
             </Flex>
 

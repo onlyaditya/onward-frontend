@@ -5,15 +5,9 @@ import {
   Image,
   Text,
   Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import User from "../assets/User.svg";
 import Vector from "../assets/Vector.svg";
 import Airtel_Logo from "../assets/Airtel_Logo.svg";
@@ -25,15 +19,62 @@ import { Navbar } from "./Navbar";
 import HeroBottom from "./HeroBottom";
 import SignUpDrawer from "./SignUpDrawer";
 import VerifyNumber from "./VerifyNumber";
+import SignIn from "./SignIn";
 
 function Hero() {
+  const dataObjects = [
+    {
+      id: 1,
+      name: "Ramendra Vikram Sign Parihar",
+      image:
+        "https://www.masaischool.com/images/new-homepage/banner-student-image3.webp",
+      description:
+        "Going through the 11-11-6 curriculum was a breathtaking experience. Every new unit came with great enthusiasm and a new challenge",
+      companyLogo:
+        "https://www.masaischool.com/images/new-homepage/company-logo3.svg",
+    },
+    {
+      id: 2,
+      name: "Hitesh Tripathi",
+      image:
+        "https://www.masaischool.com/images/new-homepage/banner-student-image1.webp",
+      description:
+        "I liked that every thing is taught in a structured manner, and there is no spoon feeding. That helps us learn by ourself when we do.",
+      companyLogo:
+        "https://www.masaischool.com/images/new-homepage/company-logo1.svg ",
+    },
+    {
+      id: 3,
+      name: "Pooja Kumari",
+      image:
+        "https://www.masaischool.com/images/new-homepage/banner-student-image2.webp",
+      description:
+        "I developed Communication Skills, People Skills, Mindset, active patience, JAVA, DSA, JavaScript, CSS, and HTML.",
+      companyLogo:
+        "https://www.masaischool.com/images/new-homepage/company-logo2.svg",
+    },
+  ];
+
   const [reg, setReg] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [mobile, setMobile] = useState("");
+  const [signIn, setSignIn] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const firstDrawer = useDisclosure();
   const btnRef = React.useRef();
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % dataObjects.length);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [currentIndex]);
+
+  const currentItem = dataObjects[currentIndex];
+
   return (
-    <div>
+    <div bgColor={"#fcfafa"} style={{ width: "100%" }}>
       <Drawer
         size="md"
         isOpen={isOpen}
@@ -42,59 +83,122 @@ function Hero() {
         finalFocusRef={btnRef}
       >
         {reg ? (
-          <VerifyNumber mobile={mobile} />
+          <VerifyNumber mobile={mobile} setReg={setReg} />
         ) : (
-          <SignUpDrawer mobile={mobile} setMobile={setMobile} setReg={setReg} />
+          // signIn ? (
+          //   <SignIn
+          //     onClose={firstDrawer.onClose}
+          //     isOpen={firstDrawer.isOpen}
+          //     onOpen={firstDrawer.onOpen}
+          //   />
+          //) :
+          <SignUpDrawer
+            mobile={mobile}
+            setMobile={setMobile}
+            setReg={setReg}
+            setSignIn={setSignIn}
+          />
         )}
-        {/* <SignUpDrawer setReg={setReg} /> */}
-        {/* <VerifyNumber /> */}
       </Drawer>
 
       <Navbar btnRef={btnRef} onOpen={onOpen} />
+
       <Box
+        border={"2px solid blue"}
         display={"flex"}
-        w={"100%"}
+        flexWrap={"wrap"}
+        flexShrink={"0"}
+        // justifyContent={"center"}
+        // flexDirection={{ sm: "", md: "", lg: "row" }}
+        w={{ sm: "100%", md: "100%", lg: "100%", xl: "100%" }}
         position={"relative"}
-        h={"624px"}
+        // h={"624px"}
         bg={"#FCFAFA"}
       >
-        <Flex
-          w={"624px"}
-          position={"absolute"}
+        <Box
+          border={"2px solid red"}
+          w={{ lg: "624px", md: "574px" }}
+          position={{ lg: "absolute", md: "static", sm: "static" }}
           zIndex={"10"}
           display={"flex"}
           flexDirection={"column"}
-          margin={"175px 0px 99px 80px"}
+          margin={{
+            xl: "175px 0px 99px 80px",
+            lg: "175px 0px 99px 0px",
+            md: "175px 0px 99px 0px",
+          }}
         >
-          <div className={style.MainHeading}>
-            Realise Your Potential With{" "}
-            <spam className={style.MainHeadingSpam}>
+          <Box
+            color={"#000000"}
+            fontFamily={"Poppins"}
+            fontStyle={"normal"}
+            fontWeight={"800"}
+            lineHeight={"62px"}
+            className={style.MainHeading}
+            fontSize={{ sm: "24px", md: "24px", lg: "48px", xl: "48px" }}
+          >
+            <Text display={"inline"}> Realise Your Potential With</Text>
+            <Text
+              display={"inline"}
+              fontSize={{ sm: "24px", md: "24px", lg: "48px", xl: "48px" }}
+              fontStyle={"normal"}
+              fontWeight={"800"}
+              lineHeight={"62px"}
+              color={"#ed0331"}
+              fontFamily={"Poppins"}
+            >
+              {" "}
               Assured Outcomes
-              <img className={style.vectorimage} src={Vector} />
-            </spam>
-            Delivered.
-          </div>
+              <Image src={Vector} marginLeft={"150px"} marginTop={"-10px"} />
+            </Text>
+            <Text> Delivered.</Text>
+          </Box>
 
-          <Flex className={style.subtital}>
-            India’s only outcome-based career institute.
-            <br /> Enter the tech workforce industry-ready.
-          </Flex>
+          <Box
+            color={"#21191B"}
+            fontFamily={"Open Sans"}
+            fontSize={{ lg: "24px", md: "14px" }}
+            fontStyle={"normal"}
+            fontWeight={{ lg: "400", md: "" }}
+            lineHeight={{ lg: "34px", md: "24px" }}
+            margin={{ lg: "16px 0 32px 0", md: "12px 0 0 0" }}
+          >
+            India’s only outcome-based career institute. Enter the tech
+            workforce industry-ready.
+          </Box>
 
-          <Flex>
+          <Box>
             <Button
-              className={style.GetYourDreamJobButton}
-              bg={"red"}
+              fontFamily={"Open Sans"}
+              fontSize={"18px"}
+              fontStyle={"normal"}
+              fontWeight={"600"}
+              lineHeight={"24px"}
+              textTransform={"uppercase"}
+              padding={"12px 20px"}
+              bg={"#ED0331"}
               color={"#ffffff"}
               _hover={{ backgroundColor: "#D10000", color: "white" }}
             >
               get your dream job
             </Button>
-          </Flex>
-        </Flex>
+          </Box>
+        </Box>
 
-        <Flex></Flex>
-
-        <Flex className={style.Component20} position={"absolute"} zIndex={"0"}>
+        <Box
+          border={"2px solid black"}
+          display={"flex"}
+          w={"700px"}
+          h={"572px"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          flexShrink={"0"}
+          top={"95px"}
+          right={"80px"}
+          marginLeft={{ sm: "", md: "", lg: "650px", xl: "650px" }}
+          marginTop={"95px"}
+          zIndex={"0"}
+        >
           <Box
             w={"508px"}
             margin={"0px 60px 0 390px"}
@@ -113,7 +217,7 @@ function Hero() {
             w={"448px"}
             h={"502px"}
           >
-            <Image padding={"52px 12px 0px 12px"} src={User} />
+            <Image padding={"52px 12px 0px 12px"} src={currentItem.image} />
           </Box>
 
           <Box
@@ -133,23 +237,22 @@ function Hero() {
                 fontStyle={"normal"}
                 fontWeight={"600px"}
               >
-                {" "}
-                <Image src={StartDoubleBreket} />I liked that every thing is
-                taught in a structured manner, and there is no spoon feeding.
-                That helps us learn by ourself when we do.{" "}
+                <Image src={StartDoubleBreket} />
+                {currentItem.description}
                 <Image src={EndDoubleBreket} />
-                <Text margin={"12px 0 0 0"}>Harshit Tripathi</Text>
+                <Text margin={"12px 0 0 0"}>{currentItem.name}</Text>
               </Text>
             </Box>
             <Image
               zIndex={"1500"}
               position={"absolute"}
               margin={"-40px 269px 18px 39px"}
-              src={Airtel_Logo}
+              src={currentItem.companyLogo}
             />
           </Box>
-        </Flex>
+        </Box>
       </Box>
+
       <HeroBottom />
     </div>
   );
