@@ -5,11 +5,13 @@ import {
   GET_ACTIVITIES_SUCCESS,
 } from "../actionTypes";
 
-export const getActivities = (dispatch) => {
+export const getActivities = (params) => (dispatch) => {
   dispatch({ type: GET_ACTIVITIES_REQUEST });
   axios
-    .get("https://dash-board.up.railway.app/activities")
+    .get("https://dash-board.up.railway.app/activities", params && params)
     .then((res) => {
+      console.log(params);
+      console.log(res.data);
       dispatch({ type: GET_ACTIVITIES_SUCCESS, payload: res.data });
     })
     .catch((err) => {
