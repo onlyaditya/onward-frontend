@@ -28,15 +28,13 @@ export const SideBar = () => {
     <Hide below="md">
       <Box
         bg="gray.200"
-        w="250px"
         h="100vh"
-        left="0"
         boxShadow="lg"
-        position="sticky"
-        top="100"
-        zIndex={"1000"}
         background="white"
-        display={""}
+        position={"fixed"}
+        w={"12vw"}
+        left={"0"}
+        // minW={{ lg: "240px", md: "64px", sm: "64px" }}
       >
         <Stack spacing={1} p={4}>
           <SidebarItem
@@ -60,7 +58,17 @@ export const SideBar = () => {
 
           <Accordion allowToggle>
             <AccordionItem border="0px">
-              <AccordionButton _hover={{ bg: "none" }} border="0px">
+              <AccordionButton
+                align="center"
+                background={`${activeTab === "activity" ? "Highlight" : null}`}
+                cursor={"pointer"}
+                p={"4"}
+                borderLeftWidth={activeTab === "activity" ? "4px" : "0px"} // Add left border when active
+                borderColor="blue.500" // Border color when active
+                onClick={() => setActiveTab("activity")}
+                transition={"ease-out"}
+                width={"full"}
+              >
                 <Flex align={"center"} justify={"flex-start"} gap={"10px"}>
                   <Image
                     src={activities}
@@ -68,15 +76,19 @@ export const SideBar = () => {
                     width="24px"
                     height="24px"
                   />
-                  <Text ml={"1"}>Activities</Text>
-                  <Badge
-                    rounded="full"
-                    px="1"
-                    fontSize="0.8em"
-                    colorScheme="orange"
-                  >
-                    New
-                  </Badge>
+                  <Hide below={"lg"}>
+                    <Text ml={"1"}>Activities</Text>
+                  </Hide>
+                  <Hide below={"lg"}>
+                    <Badge
+                      rounded="full"
+                      px="1"
+                      fontSize="0.8em"
+                      colorScheme="orange"
+                    >
+                      New
+                    </Badge>
+                  </Hide>
                 </Flex>
                 <AccordionIcon />
               </AccordionButton>
@@ -97,14 +109,19 @@ function SidebarItem({ imageSrc, label, onClick, isActive }) {
       align="center"
       background={`${isActive ? "Highlight" : null}`}
       cursor={"pointer"}
-      padding={"4"}
+      p={"4"}
       borderLeftWidth={isActive ? "4px" : "0px"} // Add left border when active
       borderColor="blue.500" // Border color when active
       onClick={onClick}
       transition={"ease-out"}
+      width={"full"}
     >
       <img src={imageSrc} alt={label} width="24px" height="24px" />
-      <Text ml={2}>{label}</Text>
+      <Hide below={"lg"}>
+        <Text fontSize={{ sm: "x-small", md: "smaller", lg: "large" }} ml={2}>
+          {label}
+        </Text>
+      </Hide>
     </Flex>
   );
 }

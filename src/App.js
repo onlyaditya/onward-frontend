@@ -1,17 +1,10 @@
-
-
-
-
-
-import "./App.css";
-import { Activities } from "./pages/Activities/Activities";
-
+import { AppRoutes } from "./Routes/AppRoutes";
+import './Scrollbar.css'
 function App() {
   return (
     <>
-      <Activities />
+      <AppRoutes />
     </>
-
   );
 }
 
