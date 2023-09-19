@@ -173,6 +173,7 @@ const StartMsat = ({onClose,handleCourses,selectedCourse}) => {
         background="var(--secondary-blue-500, #3470E4)"
         isDisabled={selectedCourse}
         >CONFERM</Button>
+        
       </Box>
       <Box>
         

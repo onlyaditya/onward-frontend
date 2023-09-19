@@ -8,7 +8,7 @@ export const CommonLayout = ({ children }) => {
   return (
     <Box>
     <Navbar />
-    <Flex  border="1px solid red">
+    <Flex  >
       <Box display={{ base: "none", lg: "inline-block" }} width={"15%"}>
         <SideBar />
       </Box>
