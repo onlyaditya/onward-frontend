@@ -14,8 +14,7 @@ export const instructors = [
     {image: "https://masai-website-images.s3.ap-south-1.amazonaws.com/aman_fbbc8625a4.jpg", name: "Aman Vats", company: "Masai", exp: "10+"},
     {image: "https://masai-website-images.s3.ap-south-1.amazonaws.com/prateek_6232b84d8b.jpeg", name: "Prateek Shukla", company: "Masai", exp: "20+"},
     {image: "https://masai-website-images.s3.ap-south-1.amazonaws.com/Nrupul_d3fe3b289a.jpg", name: "Nrupul Dev", company: "Masai", exp: "25+"},
-    {image: "https://masai-website-images.s3.ap-south-1.amazonaws.com/Yogesh_52e31f5560.jpg", name: "Yogesh Bhatt", company: "Masai", exp: "15+"},
-    {image: "https://masai-website-images.s3.ap-south-1.amazonaws.com/aman_fbbc8625a4.jpg", name: "Aman Vats", company: "Masai", exp: "10+"},
+    
 ]
 
 export const generalDetails =[
