@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import { Banner } from "../../components/Activities/Banner";
 import { ActivitiesTabs } from "../../components/Activities/ActivitiesTabs";
-import { ActivityCard } from "../../components/ActivityCard.jsx/ActivityCard";
+import { ActivityCard } from "../../components/ActivityCard/ActivityCard";
 
 export const ActivityOptions = () => {
   return (
