@@ -10,13 +10,13 @@ import DashboardLanding from "./pages/DashboardLanding";
 function App() {
   return (
     <>
-      {/* <AppRoutes /> */}
+      <AppRoutes />
       {/* <DashboardLanding/> */}
       {/* <SubmitAndFinishMsat/> */}
       {/* <RedirectToMsat/> */}
       {/* <TestPage/> */}
       {/* <MsatThanku/> */}
-      <ClearedMsat/>
+      {/* <ClearedMsat/> */}
     </>
   );
 }

@@ -2,7 +2,10 @@ import { Box, Button, Divider, Flex, Image, Select, Text } from "@chakra-ui/reac
 import React from "react";
 import checkIcon from "../../assets/allsvgimages/checkIcon.svg";
 
-const StartMsat = ({onClose}) => {
+const StartMsat = ({onClose,handleCourses,selectedCourse}) => {
+  
+  
+// console.log(isConfirmButtonDisabled);
   return (
     <Flex
      justifyContent={"center"}
@@ -119,6 +122,7 @@ const StartMsat = ({onClose}) => {
       </Text>
 
       <Select
+      onChange={(e)=>handleCourses(e.target.value)}
         placeholder="Select"
         display="flex"
         justifyContent="center"
@@ -131,9 +135,11 @@ const StartMsat = ({onClose}) => {
         background="var(--primary-white-fff, #FFF)"
         mb="20px"
       >
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
+        <option value="full-stack-developer">Full Stack Web Development</option>
+        <option value="backend-developer">Backend Web Development</option>
+        <option value="data-analatics">Data Analatics</option>
+        <option value="testing">Software Testing & Automation</option>
+        <option value="mobile-developer">Mobile Developer</option>
       </Select>
       <Divider
         height={"1px"}
@@ -157,6 +163,7 @@ const StartMsat = ({onClose}) => {
          background="var(--extended-blue-50, #F2F6FF)"
         >CANCEL</Button>
         <Button
+        _hover={"none"}
         display="flex"
         padding="8px 16px"
         justifyContent="center"
@@ -164,7 +171,7 @@ const StartMsat = ({onClose}) => {
         gap="10px"
         borderRadius="8px"
         background="var(--secondary-blue-500, #3470E4)"
-        
+        isDisabled={selectedCourse}
         >CONFERM</Button>
       </Box>
       <Box>

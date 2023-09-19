@@ -42,12 +42,17 @@ const steps = [
 ];
 
 const Home = () => {
+  const [selectedCourse, setSelectedCourse] = useState(true);
   const [completedSteps, setCompletedSteps] = useState([false, false]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { activeStep } = useSteps({
     index: 1,
     count: steps.length,
   });
+
+  const handleCourses=(val)=>{
+      setSelectedCourse(false)
+  }
 
   const handleStepCompletion = (stepIndex) => {
     // Make a copy of the completedSteps array and update the specific step as completed
@@ -391,7 +396,7 @@ background: #FFF;"
                             <ModalOverlay />
                             <ModalContent background="var(--primary-white-fff, transparent)">
                               <ModalBody>
-                                <StartMsat onClose={onClose} />
+                                <StartMsat onClose={onClose} handleCourses={handleCourses} selectedCourse={selectedCourse}/>
                               </ModalBody>
                             </ModalContent>
                           </Modal>
