@@ -32,7 +32,7 @@ export const SideBar = () => {
         boxShadow="lg"
         background="white"
         position={"fixed"}
-        w={"12vw"}
+        w={"16%"}
         left={"0"}
         // minW={{ lg: "240px", md: "64px", sm: "64px" }}
       >
