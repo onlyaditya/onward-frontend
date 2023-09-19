@@ -58,6 +58,7 @@ export default function VerifyNumber({ mobile, setReg }) {
         position: "top",
       });
       console.log("Pin Value:", pin);
+      
     }
   }
 

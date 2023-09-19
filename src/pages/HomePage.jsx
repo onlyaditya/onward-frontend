@@ -8,7 +8,6 @@ export const HomePage = () => {
   return (
     <div>
       <Hero />
-      {/* <SignIn /> */}
     </div>
   );
 };

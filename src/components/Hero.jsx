@@ -104,28 +104,27 @@ function Hero() {
       <Navbar btnRef={btnRef} onOpen={onOpen} />
 
       <Box
-        border={"2px solid blue"}
+        // border={"2px solid blue"}
         display={"flex"}
         flexWrap={"wrap"}
         flexShrink={"0"}
-        // justifyContent={"center"}
-        // flexDirection={{ sm: "", md: "", lg: "row" }}
         w={{ sm: "100%", md: "100%", lg: "100%", xl: "100%" }}
         position={"relative"}
-        // h={"624px"}
         bg={"#FCFAFA"}
       >
         <Box
-          border={"2px solid red"}
-          w={{ lg: "624px", md: "574px" }}
+          // border={"2px solid red"}
+          w={{ lg: "624px", md: "574px", sm: "" }}
           position={{ lg: "absolute", md: "static", sm: "static" }}
           zIndex={"10"}
           display={"flex"}
           flexDirection={"column"}
           margin={{
+            base: "175px 0px 99px 0px",
             xl: "175px 0px 99px 80px",
             lg: "175px 0px 99px 0px",
-            md: "175px 0px 99px 0px",
+            md: "175px auto 99px auto",
+            sm: "175px auto 99px auto",
           }}
         >
           <Box
@@ -137,9 +136,10 @@ function Hero() {
             className={style.MainHeading}
             fontSize={{ sm: "24px", md: "24px", lg: "48px", xl: "48px" }}
           >
-            <Text display={"inline"}> Realise Your Potential With</Text>
+            <Text display={"inline"}> Realise Your Potential With </Text>
             <Text
-              display={"inline"}
+              // border={"1px solid green"}
+              display={"inline-block"}
               fontSize={{ sm: "24px", md: "24px", lg: "48px", xl: "48px" }}
               fontStyle={"normal"}
               fontWeight={"800"}
@@ -147,9 +147,8 @@ function Hero() {
               color={"#ed0331"}
               fontFamily={"Poppins"}
             >
-              {" "}
               Assured Outcomes
-              <Image src={Vector} marginLeft={"150px"} marginTop={"-10px"} />
+              <Image src={Vector} marginLeft={"10px"} marginTop={"-10px"} />
             </Text>
             <Text> Delivered.</Text>
           </Box>
@@ -186,7 +185,7 @@ function Hero() {
         </Box>
 
         <Box
-          border={"2px solid black"}
+          // border={"2px solid black"}
           display={"flex"}
           w={"700px"}
           h={"572px"}
@@ -195,8 +194,13 @@ function Hero() {
           flexShrink={"0"}
           top={"95px"}
           right={"80px"}
-          marginLeft={{ sm: "", md: "", lg: "650px", xl: "650px" }}
-          marginTop={"95px"}
+          // marginLeft={{ sm: "auto", md: "auto", lg: "650px", xl: "650px" }}
+          margin={{
+            sm: "95px auto 0 auto",
+            md: "95px auto 0 auto",
+            lg: "95px 0 0 650px",
+          }}
+          // marginTop={"95px"}
           zIndex={"0"}
         >
           <Box
