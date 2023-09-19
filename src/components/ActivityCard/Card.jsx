@@ -3,8 +3,16 @@ import React from "react";
 import sampleThumbNail from "../../assets/images/sampleActivityThumbnail.png";
 import fire_icon from "../../assets/images/fire-icon.png";
 import { TimeLine } from "./TimeLine";
+import { convertTime } from "../../utils/convertTime";
 
-export const Card = ({ photoUrl, type, aboutEvent }) => {
+export const Card = ({
+  photoUrl,
+  type,
+  aboutEvent,
+  peopleRegistered,
+  startDate,
+  endDate,
+}) => {
   return (
     <Box
       border={"1px solid var(--neutral-grey-100, #E5E5E5)"}
@@ -54,7 +62,7 @@ export const Card = ({ photoUrl, type, aboutEvent }) => {
         >
           {aboutEvent}
         </Text>
-        <TimeLine />
+        <TimeLine startDate={startDate} endDate={endDate} />
         <Button
           bg={"#3470E4"}
           color={"white"}
@@ -73,7 +81,7 @@ export const Card = ({ photoUrl, type, aboutEvent }) => {
         >
           <Image src={fire_icon} />
           <Text as={"b"} mx={"2"} color={"#ED0331"}>
-            924
+            {peopleRegistered}
           </Text>
           <Text> people have already registered</Text>
         </Box>

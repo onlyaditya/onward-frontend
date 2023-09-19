@@ -1,24 +1,15 @@
 import { Flex } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Card } from "./Card";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getActivities } from "../../redux/activityReducer/action";
 
 export const ActivityCard = () => {
-  const [activities, setActivities] = useState([]);
-
-  const getAllActivity = () => {
-    axios
-      .get("https://dash-board.up.railway.app/activities")
-      .then((res) => {
-        setActivities(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const activities = useSelector((store) => store.activityReducer.activities);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllActivity();
+    dispatch(getActivities);
   }, []);
 
   return (
@@ -27,12 +18,6 @@ export const ActivityCard = () => {
         activities.map((el) => {
           return <Card key={el.id} {...el} />;
         })}
-
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
     </Flex>
   );
 };
