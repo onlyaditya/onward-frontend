@@ -3,8 +3,16 @@ import React from "react";
 import sampleThumbNail from "../../assets/images/sampleActivityThumbnail.png";
 import fire_icon from "../../assets/images/fire-icon.png";
 import { TimeLine } from "./TimeLine";
+import { convertTime } from "../../utils/convertTime";
 
-export const Card = () => {
+export const Card = ({
+  photoUrl,
+  type,
+  aboutEvent,
+  peopleRegistered,
+  startDate,
+  endDate,
+}) => {
   return (
     <Box
       border={"1px solid var(--neutral-grey-100, #E5E5E5)"}
@@ -19,13 +27,8 @@ export const Card = () => {
         "0px 1px 2px 0px rgba(0, 0, 0, 0.06), 0px 1px 3px 0px rgba(0, 0, 0, 0.10);"
       }
     >
-      <Box h={""}>
-        <Image
-          src={sampleThumbNail}
-          minH={"100%"}
-          fit={"fill"}
-          borderTopRadius={12}
-        />
+      <Box>
+        <Image src={photoUrl} minH={"100%"} fit={"fill"} borderTopRadius={12} />
       </Box>
       <Box
         h={"fit-content"}
@@ -34,6 +37,7 @@ export const Card = () => {
         alignItems={"flex-start"}
         gap={"4"}
         // border={"1px solid red"}
+        justifyContent={"flex-end"}
         width={"100%"}
         px={4}
         py={"5"}
@@ -46,13 +50,19 @@ export const Card = () => {
           color={"var(--secondary-blue-500, #3470E4);"}
           fontWeight={"600"}
           fontSize={"lg"}
+          textTransform={"capitalize"}
         >
-          Masterclass
+          {type}
         </Text>
-        <Text alignSelf={"stretch"} fontWeight={"bold"} fontSize={"x-large"}>
-          Prompt Engineering
+        <Text
+          alignSelf={"stretch"}
+          fontWeight={"bold"}
+          fontSize={"x-large"}
+          textTransform={"capitalize"}
+        >
+          {aboutEvent}
         </Text>
-        <TimeLine />
+        <TimeLine startDate={startDate} endDate={endDate} />
         <Button
           bg={"#3470E4"}
           color={"white"}
@@ -71,7 +81,7 @@ export const Card = () => {
         >
           <Image src={fire_icon} />
           <Text as={"b"} mx={"2"} color={"#ED0331"}>
-            924
+            {peopleRegistered}
           </Text>
           <Text> people have already registered</Text>
         </Box>
