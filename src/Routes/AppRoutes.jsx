@@ -5,11 +5,13 @@ import { Text } from "@chakra-ui/react";
 import { ActivityDetail } from "../pages/Activities/ActivityDetail";
 import OurCoursesPage from "../pages/Courses/OurCoursesPage";
 import { ActivityOptions } from "../pages/Activities/ActivityOptions";
+import { HomePage } from "../pages/HomePage";
 
 export const AppRoutes = () => {
   return (
     <>
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/activities" element={<Activities />} />
         <Route path="/courses" element={<OurCoursesPage />} />
         <Route path="/activity/detail/:id" element={<ActivityDetail />} />
