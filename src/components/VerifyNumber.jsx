@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Checkotp } from "../redux/activityReducer/action";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -13,27 +14,43 @@ import {
   DrawerCloseButton,
   DrawerContent,
   useToast,
+  Link,
 } from "@chakra-ui/react";
 
-export default function VerifyNumber({ mobile, setReg }) {
+export default function VerifyNumber({ mobile, setReg, email }) {
   const [errorMessageWrongOTP, setErrorMessageWrongOTP] = useState("");
   const [seconds, setSeconds] = useState(30);
-  const [email, setemail] = useState("shabhankhan123456@gmail.com");
   const [pin, setPin] = useState("");
+  const isInitialRender = useRef(true);
   const dispatch = useDispatch();
   const toast = useToast();
+  const navigate = useNavigate();
+
+  const tokendata = useSelector((details) => {
+    return details.activityReducer.token;
+  });
+  //console.log(tokendata);
+
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     if (seconds > 0) {
+  //       setSeconds(seconds - 1);
+  //     } else {
+  //       clearInterval(timer);
+  //     }
+  //   }, 1000);
+
+  //   return () => clearInterval(timer);
+  // }, [seconds]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (seconds > 0) {
-        setSeconds(seconds - 1);
-      } else {
-        clearInterval(timer);
-      }
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [seconds]);
+    if (!isInitialRender.current) {
+      console.log("useEffect ran after the initial render");
+      redirect();
+    } else {
+      isInitialRender.current = false;
+    }
+  }, [tokendata]);
 
   const handleChange = (value) => {
     if (pin === "" || pin.length < 6) {
@@ -55,25 +72,40 @@ export default function VerifyNumber({ mobile, setReg }) {
         position: "top",
       });
     } else {
-      console.log("Pin Value:", pin);
-      // let paramsobj = {
-      //   params: {
-      //     otp: +pin,
-      //   },
-      // };
+      //console.log("Pin Value:", pin);
       let otpobj = {
-        value: "shabhankhan123456@gmail.com",
+        value: email,
       };
       dispatch(Checkotp(pin, otpobj));
+    }
+  }
 
-      // toast({
-      //   title: "Success",
-      //   description: "Succesfully Sign Up",
-      //   status: "success",
-      //   duration: 3000,
-      //   isClosable: true,
-      //   position: "top",
-      // });
+  function redirect() {
+    if (tokendata != "" || tokendata == undefined) {
+      console.log(tokendata);
+      const userObject = { token: tokendata };
+      console.log(userObject);
+
+      localStorage.setItem("user", JSON.stringify(userObject));
+
+      toast({
+        title: "Success",
+        description: "Succesfully Sign Up",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+      navigate("/dashboard");
+    } else {
+      toast({
+        title: "Error",
+        description: "Invalid OTP",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
     }
   }
 
@@ -148,7 +180,7 @@ export default function VerifyNumber({ mobile, setReg }) {
                 <HStack>
                   <PinInput
                     onChange={handleChange}
-                    onComplete={handleChange}
+                    //onComplete={handleChange}
                     placeholder=""
                     defaultValue=""
                   >

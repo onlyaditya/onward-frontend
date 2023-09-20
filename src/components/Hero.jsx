@@ -58,6 +58,7 @@ function Hero() {
   const [reg, setReg] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
   const [signIn, setSignIn] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstDrawer = useDisclosure();
@@ -83,13 +84,15 @@ function Hero() {
         finalFocusRef={btnRef}
       >
         {reg !== "" ? (
-          <VerifyNumber mobile={mobile} setReg={setReg} />
+          <VerifyNumber mobile={mobile} setReg={setReg} email={email} />
         ) : (
           <SignUpDrawer
             mobile={mobile}
             setMobile={setMobile}
             setReg={setReg}
             setSignIn={setSignIn}
+            setEmail={setEmail}
+            email={email}
           />
           // signIn ? (
           //   <SignIn

@@ -8,6 +8,9 @@ import {
   POST_REGISTER_USER_FAILURE,
   POST_REGISTER_USER_REQUEST,
   POST_REGISTER_USER_SUCCESS,
+  POST_LOGIN_OTP_REQUEST,
+  POST_LOGIN_OTP_FAILURE,
+  POST_LOGIN_OTP_SUCCESS,
 } from "../actionTypes";
 
 const initialState = {
@@ -16,6 +19,7 @@ const initialState = {
   activities: [],
   registerInfo: "",
   otp: "",
+  token: "",
 };
 
 export const reducer = (state = initialState, { type, payload }) => {
@@ -41,6 +45,13 @@ export const reducer = (state = initialState, { type, payload }) => {
       return { ...state, isLoading: false, isError: true };
     case POST_LOGIN_USER_SUCCESS:
       return { ...state, isLoading: false, otp: payload };
+
+    case POST_LOGIN_OTP_REQUEST:
+      return { ...state, isLoading: true };
+    case POST_LOGIN_OTP_FAILURE:
+      return { ...state, isLoading: false, isError: true };
+    case POST_LOGIN_OTP_SUCCESS:
+      return { ...state, isLoading: false, token: payload.message};
     default:
       return state;
   }

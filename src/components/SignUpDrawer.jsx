@@ -17,9 +17,17 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-function SignUpDrawer({ mobile, setMobile, setReg, setSignIn }) {
+function SignUpDrawer({
+  mobile,
+  setMobile,
+  setReg,
+  setSignIn,
+  setEmail,
+  email,
+}) {
   const [isSigned, setIsSigned] = useState(false);
   const dispatch = useDispatch();
+  const [count,setCount]=useState(0);
 
   const otpdata = useSelector((details) => details.activityReducer.otp.message);
   // console.log(otpdata);
@@ -31,7 +39,7 @@ function SignUpDrawer({ mobile, setMobile, setReg, setSignIn }) {
   const [fullName, setFullName] = useState("");
   const [errorMessageName, setErrorMessageName] = useState("");
 
-  const [email, setEmail] = useState("");
+  //const [email, setEmail] = useState("");
   const [errorMessageEmail, setErrorMessageEmail] = useState("");
 
   // const [mobile, setMobile] = useState("");
@@ -44,14 +52,11 @@ function SignUpDrawer({ mobile, setMobile, setReg, setSignIn }) {
 
   const toast = useToast();
 
-  // console.log("hlo....")
-  // console.log(fixeddata);
-
-  useEffect(() => {
-    if (fixeddata !== "") {
-      sendrequest();
-    }
-  }, [fixeddata]);
+  // useEffect(() => {
+  //   if (fixeddata !== "") {
+  //     sendrequest();
+  //   }
+  // }, [fixeddata]);
 
   const handleRegister = () => {
     setSubmitDisabled(true);
@@ -87,10 +92,14 @@ function SignUpDrawer({ mobile, setMobile, setReg, setSignIn }) {
       email: email,
       phone: mobile,
     };
-
     //console.log(obj);
     dispatch(postregister(obj));
   };
+
+  if (fixeddata !== ""&&count==0) {
+    setCount(1);
+    sendrequest();
+  }
 
   function sendrequest() {
     // dispatch(login(otpobj));
