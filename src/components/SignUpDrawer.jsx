@@ -1,4 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { postregister, login } from "../redux/activityReducer/action";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Button,
@@ -17,6 +19,14 @@ import {
 
 function SignUpDrawer({ mobile, setMobile, setReg, setSignIn }) {
   const [isSigned, setIsSigned] = useState(false);
+  const dispatch = useDispatch();
+
+  const otpdata = useSelector((details) => details.activityReducer.otp.message);
+  // console.log(otpdata);
+
+  const fixeddata = useSelector(
+    (details) => details.activityReducer.registerInfo
+  );
 
   const [fullName, setFullName] = useState("");
   const [errorMessageName, setErrorMessageName] = useState("");
@@ -34,19 +44,31 @@ function SignUpDrawer({ mobile, setMobile, setReg, setSignIn }) {
 
   const toast = useToast();
 
+  // console.log("hlo....")
+  // console.log(fixeddata);
+
+  useEffect(() => {
+    if (fixeddata !== "") {
+      sendrequest();
+    }
+  }, [fixeddata]);
+
   const handleRegister = () => {
     setSubmitDisabled(true);
     if (fullName === "") {
       setErrorMessageName("Your name is required");
       setSubmitDisabled(true);
+      return;
     }
     if (email === "") {
       setErrorMessageEmail("Your email address is required");
       setSubmitDisabled(true);
+      return;
     }
     if (mobile === "") {
       setErrorMessageMobile("Phone Number is required");
       setSubmitDisabled(true);
+      return;
     }
     if (isChecked === false) {
       toast({
@@ -59,7 +81,40 @@ function SignUpDrawer({ mobile, setMobile, setReg, setSignIn }) {
       });
       setSubmitDisabled(false);
       return;
-    } else {
+    }
+    let obj = {
+      userName: fullName,
+      email: email,
+      phone: mobile,
+    };
+
+    //console.log(obj);
+    dispatch(postregister(obj));
+  };
+
+  function sendrequest() {
+    // dispatch(login(otpobj));
+    setErrorMessageName("");
+    setReg(true);
+
+    if (fixeddata === "User Already Exist") {
+      console.log("inside already", fixeddata);
+      toast({
+        title: "Error",
+        description: "User Already Exist",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+      setSubmitDisabled(false);
+      return;
+    } else if (fixeddata === "User created Successfully") {
+      console.log("inside sucess", fixeddata);
+      let otpobj = {
+        value: email,
+      };
+      dispatch(login(otpobj));
       toast({
         title: "Success",
         description: "OTP send Succesfully",
@@ -68,17 +123,20 @@ function SignUpDrawer({ mobile, setMobile, setReg, setSignIn }) {
         isClosable: true,
         position: "top",
       });
-      let obj = {
-        fullName,
-        email,
-        mobile,
-        isChecked,
-      };
-      console.log(obj);
-      setErrorMessageName("");
-      setReg(true);
+      setReg("Otp");
+    } else {
+      console.log(fixeddata);
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
     }
-  };
+    setSubmitDisabled(false);
+  }
 
   function handleNameChange(e) {
     const newName = e.target.value;
@@ -118,10 +176,6 @@ function SignUpDrawer({ mobile, setMobile, setReg, setSignIn }) {
       setSubmitDisabled(false);
     }
   }
-
-  // function OpenSignInPage(){
-
-  // }
 
   return (
     <div className="SignUpContainer" style={{ display: "flex" }}>

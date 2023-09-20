@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Checkotp } from "../redux/activityReducer/action";
+import { useDispatch } from "react-redux";
 import {
   Box,
   Button,
@@ -17,6 +19,7 @@ export default function VerifyNumber({ mobile, setReg }) {
   const [errorMessageWrongOTP, setErrorMessageWrongOTP] = useState("");
   const [seconds, setSeconds] = useState(30);
   const [pin, setPin] = useState("");
+  const dispatch = useDispatch();
   const toast = useToast();
 
   useEffect(() => {
@@ -32,14 +35,16 @@ export default function VerifyNumber({ mobile, setReg }) {
   }, [seconds]);
 
   const handleChange = (value) => {
+    if (pin === "" || pin.length < 6) {
+      setErrorMessageWrongOTP("Must be exactly 6 characters");
+    } else {
+      setErrorMessageWrongOTP("");
+    }
     setPin(value);
   };
 
   function VerifyOTP() {
-    if (pin.length === "") {
-      setErrorMessageWrongOTP("Must be exactly 6 characters");
-    }
-    if (pin !== "000000") {
+    if (pin === "" || pin.length < 6) {
       toast({
         title: "Error",
         description: "Invalid OTP",
@@ -48,17 +53,23 @@ export default function VerifyNumber({ mobile, setReg }) {
         isClosable: true,
         position: "top",
       });
-    } else if (pin === "000000") {
-      toast({
-        title: "Success",
-        description: "Succesfully Sign Up",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
+    } else {
       console.log("Pin Value:", pin);
-      
+      let paramsobj = {
+        params: {
+          otp: +pin,
+        },
+      };
+      dispatch(Checkotp(paramsobj));
+
+      // toast({
+      //   title: "Success",
+      //   description: "Succesfully Sign Up",
+      //   status: "success",
+      //   duration: 3000,
+      //   isClosable: true,
+      //   position: "top",
+      // });
     }
   }
 
@@ -148,7 +159,7 @@ export default function VerifyNumber({ mobile, setReg }) {
               </Box>
             </Box>
 
-            <Flex marginTop={"8px"}>
+            <Flex marginTop={"8px"} display={"flex"} flexDirection={"column"}>
               <Text
                 fontStyle={"normal"}
                 fontWeight={600}
@@ -158,13 +169,14 @@ export default function VerifyNumber({ mobile, setReg }) {
               >
                 Resend OTP in {seconds} seconds
               </Text>
+              {/* <br /> */}
               <Text
                 color={"#D61E27"}
+                fontStyle={"normal"}
+                fontWeight={400}
+                lineHeight={"24px"}
                 fontSize={"14px"}
                 fontFamily={"Open Sans"}
-                fontWeight={"400"}
-                marginTop={"8px"}
-                lineHeight={"24px"}
               >
                 {errorMessageWrongOTP}
               </Text>

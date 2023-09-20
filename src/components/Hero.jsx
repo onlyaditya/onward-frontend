@@ -55,7 +55,7 @@ function Hero() {
     },
   ];
 
-  const [reg, setReg] = useState(false);
+  const [reg, setReg] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mobile, setMobile] = useState("");
   const [signIn, setSignIn] = useState(false);
@@ -82,22 +82,22 @@ function Hero() {
         onClose={onClose}
         finalFocusRef={btnRef}
       >
-        {reg ? (
+        {reg !== "" ? (
           <VerifyNumber mobile={mobile} setReg={setReg} />
         ) : (
-          // signIn ? (
-          //   <SignIn
-          //     onClose={firstDrawer.onClose}
-          //     isOpen={firstDrawer.isOpen}
-          //     onOpen={firstDrawer.onOpen}
-          //   />
-          //) :
           <SignUpDrawer
             mobile={mobile}
             setMobile={setMobile}
             setReg={setReg}
             setSignIn={setSignIn}
           />
+          // signIn ? (
+          //   <SignIn
+          //     onClose={firstDrawer.onClose}
+          //     isOpen={firstDrawer.isOpen}
+          //     onOpen={firstDrawer.onOpen}
+          //   />
+          // ) :
         )}
       </Drawer>
 
