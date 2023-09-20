@@ -17,7 +17,7 @@ import orangeColorIcon from "../../assets/allsvgimages/orangeColorIcon.svg";
 import timeProgress from "../../assets/allsvgimages/timeProgress.svg";
 import helpIcon from "../../assets/allsvgimages/helpIcon.svg";
 import lineIcon from "../../assets/allsvgimages/lineIcon.svg";
-import rightArrow from "../../assets/allsvgimages/rightArrow.svg";
+// import rightArrow from "../../assets/allsvgimages/rightArrow.svg";
 
 import { useSelector, useDispatch } from "react-redux";
 import { getTestQuestions } from "../../redux/testReducer/test.action";
@@ -86,7 +86,7 @@ if(confirmationModal){
 
 
 const handleConfirmation=()=>{
-  
+
 }
  
 
@@ -349,7 +349,7 @@ const handleConfirmation=()=>{
               justifyContent={"center"}
               alignItems={"center"}
             >
-              <Image src={rightArrow} />
+              {/* <Image src={rightArrow} /> */}
               <Text
                 color="#21191B"
                 fontFamily={"Open Sans"}
