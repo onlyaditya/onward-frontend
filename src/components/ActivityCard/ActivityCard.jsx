@@ -9,14 +9,14 @@ export const ActivityCard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getActivities);
+    dispatch(getActivities());
   }, []);
 
   return (
     <Flex flexWrap={"wrap"} gap={"10"} px={"7"}>
       {activities.length > 0 &&
         activities.map((el) => {
-          return <Card key={el.id} {...el} />;
+          return <Card key={el.activityId} {...el} />;
         })}
     </Flex>
   );
