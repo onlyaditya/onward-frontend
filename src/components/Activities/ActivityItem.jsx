@@ -1,7 +1,7 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import React from "react";
 
-export const ActivityItem = ({ image, text, bg1, bg2 }) => {
+export const ActivityItem = ({ image, text, bg1, bg2, changeType }) => {
   return (
     <Box
       as="button"
@@ -18,6 +18,7 @@ export const ActivityItem = ({ image, text, bg1, bg2 }) => {
       gap={"6px"}
       boxShadow={"md"}
       bgGradient={`linear(to-b,${bg1}, ${bg2})`}
+      onClick={changeType}
     >
       <Image src={image} minH={"6"} minW={"6"} />
       <Text color={"#5E5E5E"}>{text}</Text>

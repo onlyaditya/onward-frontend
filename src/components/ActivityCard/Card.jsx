@@ -4,6 +4,7 @@ import sampleThumbNail from "../../assets/images/sampleActivityThumbnail.png";
 import fire_icon from "../../assets/images/fire-icon.png";
 import { TimeLine } from "./TimeLine";
 import { convertTime } from "../../utils/convertTime";
+import { useNavigate } from "react-router-dom";
 
 export const Card = ({
   photoUrl,
@@ -12,7 +13,9 @@ export const Card = ({
   peopleRegistered,
   startDate,
   endDate,
+  activityId,
 }) => {
+  const navigate = useNavigate();
   return (
     <Box
       border={"1px solid var(--neutral-grey-100, #E5E5E5)"}
@@ -70,6 +73,7 @@ export const Card = ({
           w={"full"}
           fontSize={"small"}
           letterSpacing={"widest"}
+          onClick={() => navigate(`/activity/detail/${activityId}`)}
         >
           REGISTER NOW WITH 1 CLICK
         </Button>
