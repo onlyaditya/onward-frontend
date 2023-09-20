@@ -1,11 +1,35 @@
-import { Box, Button, Divider, Flex, Image, Select, Text } from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, Divider, Flex, Heading, Image, Select, Spinner, Text } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import checkIcon from "../../assets/allsvgimages/checkIcon.svg";
+import RedirectToMsat from "./RedirectToMsat";
 
-const StartMsat = ({onClose,handleCourses,selectedCourse}) => {
+const StartMsat = ({onClose,handleCourses,selectedCourse,onConfirm}) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [countdown, setCountdown] = useState(11);
+
+  const timer = setInterval(() => {
+    setCountdown((prevCount) => prevCount - 1);
+  }, 1000);
+
+
+
+  const handleConfirm = () => {
+    setIsLoading(true);
+
+    // Wait for 5 seconds before performing the redirection
+    setTimeout(() => {
+      setIsLoading(false);
+      onConfirm();
+    }, 11000);
+  };
+
   
   
 // console.log(isConfirmButtonDisabled);
+if(isLoading){
+  return <Spinner size="xl" color="blue.500" />
+ 
+}
   return (
     <Flex
      justifyContent={"center"}
@@ -172,6 +196,7 @@ const StartMsat = ({onClose,handleCourses,selectedCourse}) => {
         borderRadius="8px"
         background="var(--secondary-blue-500, #3470E4)"
         isDisabled={selectedCourse}
+        onClick={handleConfirm}
         >CONFIRM</Button>
 
       </Box>

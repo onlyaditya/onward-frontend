@@ -64,6 +64,21 @@ const Home = () => {
     console.log(`Step ${stepIndex} completed.`); // Add this for debugging
   };
 
+  const [isConfirmClicked, setIsConfirmClicked] = useState(false);
+
+  // Handle the "CONFIRM" button click inside the modal
+  const handleConfirm = () => {
+    setIsConfirmClicked(true);
+    onClose(); // Close the modal if needed
+  };
+
+  // Redirect to /test when isConfirmClicked is true
+  if (isConfirmClicked) {
+    console.log("Redirecting to /test");
+    window.location.href = "/test";
+  }
+
+
   return (
     <Box
       width="100%"
@@ -324,6 +339,7 @@ background: #FFF;"
             <Box flexShrink="0">
               <StepDescription>
                 <Box
+                
                   width="571px"
                   border="1px"
                   borderRadius="8px"
@@ -396,7 +412,7 @@ background: #FFF;"
                             <ModalOverlay />
                             <ModalContent background="var(--primary-white-fff, transparent)">
                               <ModalBody>
-                                <StartMsat onClose={onClose} handleCourses={handleCourses} selectedCourse={selectedCourse}/>
+                                <StartMsat onConfirm={handleConfirm} onClose={onClose} handleCourses={handleCourses} selectedCourse={selectedCourse}/>
                               </ModalBody>
                             </ModalContent>
                           </Modal>
