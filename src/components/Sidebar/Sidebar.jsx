@@ -36,7 +36,7 @@ export const SideBar = () => {
         position={"fixed"}
         w={"12vw"}
         left={"0"}
-        // minW={{ lg: "240px", md: "64px", sm: "64px" }}
+        // minW={{ lg: "200px", md: "64px", sm: "64px" }}
       >
         <Stack spacing={1} p={4}>
           <SidebarItem
@@ -71,7 +71,7 @@ export const SideBar = () => {
                 transition={"ease-out"}
                 width={"full"}
               >
-                <Flex align={"center"} justify={"flex-start"} gap={"10px"}>
+                <Flex align={"center"} justify={"flex-start"} gap={"6px"}>
                   <Image
                     src={activities}
                     alt={"Activities"}
@@ -79,17 +79,17 @@ export const SideBar = () => {
                     height="24px"
                   />
                   <Hide below={"lg"}>
-                    <Text ml={"1"}>Activities</Text>
-                  </Hide>
-                  <Hide below={"lg"}>
-                    <Badge
-                      rounded="full"
-                      px="1"
-                      fontSize="0.8em"
-                      colorScheme="orange"
-                    >
-                      New
-                    </Badge>
+                    <Flex flexWrap={"wrap"} gap={"6px"}>
+                      <Text ml={"1"}>Activities</Text>
+                      <Badge
+                        rounded="full"
+                        px="1"
+                        fontSize="0.8em"
+                        colorScheme="orange"
+                      >
+                        New
+                      </Badge>
+                    </Flex>
                   </Hide>
                 </Flex>
                 <AccordionIcon />
