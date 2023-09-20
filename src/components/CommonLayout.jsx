@@ -2,21 +2,47 @@ import React from "react";
 import Navbar from "./Navbar/Navbar";
 import { Box, Flex } from "@chakra-ui/react";
 import { SideBar } from "./Sidebar/Sidebar";
+import RightSidebar from "./RightSidebar/RightSidebar";
 
 export const CommonLayout = ({ children }) => {
   return (
-    <div>
-      <Navbar />
-      <div>
-        <Box width={"full"}>
-          <Flex>
-            <SideBar />
-            <Box w={"88%"} marginLeft={{ lg: "12%", md: "64px", sm: "64px" }}>
-              {children}
-            </Box>
-          </Flex>
-        </Box>
-      </div>
-    </div>
+    <Box>
+    <Navbar />
+    <Flex  >
+      <Box display={{ base: "none", lg: "inline-block" }} width={"15%"}>
+        <SideBar />
+      </Box>
+      <Box
+        display={"inline-block"}
+        width={"60%"}
+        // padding={"16px 251px 0px 24px"}
+      >
+        {children}
+      </Box>
+      <Box
+        display={{ base: "none", lg: "inline-block" }}
+        width={"18%"}
+        position={"fixed"}
+        right={"0"}
+        height={"100vh"}
+        overflow={"scroll"}
+        scrollbarWidth="none"
+        sx={{
+          /* Hide scrollbar for Chrome, Safari, and Opera */
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          /* Hide scrollbar for IE and Edge */
+          msOverflowStyle: "none",
+          /* Hide scrollbar for Firefox */
+          scrollbarWidth: "none",
+        }}
+      >
+        <RightSidebar />
+      </Box>
+    </Flex>
+  </Box>
   );
 };
+
+

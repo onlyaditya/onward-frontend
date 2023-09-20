@@ -12,12 +12,14 @@ import OnboardingIdverif from "../pages/Onboarding/OnboardingIdverif";
 import OnboardingConsent from "../pages/Onboarding/OnboardingConsent";
 import OnboardingJoinus from "../pages/Onboarding/OnboardingJoinus";
 import Congratulations from "../pages/Onboarding/Congratulations";
+import DashboardLanding from "../pages/DashboardLanding";
 
 export const AppRoutes = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/dashboard" element={<DashboardLanding/>}/>
         <Route path="/activities" element={<Activities />} />
         <Route path="/courses" element={<OurCoursesPage />} />
         <Route path="/activity/detail/:id" element={<ActivityDetail />} />
