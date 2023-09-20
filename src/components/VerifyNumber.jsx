@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { Checkotp } from "../redux/activityReducer/action";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -11,35 +14,55 @@ import {
   DrawerCloseButton,
   DrawerContent,
   useToast,
+  Link,
 } from "@chakra-ui/react";
 
-export default function VerifyNumber({ mobile, setReg }) {
+export default function VerifyNumber({ mobile, setReg, email }) {
   const [errorMessageWrongOTP, setErrorMessageWrongOTP] = useState("");
   const [seconds, setSeconds] = useState(30);
   const [pin, setPin] = useState("");
+  const isInitialRender = useRef(true);
+  const dispatch = useDispatch();
   const toast = useToast();
+  const navigate = useNavigate();
+
+  const tokendata = useSelector((details) => {
+    return details.activityReducer.token;
+  });
+  //console.log(tokendata);
+
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     if (seconds > 0) {
+  //       setSeconds(seconds - 1);
+  //     } else {
+  //       clearInterval(timer);
+  //     }
+  //   }, 1000);
+
+  //   return () => clearInterval(timer);
+  // }, [seconds]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (seconds > 0) {
-        setSeconds(seconds - 1);
-      } else {
-        clearInterval(timer);
-      }
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [seconds]);
+    if (!isInitialRender.current) {
+      console.log("useEffect ran after the initial render");
+      redirect();
+    } else {
+      isInitialRender.current = false;
+    }
+  }, [tokendata]);
 
   const handleChange = (value) => {
+    if (pin === "" || pin.length < 6) {
+      setErrorMessageWrongOTP("Must be exactly 6 characters");
+    } else {
+      setErrorMessageWrongOTP("");
+    }
     setPin(value);
   };
 
   function VerifyOTP() {
-    if (pin.length === "") {
-      setErrorMessageWrongOTP("Must be exactly 6 characters");
-    }
-    if (pin !== "000000") {
+    if (pin === "" || pin.length < 6) {
       toast({
         title: "Error",
         description: "Invalid OTP",
@@ -48,7 +71,23 @@ export default function VerifyNumber({ mobile, setReg }) {
         isClosable: true,
         position: "top",
       });
-    } else if (pin === "000000") {
+    } else {
+      //console.log("Pin Value:", pin);
+      let otpobj = {
+        value: email,
+      };
+      dispatch(Checkotp(pin, otpobj));
+    }
+  }
+
+  function redirect() {
+    if (tokendata != "" || tokendata == undefined) {
+      console.log(tokendata);
+      const userObject = { token: tokendata };
+      console.log(userObject);
+
+      localStorage.setItem("user", JSON.stringify(userObject));
+
       toast({
         title: "Success",
         description: "Succesfully Sign Up",
@@ -57,8 +96,16 @@ export default function VerifyNumber({ mobile, setReg }) {
         isClosable: true,
         position: "top",
       });
-      console.log("Pin Value:", pin);
-      
+      navigate("/dashboard");
+    } else {
+      toast({
+        title: "Error",
+        description: "Invalid OTP",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
     }
   }
 
@@ -133,7 +180,7 @@ export default function VerifyNumber({ mobile, setReg }) {
                 <HStack>
                   <PinInput
                     onChange={handleChange}
-                    onComplete={handleChange}
+                    //onComplete={handleChange}
                     placeholder=""
                     defaultValue=""
                   >
@@ -148,7 +195,7 @@ export default function VerifyNumber({ mobile, setReg }) {
               </Box>
             </Box>
 
-            <Flex marginTop={"8px"}>
+            <Flex marginTop={"8px"} display={"flex"} flexDirection={"column"}>
               <Text
                 fontStyle={"normal"}
                 fontWeight={600}
@@ -158,13 +205,14 @@ export default function VerifyNumber({ mobile, setReg }) {
               >
                 Resend OTP in {seconds} seconds
               </Text>
+              {/* <br /> */}
               <Text
                 color={"#D61E27"}
+                fontStyle={"normal"}
+                fontWeight={400}
+                lineHeight={"24px"}
                 fontSize={"14px"}
                 fontFamily={"Open Sans"}
-                fontWeight={"400"}
-                marginTop={"8px"}
-                lineHeight={"24px"}
               >
                 {errorMessageWrongOTP}
               </Text>
