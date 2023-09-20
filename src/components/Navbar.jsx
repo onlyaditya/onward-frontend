@@ -12,10 +12,11 @@ import {
 import MasaiLogo from "../assets/MasaiLogo-dark-web.svg";
 import burger_menu_icon from "../assets/burger_menu_icon.svg";
 import style from "./Navbar.module.css";
+import { useNavigate } from "react-router";
 
 export const Navbar = ({ btnRef, onOpen }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -102,7 +103,7 @@ export const Navbar = ({ btnRef, onOpen }) => {
           <Link
             p={{ xl: " 8px 16px", lg: "8px 8px" }}
             className={style.Linktext}
-            href="#"
+            onClick={() => navigate("/courses")}
             _hover={{ backgroundColor: "#fffafb", color: "red" }}
           >
             COURSES

@@ -34,18 +34,18 @@ const CourseCard = ({ title, applied, icon, handleChangeCourse }) => {
             </h1>
           </Box>
 
-          <Box w="80%" p={2} color="black">
-            <Text fontSize={10} fontWeight={"bold"} marginBottom={1}>
+          <Box w="85%" p={1} color="black">
+            <Text fontSize={12} fontWeight={"bold"} marginBottom={1}>
               {title}
             </Text>
             <Box display={"flex"} justifyContent={"flex-start"} marginRight={2}>
-              <Text fontSize={9} marginRight={5} marginBottom={1}>
+              <Text fontSize={10} marginRight={5} marginBottom={1}>
                 30-Aug-2023
               </Text>
-              <Text fontSize={9} marginRight={5} marginBottom={1}>
+              <Text fontSize={10} marginRight={5} marginBottom={1}>
                 30 Weeks
               </Text>
-              <Text fontSize={9} marginRight={5} marginBottom={1}>
+              <Text fontSize={10} marginRight={5} marginBottom={1}>
                 11am - 11pm
               </Text>
             </Box>
