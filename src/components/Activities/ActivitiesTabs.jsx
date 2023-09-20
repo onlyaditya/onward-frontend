@@ -39,6 +39,7 @@ export const ActivitiesTabs = () => {
         bg2={"#FFF8E4"}
         changeType={() => setType(null)}
       />
+
       <ActivityItem
         image={contestImage}
         text={"Webinars"}
