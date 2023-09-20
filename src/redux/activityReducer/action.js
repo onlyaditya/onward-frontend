@@ -50,11 +50,11 @@ export const login = (data) => (dispatch) => {
     });
 };
 
-export const Checkotp = (data) => (dispatch) => {
-  console.log("i am otp", data);
+export const Checkotp = (data, otpobj) => (dispatch) => {
+  console.log("i am otp", data, otpobj);
   dispatch({ type: POST_LOGIN_OTP_REQUEST });
   return axios
-    .post(`https://dash-board.up.railway.app/log-in`, data)
+    .post(`https://dash-board.up.railway.app/log-in?otp=${data}`, otpobj)
     .then((res) => {
       console.log("i am res", res);
       dispatch({ type: POST_LOGIN_OTP_SUCCESS, payload: res.data });

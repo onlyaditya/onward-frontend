@@ -18,6 +18,7 @@ import {
 export default function VerifyNumber({ mobile, setReg }) {
   const [errorMessageWrongOTP, setErrorMessageWrongOTP] = useState("");
   const [seconds, setSeconds] = useState(30);
+  const [email, setemail] = useState("shabhankhan123456@gmail.com");
   const [pin, setPin] = useState("");
   const dispatch = useDispatch();
   const toast = useToast();
@@ -55,12 +56,15 @@ export default function VerifyNumber({ mobile, setReg }) {
       });
     } else {
       console.log("Pin Value:", pin);
-      let paramsobj = {
-        params: {
-          otp: +pin,
-        },
+      // let paramsobj = {
+      //   params: {
+      //     otp: +pin,
+      //   },
+      // };
+      let otpobj = {
+        value: "shabhankhan123456@gmail.com",
       };
-      dispatch(Checkotp(paramsobj));
+      dispatch(Checkotp(pin, otpobj));
 
       // toast({
       //   title: "Success",
