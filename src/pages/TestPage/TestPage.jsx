@@ -9,8 +9,9 @@ import {
   RadioGroup,
   Stack,
   calc,
+  Heading,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/allsvgimages/logo.svg";
 import orangeColorIcon from "../../assets/allsvgimages/orangeColorIcon.svg";
 import timeProgress from "../../assets/allsvgimages/timeProgress.svg";
@@ -18,15 +19,87 @@ import helpIcon from "../../assets/allsvgimages/helpIcon.svg";
 import lineIcon from "../../assets/allsvgimages/lineIcon.svg";
 import rightArrow from "../../assets/allsvgimages/rightArrow.svg";
 
+import { useSelector, useDispatch } from "react-redux";
+import { getTestQuestions } from "../../redux/testReducer/test.action";
+import SubmitAndFinishMsat from "./SubmitAndFinishMsat";
+
 const TestPage = () => {
+  const [selectedOption,setSelectedOption]=useState()
+  const [number, setNumber] = useState(0);
+  const [question, setQuestion] = useState({});
+  const [subsection1, setSubsection1] = useState([]);
+  const [subsectionNumber,setSubsectionNumber]=useState(0);
+ const [confirmationModal,setConfirmationModal]=useState(false);
+  
+
+  const dispatch = useDispatch();
+
+  
+
+  let { questions } = useSelector((store) => store.testReducer);
+  // let totalSubSection=questions[0]?.sub_section.length
+
+  if (questions?.length !== 0 && subsection1?.length === 0) {
+    setSubsection1(questions[0]?.sub_section[0]?.questions);
+    
+  }
+
+ 
+
+  useEffect(() => {
+    if (subsection1.length > 0) {
+      console.log(subsection1);
+      setQuestion(subsection1[number]);
+    }
+  }, [number, subsection1]);
+
+  useEffect(() => {
+    getTestQuestions(dispatch);
+  }, []);
+
+  const handleNextQuestion = () => {
+    console.log("subsectionNumber",subsectionNumber);
+    if (number  < 3 ) {
+      setNumber((prevNumber) => prevNumber + 1);
+    } else {
+
+      setSubsection1(questions[0]?.sub_section[subsectionNumber+1]?.questions);
+      setNumber(0);
+      setSubsectionNumber((prev)=>prev+1);
+      
+    }
+  };
+
+
+  const handleOptionFun=(e)=>{
+    console.log(e);
+  }
+
+  const handleFinshTest=()=>{
+    
+ setConfirmationModal(true);
+  }
+
+if(confirmationModal){
+  return <SubmitAndFinishMsat onClose={() => setConfirmationModal(false)}/>
+}
+
+
+const handleConfirmation=()=>{
+  
+}
+ 
+
   return (
     <Box display={"flex"}>
+      
       <Box
         width={"80%"}
         display={"flex"}
         flexDir={"column"}
         borderRight={"1px solid var(--neutral-grey-100, #E5E5E5)"}
       >
+        
         <Box
           borderBottom={"1px solid var(--neutral-grey-100, #E5E5E5)"}
           height={"72px"}
@@ -37,6 +110,7 @@ const TestPage = () => {
         >
           <Image src={logo} />
           <Button
+          onClick={handleFinshTest}
             display={"flex"}
             padding={"8px 16px"}
             alignItems={"center"}
@@ -66,7 +140,7 @@ const TestPage = () => {
               fontWeight={"700"}
               lineHeight={"40px"}
             >
-              Q:1
+              Q:{question?.questionId}
             </Text>
             <Text
               color="var(--neutral-grey-800, #3B3435)"
@@ -76,7 +150,7 @@ const TestPage = () => {
               lineHeight="24px"
               mb="8px"
             >
-              Who is the CEO of Microsoft?
+              {question?.question_text}
             </Text>
             <Box
               color={"var(--primary-red-900, #0A0103)"}
@@ -86,18 +160,26 @@ const TestPage = () => {
               fontWeight={"400"}
               lineHeight={"24px"}
             >
-              <Box padding={"8px"}>
-                <Radio value="2">Satay Nadella</Radio>
-              </Box>
-              <Box padding={"8px"}>
-                <Radio value="2">Jeff Bezos</Radio>
-              </Box>
-              <Box padding={"8px"}>
-                <Radio value="2">Elon Musk</Radio>
-              </Box>
-              <Box padding={"8px"}>
-                <Radio value="2">Kevin Dom</Radio>
-              </Box>
+              {/* <RadioGroup
+                onChange={(e)=>handleOptionFun(e)}
+              >
+                {question?.options?.map((option) => (
+                  <Box padding={"8px"} >
+                    <Radio  value={option?.is_correct}>{option?.option_text}</Radio>
+                  </Box>
+                ))}
+              </RadioGroup> */}
+               {
+                question?.options?.map((option)=>{
+                  return(
+                    <Flex padding={"8px"} gap={"10px"}>
+                      <input type="radio" id="contactChoice1" name="contact" value={option.is_correct
+} />
+                      <label for="contactChoice1">{option.option_text}</label>
+                    </Flex>
+                  )
+                })
+               }
             </Box>
           </Box>
 
@@ -147,13 +229,14 @@ const TestPage = () => {
                 >
                   Wrong answer:{" "}
                   <Text color={"#ED0331"} fontWeight={"600"} as={"span"}>
-                    +3
+                    -3
                   </Text>
                 </Text>
               </Flex>
             </Flex>
             <Flex gap={"24px"}>
               <Button
+              onClick={handleNextQuestion}
                 display={"flex"}
                 padding={"12px 20px"}
                 justifyContent={"center"}
@@ -165,6 +248,7 @@ const TestPage = () => {
                 SKIP
               </Button>
               <Button
+                onClick={handleNextQuestion}
                 display={"flex"}
                 padding={"12px 20px"}
                 justifyContent={"center"}
@@ -216,84 +300,86 @@ const TestPage = () => {
         </Box>
 
         <Flex h="90vh" flexDir={"column"} justifyContent={"space-between"}>
-        <Box>
-        <Text
-          m={"24px 83px 16px 16px"}
-          color="var(--neutral-grey-900, #21191B)"
-          fontFamily="Poppins"
-          fontSize="16px"
-          fontWeight="700"
-          lineHeight="20px"
-        >
-          Section 01 - Aptitude
-        </Text>
-        <Box
-          m={"0 16px 0px 16px"}
-          display={"flex"}
-          gap="10px"
-          flexWrap={"wrap"}
-        >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((el, i) => {
-            return (
-              <Box
-                background={"var(--extended-blue-50, #F2F6FF)"}
-                w="32px"
-                h={"32px"}
-                display="flex"
-                flexDir={"column"}
-                justifyContent={"center"}
-                alignItems={"center"}
-                borderRadius={"4px"}
-                border={"1px solid var(--secondary-blue-500, #3470E4)"}
-                padding={"12px"}
-              >
-                {el}
-              </Box>
-            );
-          })}
-        </Box>
-        <Box mt="30px" width={"100%"} border={"1px solid #E5E5E5"}></Box>
-        </Box>
-        <Box
-         padding={"10px"}
-        flexShrink={"0"} borderTop={"1px solid var(--neutral-grey-100, #E5E5E5)"}>
-          <Flex
-            display={"inline-flex"}
-            gap="4px"
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
-            <Image src={rightArrow} />
+          <Box>
             <Text
-              color="#21191B"
+              m={"24px 83px 16px 16px"}
+              color="var(--neutral-grey-900, #21191B)"
+              fontFamily="Poppins"
+              fontSize="16px"
+              fontWeight="700"
+              lineHeight="20px"
+            >
+              Section 01 - Aptitude
+            </Text>
+            <Box
+              m={"0 16px 0px 16px"}
+              display={"flex"}
+              gap="10px"
+              flexWrap={"wrap"}
+            >
+              {[1, 2, 3, 4].map((el, i) => {
+                return (
+                  <Box
+                    background={"var(--extended-blue-50, #F2F6FF)"}
+                    w="32px"
+                    h={"32px"}
+                    display="flex"
+                    flexDir={"column"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    borderRadius={"4px"}
+                    border={"1px solid var(--secondary-blue-500, #3470E4)"}
+                    padding={"12px"}
+                  >
+                    {el}
+                  </Box>
+                );
+              })}
+            </Box>
+            <Box mt="30px" width={"100%"} border={"1px solid #E5E5E5"}></Box>
+          </Box>
+          <Box
+            padding={"10px"}
+            flexShrink={"0"}
+            borderTop={"1px solid var(--neutral-grey-100, #E5E5E5)"}
+          >
+            <Flex
+              display={"inline-flex"}
+              gap="4px"
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Image src={rightArrow} />
+              <Text
+                color="#21191B"
+                fontFamily={"Open Sans"}
+                fontSize={"14px"}
+                fontStyle={"normal"}
+                fontWeight={"600"}
+                lineHeight={"24px"}
+              >
+                Next section - Verbal Communication
+              </Text>
+            </Flex>
+
+            <Text
+              color="#544D4F"
               fontFamily={"Open Sans"}
               fontSize={"14px"}
               fontStyle={"normal"}
-              fontWeight={"600"}
+              fontWeight={"400"}
               lineHeight={"24px"}
             >
-              Next section - Verbal Communication
+              Number of Questions:{" "}
+              <Text color="#21191B" fontWeight={"700"} as={"span"}>
+                {15}
+              </Text>{" "}
+              Time:{" "}
+              <Text color="#21191B" fontWeight={"700"} as={"sapn"}>
+                10min
+              </Text>
             </Text>
-          </Flex>
-
-          <Text
-            color="#544D4F"
-            fontFamily={"Open Sans"}
-            fontSize={"14px"}
-            fontStyle={"normal"}
-            fontWeight={"400"}
-            lineHeight={"24px"}
-          >
-            Number of Questions:{" "}
-            <Text color="#21191B" fontWeight={"700"} as={"span"}>
-              {15}
-            </Text>{" "}
-            Time:{" "}
-            <Text color="#21191B" fontWeight={"700"} as={"sapn"}>
-              10min
-            </Text>
-          </Text>
-        </Box>
+          </Box>
         </Flex>
       </Box>
     </Box>

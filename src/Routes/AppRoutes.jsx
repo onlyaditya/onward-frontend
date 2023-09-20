@@ -7,7 +7,7 @@ import OurCoursesPage from "../pages/Courses/OurCoursesPage";
 import { ActivityOptions } from "../pages/Activities/ActivityOptions";
 import { HomePage } from "../pages/HomePage";
 import DashboardLanding from "../pages/DashboardLanding";
-import TestPage from "../components/TestPage/TestPage";
+import TestPage from "../pages/TestPage/TestPage";
 
 export const AppRoutes = () => {
   return (
