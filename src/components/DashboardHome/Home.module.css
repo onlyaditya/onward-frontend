@@ -1,0 +1,62 @@
+
+
+.container_div {
+  width: 100%;
+  /* border: 4px solid; */
+}
+
+.student_greeting_heading {
+  display: flex;
+  gap: 3px;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-style: normal;
+  margin-bottom: 4px;
+}
+
+.student_greeting_heading > p:first-child {
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  color: #000;
+}
+
+.student_greeting_heading > :p:last-child {
+  color: var(--neutral-grey-900, #21191b);
+  font-weight: 600;
+}
+
+.main_heading > p {
+  color: var(--primary-red-900, #0a0103);
+  font-size: 24px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px; /* 133.333% */
+  margin-bottom: 24px;
+}
+.main_heading > p > span {
+  color: var(--primary-red-500, #ed0331);
+}
+
+.nested_container_first {
+  /* border: 1px solid red; */
+  display: flex;
+  gap: 20px;
+}
+
+.nested_container > div:last-child {
+  /* border: 1px solid green; */
+  width: 571px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: var(--secondary-purple-500, #6e71cc);
+  /* Shadow/md */
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0px 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+iframe {
+  width: 100%;
+  height: 302px;
+  border-radius: 12px;
+}

@@ -6,12 +6,20 @@ import { ActivityDetail } from "../pages/Activities/ActivityDetail";
 import OurCoursesPage from "../pages/Courses/OurCoursesPage";
 import { ActivityOptions } from "../pages/Activities/ActivityOptions";
 import { HomePage } from "../pages/HomePage";
+import Result from "../pages/Results/Result";
+import Onboardingform from "../pages/Onboarding/Onboardingform";
+import OnboardingIdverif from "../pages/Onboarding/OnboardingIdverif";
+import OnboardingConsent from "../pages/Onboarding/OnboardingConsent";
+import OnboardingJoinus from "../pages/Onboarding/OnboardingJoinus";
+import Congratulations from "../pages/Onboarding/Congratulations";
+import DashboardLanding from "../pages/DashboardLanding";
 
 export const AppRoutes = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/dashboard" element={<DashboardLanding/>}/>
         <Route path="/activities" element={<Activities />} />
         <Route path="/courses" element={<OurCoursesPage />} />
         <Route path="/activity/detail/:id" element={<ActivityDetail />} />
@@ -30,6 +38,12 @@ export const AppRoutes = () => {
             </Text>
           }
         />
+        <Route path="home/results" element={<Result />} />
+        <Route path="home/onboardingform" element={<Onboardingform />} />
+        <Route path="home/onboardingid" element={<OnboardingIdverif />} />
+        <Route path="home/onboardingconsent" element={<OnboardingConsent />} />
+        <Route path="home/onboardingjoin" element={<OnboardingJoinus />} />
+        <Route path="home/congrats" element={<Congratulations />} />
       </Routes>
     </>
   );

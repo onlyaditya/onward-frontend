@@ -34,11 +34,11 @@ export const SideBar = () => {
         boxShadow="lg"
         background="white"
         position={"fixed"}
-        w={"12vw"}
+        w={"220px"}
         left={"0"}
         // minW={{ lg: "200px", md: "64px", sm: "64px" }}
       >
-        <Stack spacing={1} p={4}>
+        <Stack spacing={1} p={2} >
           <SidebarItem
             imageSrc={home}
             label="Home"
@@ -65,8 +65,9 @@ export const SideBar = () => {
                   activeTab === "activities" ? "Highlight" : null
                 }`}
                 cursor={"pointer"}
-                p={"4"}
-                borderLeftWidth={activeTab === "activities" ? "4px" : "0px"} // Add left border when active
+
+                p={"3"}
+                borderLeftWidth={activeTab === "activity" ? "4px" : "0px"} // Add left border when active
                 borderColor="blue.500" // Border color when active
                 transition={"ease-out"}
                 width={"full"}
@@ -111,16 +112,16 @@ function SidebarItem({ imageSrc, label, onClick, isActive }) {
       align="center"
       background={`${isActive ? "Highlight" : null}`}
       cursor={"pointer"}
-      p={"4"}
+      p={"3"}
       borderLeftWidth={isActive ? "4px" : "0px"} // Add left border when active
       borderColor="blue.500" // Border color when active
       onClick={onClick}
       transition={"ease-out"}
       width={"full"}
     >
-      <img src={imageSrc} alt={label} width="24px" height="24px" />
+      <img src={imageSrc} alt={label} width="20px" height="20px" />
       <Hide below={"lg"}>
-        <Text fontSize={{ sm: "x-small", md: "smaller", lg: "large" }} ml={2}>
+        <Text fontSize={{ sm: "x-small", md: "smaller", lg: "md" }} ml={2}>
           {label}
         </Text>
       </Hide>
