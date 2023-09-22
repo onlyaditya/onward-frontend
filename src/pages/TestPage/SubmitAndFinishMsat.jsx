@@ -2,10 +2,20 @@ import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import alertCircleOutline from "../../assets/allsvgimages/alertCircleOutline.svg";
 import closeIcon from "../../assets/allsvgimages/closeIcon.svg";
+import { Link } from "react-router-dom";
 
-const SubmitAndFinishMsat = () => {
+const SubmitAndFinishMsat = ({handleConfirmation}) => {
   return (
-    <Box
+   <Box 
+   width={"100%"}
+   display={"flex"}
+   height={"100vh"}
+   justifyContent={"center"}
+   alignItems={"center"}
+   opacity={0.7}
+   bgColor={"#010A1B"}
+   >
+     <Box
       w="430px"
       display={"inline-flex"}
       padding={"24px"}
@@ -17,8 +27,8 @@ const SubmitAndFinishMsat = () => {
       }
     >
       <Flex flexDir={"column"} gap={"16px"} alignItems={"flex-start"}>
-        <Flex justifyContent={"space-between"} alignItems={"flex-start"}>
-          <Image src={alertCircleOutline} />
+        <Flex justifyContent={"space-between"} alignItems={"flex-start"} >
+          <Image src={alertCircleOutline} mr="300px"/>
           <Image src={closeIcon} />
         </Flex>
         <Flex flexDir={"column"} gap={"8px"}>
@@ -44,12 +54,13 @@ const SubmitAndFinishMsat = () => {
           </Text>
         </Flex>
         <Flex mt="32px" flexDirection={"row-reverse"} gap="8px">
-          <Button>YES,I CONFERM</Button>
+          <Button onClick={handleConfirmation}><Link to="/home/results">YES,I CONFERM</Link></Button>
 
           <Button>CANCEL</Button>
         </Flex>
       </Flex>
     </Box>
+   </Box>
   );
 };
 

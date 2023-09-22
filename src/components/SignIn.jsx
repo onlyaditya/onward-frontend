@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import { login } from "../redux/activityReducer/action";
+import { useDispatch } from "react-redux";
 import {
   Box,
   Button,
@@ -16,8 +18,19 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 
-export default function SignIn({ onClose, isOpen, onOpen }) {
-  const btnRef = useRef();
+export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
+  const dispatch = useDispatch();
+
+  function handlelogin() {
+    let obj = {
+      value: email,
+    };
+    console.log(obj);
+    dispatch(login(obj));
+  }
 
   return (
     <div className="SignInContainer" style={{ display: "flex" }}>
@@ -94,7 +107,9 @@ export default function SignIn({ onClose, isOpen, onOpen }) {
                   <spam style={{ color: "red" }}>*</spam>
                 </FormLabel>
                 <Input
-                  // onChange={handleNameChange}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                   placeholder="Enter phone number or email address "
                   type="Text"
                 />
@@ -115,7 +130,7 @@ export default function SignIn({ onClose, isOpen, onOpen }) {
                 bg={"#3470E4"}
                 borderRadius={"8px"}
                 _hover={{ background: "#1647A5" }}
-                //   onClick={handleRegister}
+                onClick={handlelogin}
               >
                 continue
               </Button>
