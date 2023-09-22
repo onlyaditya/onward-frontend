@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styles from "./Home.module.css";
+import React, { useEffect, useState } from "react";
 import calender from "../../assets/allsvgimages/calender.svg";
 import albert from "../../assets/allsvgimages/albert.svg";
 import roundedImage from "../../assets/allsvgimages/roundImage.svg";
 import lineImage from "../../assets/allsvgimages/lineImage.svg";
 import fireLogo from "../../assets/allsvgimages/fireLogo.svg";
+import alarm from "../../assets/allsvgimages/alarm.svg";
 import {
   Accordion,
   AccordionItem,
@@ -34,37 +34,30 @@ import {
   Modal,
 } from "@chakra-ui/react";
 import StartMsat from "./StartMsat";
+import ShowRegistrationAlert from "./ShowRegistrationAlert";
+import { Link } from "react-router-dom";
 
-const steps = [
-  { title: "First", description: "Contact Info" },
-  { title: "Second", description: "Date & Time" },
-  { title: "Third", description: "Select Rooms" },
-];
 
 const Home = () => {
-  const [selectedCourse, setSelectedCourse] = useState(true);
-  const [completedSteps, setCompletedSteps] = useState([false, false]);
+  const [isConfirmClicked, setIsConfirmClicked] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(false);
+  const [completedSteps, setCompletedSteps] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { activeStep } = useSteps({
-    index: 1,
-    count: steps.length,
-  });
+  const  {activeStep,setActiveStep}  = useSteps({index: 0});
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleCourses=(val)=>{
-      setSelectedCourse(false)
+      setSelectedCourse(val)
+      console.log(val);
   }
 
-  const handleStepCompletion = (stepIndex) => {
-    // Make a copy of the completedSteps array and update the specific step as completed
-    const updatedCompletedSteps = [...completedSteps];
-    updatedCompletedSteps[stepIndex] = true;
+  console.log(activeStep);
 
-    // Set the updated completed steps
-    setCompletedSteps(updatedCompletedSteps);
-    console.log(`Step ${stepIndex} completed.`); // Add this for debugging
+  const handleStepCompletion = (index) => {
+     console.log(index);
+     setActiveStep(index)
   };
 
-  const [isConfirmClicked, setIsConfirmClicked] = useState(false);
 
   // Handle the "CONFIRM" button click inside the modal
   const handleConfirm = () => {
@@ -78,6 +71,22 @@ const Home = () => {
     window.location.href = "/test";
   }
 
+  const [registerAccordion,setRegisterAccordion]=useState(false);
+  const [msatAccordion,setMsatAccordion]=useState(false);
+  const [onboardingAccordion,setOnboardingAccordion]=useState(false);
+
+  const [blurBackground, setBlurBackground] = useState(false);
+
+  useEffect(() => {
+    // Show the alert for 5 seconds
+    if (showAlert) {
+      setTimeout(() => {
+        setShowAlert(false);
+        setBlurBackground(false); // Remove the blur effect
+        handleStepCompletion(1)
+      }, 5000);
+    }
+  }, [showAlert]);
 
   return (
     <Box
@@ -85,28 +94,56 @@ const Home = () => {
       display="inline-flex"
       padding="16px 251px 0px 24px"
       alignItems="center"
+     
     >
+     
       <Box>
-        <Box className={styles.student_greeting_heading}>
-          <Text>Hey Abhishek!</Text>
-          <Text>Welcome to Masai!</Text>
+        <Box 
+          display="flex"
+          gap={3}
+          fontFamily="Open Sans"
+          fontSize={16}
+          fontStyle="normal"
+          marginBottom={4}
+        >
+          <Text
+          fontFamily={"Open Sans"}
+          fontStyle={"normal"}
+          fontWeight={"400"}
+          fontSize={{base:"14px",md:"24px"}}
+          color={"#000"}
+          lineHeight={"24px"}
+          >Hey Abhishek!</Text>
+          <Text
+           fontFamily={"Open Sans"}
+           fontStyle={"normal"}
+           fontWeight={"600"}
+           fontSize={{base:"14px",md:"24px"}}
+           color={"#21191B"}
+           lineHeight={"24px"}
+          >Welcome to Masai!</Text>
         </Box>
-        <Box className={styles.main_heading}>
-          <Text>
-            Start Your Journey in <span>3 Steps</span>
+        <Box 
+        >
+          <Text
+          color="var(--primary-red-900, #0a0103)"
+          fontSize={"24px"}
+          fontFamily="Poppins"
+          fontStyle="normal"
+          fontWeight={700}
+          lineHeight={"32px"}
+          marginBottom={"24px"}
+          >
+            Start Your Journey in <Text color={"#ed0331"} as={"sapn"}>3 Steps</Text>
           </Text>
         </Box>
 
         <Stepper
           index={activeStep}
           orientation="vertical"
-          gap="20px"
+          gap="24px"
           completedSteps={completedSteps}
-          onChange={(newStepIndex) => {
-            // This function will be called when the active step changes.
-            // You can perform actions or updates based on the newStepIndex here.
-            console.log(`Active step changed to step ${newStepIndex}`);
-          }}
+         
         >
           <Step key={0}>
             <StepIndicator>
@@ -120,12 +157,13 @@ const Home = () => {
             <Box flexShrink="0">
               <StepDescription>
                 <Box
-                  width="571px"
-                  border="1px"
+                   width={{base:"310px",md:"80vw",lg:'571px'}}
                   borderRadius="8px"
-                  bgColor=" var(--secondary-purple-500, #6E71CC)"
+                  bgColor={registerAccordion?"#fff":"var(--secondary-purple-500, #6E71CC)"}
                   boxShadow="0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10);"
                 >
+
+                  {showAlert && <ShowRegistrationAlert showAlert={showAlert}/>}
                   <Accordion defaultIndex={[0]} allowMultiple>
                     <AccordionItem border="0px" padding="0px 16px 16px 16px">
                       <AccordionButton
@@ -133,12 +171,13 @@ const Home = () => {
                         _hover={{ bg: "none" }}
                         display="flex"
                         justifyContent="space-between"
+                        onClick={()=>setRegisterAccordion(!registerAccordion)}
                       >
                         <Text
-                          fontSize="20px"
-                          fontWeight="700"
-                          line-height="28px"
-                          color="var(--primary-white-fff, #FFF);"
+                          fontSize={{base:"16px",md:"20px"}}
+                          fontWeight={{base:"600",md:"700"}}
+                          line-height={{base:"24px",md:"28px"}}
+                          color={registerAccordion?"black":"var(--primary-white-fff, #FFF)"}
                         >
                           Register For Free Webinar
                         </Text>
@@ -161,19 +200,19 @@ background: #FFF;"
                             >
                               <Text
                                 fontFamily="Poppins"
-                                fontSize="18px"
+                                fontSize={{base:"16px",md:"18px"}}
                                 fontWeight="700"
-                                lineHeight="24px"
+                                line-height={{base:"20px",md:"24px"}}
                               >
                                 Learn to build amazing tools using ChatGPT in
                                 just 60 minutes
                               </Text>
-                              <Flex>
+                              <Flex flexDir={"column"}>
                                 <Text
                                   color="var(--neutral-grey-900, #21191B)"
                                   fontWeight="600"
                                   lineHeight="24px"
-                                  fontSize="16px"
+                                  fontSize={{base:"14px",md:"16px"}}
                                 >
                                   By Albert Sebastian
                                 </Text>
@@ -181,7 +220,7 @@ background: #FFF;"
                                   color="var(--neutral-grey-700, #544D4F)"
                                   fontFamily="Open Sans"
                                   fontSize="14px"
-                                  fontWeight="400"
+                                  fontWeight={{base:"600",md:"400"}}
                                   lineHeight="24px"
                                 >
                                   Promt Engineer,Masai
@@ -200,6 +239,19 @@ background: #FFF;"
                                   26th august, saturday
                                 </Text>
                               </Flex>
+                              <Flex display={{base:"flex",md:"none"}}>
+                                <Image src={alarm} />
+                                <Text
+                                  color="var(--neutral-grey-900, #21191B)"
+                                  fontFamily="Open Sans"
+                                  fontSize="14px"
+                                  fontWeight="600"
+                                  lineHeight="24px"
+                                  textTransform="capitalize"
+                                >
+                                  3:00 - 4:00pm
+                                </Text>
+                              </Flex>
                             </Box>
                             <Box>
                               <Image src={albert} alt="Albert" />
@@ -214,16 +266,15 @@ background: #FFF;"
                             <Text
                               color="#000"
                               fontFamily="Poppins"
-                              fontSize="20px"
+                              fontSize={{base:"15px",md:"20px"}}
                               fontStyle="normal"
-                              fontWeight="700"
-                              lineHeight="28px"
-                              textAlign="center"
+                              fontWeight={{base:"600",md:"700"}}
+                              lineHeight={{base:"24px",md:"28px"}}
                             >
                               A Prompt Engineering Webinar
                             </Text>
-                            <Flex gap="10px" alignItems="center">
-                              <Box>
+                            <Flex gap="10px" alignItems="center" display={{base:"none",md:"flex"}}>
+                              <Box >
                                 <Text
                                   color="#000"
                                   fontFamily="Open Sans"
@@ -281,12 +332,34 @@ background: #FFF;"
                               alignItems="center"
                             >
                               <Button
-                                onClick={() => handleStepCompletion(0)}
+                              display={activeStep===0?"block":"none"}
+                                onClick={() =>{
+                                  setShowAlert(true);
+                                  setBlurBackground(true);
+                                 }}
                                 fontFamily="Open Sans"
-                                fontSize="14px"
+                                fontSize={{base:"12px",md:"14px"}}
                                 fontStyle="normal"
                                 fontWeight="600"
-                                lineHeight="24px"
+                                lineHeight={{base:"16px",md:"24px"}}
+                                letterSpacing="1.25px"
+                                textTransform="upperCase"
+                                bgColor="var(--secondary-blue-500, #3470E4)"
+                                w="full"
+                                padding="8px 16px"
+                                borderRadius="8px"
+                                color={"#fff"}
+                                _hover={"none"}
+                              >
+                                Register now with 1 click
+                              </Button>
+                              <Button
+                                display={activeStep>=1?"block":"none"}
+                                fontFamily="Open Sans"
+                                fontSize={{base:"12px",md:"14px"}}
+                                fontStyle="normal"
+                                fontWeight="600"
+                                lineHeight={{base:"16px",md:"24px"}}
                                 letterSpacing="1.25px"
                                 textTransform="upperCase"
                                 bgColor="var(--secondary-blue-500, #3470E4)"
@@ -294,7 +367,7 @@ background: #FFF;"
                                 padding="8px 16px"
                                 borderRadius="8px"
                               >
-                                Register now with 1 click
+                                <Link to="/activity/detail/1">Starts in 3Days 12 hours</Link>
                               </Button>
                             </Box>
                             <Flex alignItems="flex-end" gap="7px">
@@ -324,7 +397,7 @@ background: #FFF;"
               </StepDescription>
             </Box>
 
-            <StepSeparator />
+            <StepSeparator border="1px dashed #BBB" />
           </Step>
 
           <Step key={1}>
@@ -334,43 +407,44 @@ background: #FFF;"
                 incomplete={<StepNumber />}
                 active={<StepNumber />}
               />
-            </StepIndicator>
+            </StepIndicator >
 
             <Box flexShrink="0">
               <StepDescription>
                 <Box
                 
-                  width="571px"
-                  border="1px"
+                  // width="571px"
+                  width={{base:"310px",md:"80vw",lg:'571px'}}
                   borderRadius="8px"
-                  bgColor=" var(--secondary-purple-500, #6E71CC)"
+                  bgColor={msatAccordion?"#fff":"#6E71CC"}
                   boxShadow="0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10);"
                 >
                   <Accordion defaultIndex={[0]} allowMultiple>
-                    <AccordionItem border="0px" padding="0px 16px 16px 16px">
+                    <AccordionItem border="0px" >
                       <AccordionButton
                         border="0px"
                         _hover={{ bg: "none" }}
                         display="flex"
                         justifyContent="space-between"
                         width="100%"
+                        onClick={()=>setMsatAccordion(!msatAccordion)}
                       >
                         <Box textAlign="left">
                           <Text
                             fontSize="20px"
-                            fontWeight="700"
+                            fontWeight={{base:"600",md:"700"}}
                             line-height="28px"
-                            color="var(--primary-white-fff, #FFF);"
+                            color={msatAccordion?"#131010": "#FFF"}
                           >
                             Finish MSAT
                           </Text>
                           <Text
                             fontFamily="Open Sans"
-                            fontSize="16px"
+                            fontSize={{base:"14px",md:"16px"}}
                             fontStyle="normal"
                             fontWeight="400"
                             lineHeight="24px"
-                            color="var(--primary-white-fff, #FFF)"
+                            color={msatAccordion?"#000": "#FFF"}
                           >
                             (Masai School Admission Test)
                           </Text>
@@ -383,10 +457,15 @@ background: #FFF;"
                         flexDirection="column"
                         gap="16px"
                         border="border: 1px solid var(--neutral-grey-100, #E5E5E5) background: #FFF;"
-                        borderRadius="12px"
+                        borderRadius={{base:"12px",md:"8px"}}
                         flexShrink="0"
+                      
+
                       >
                         <iframe
+                        width= "100%"
+                        height= "302px"
+                        borderRadius="12px"
                           src="https://www.youtube.com/embed/cA80lsg0mlo"
                           title="An Insight into our MSAT (Masai School Admissions Test)"
                           frameborder="0"
@@ -399,11 +478,14 @@ background: #FFF;"
                           flexDirection="row-reverse"
                         >
                           <Button
-                          onClick={onOpen}
+                          onClick={()=>{
+                            onOpen();
+                            handleStepCompletion(2)
+                          }}
                             borderRadius="8px"
                             background="var(--primary-white-fff, #FFF)"
                             border="1px solid var(--neutral-grey-300, #CCC)"
-                            width="258px"
+                            width={{base:"100%",md:"258px"}}
                             padding="12px 20px"
                           >
                             Start Msat
@@ -424,7 +506,7 @@ background: #FFF;"
               </StepDescription>
             </Box>
 
-            <StepSeparator />
+            <StepSeparator border="1px dashed #BBB" />
           </Step>
 
           <Step key={2}>
@@ -439,31 +521,33 @@ background: #FFF;"
             <Box flexShrink="0">
               <StepDescription>
                 <Box
-                  width="571px"
+                  // width="571px"
+                  width={{base:"310px",md:"80vw",lg:'571px'}}
                   borderRadius="8px"
-                  bgColor=" var(--secondary-purple-500, #6E71CC)"
+                  bgColor={onboardingAccordion?"#fff":"#6E71CC"}
                   boxShadow="0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10);"
                 >
                   <Accordion defaultIndex={[0]} allowMultiple>
-                    <AccordionItem border="0px" padding="0px 16px 16px 16px">
+                    <AccordionItem border="0px" >
                       <AccordionButton
                         border="0px"
                         _hover={{ bg: "none" }}
                         display="flex"
                         justifyContent="space-between"
                         width="100%"
+                        onClick={()=>setOnboardingAccordion(!onboardingAccordion)}
                       >
                         <Box textAlign="left">
                           <Text
                             fontSize="20px"
                             fontWeight="700"
                             line-height="28px"
-                            color="var(--primary-white-fff, #FFF);"
+                            color={onboardingAccordion?"#000":"#fff"}
                           >
                             Complete Onboarding
                           </Text>
                           <Text
-                            color={"var(--extended-yellow-100, #FFF3CC)"}
+                            color={onboardingAccordion?"#000":"#fff"}
                             fontFamily="Open Sans"
                             fontSize="16px"
                             fontStyle="normal"
@@ -496,8 +580,9 @@ background: #FFF;"
                         flexShrink="0"
                       >
                         <iframe
-                          width="972"
-                          height="547"
+                          width= "100%"
+                          height= "302px"
+                          borderRadius="12px"
                           src="https://www.youtube.com/embed/ErIP2CNZMks"
                           title="An insight into our Onboarding Process"
                           frameborder="0"
@@ -526,7 +611,7 @@ background: #FFF;"
               </StepDescription>
             </Box>
 
-            <StepSeparator />
+            <StepSeparator border="1px dashed #BBB" />
           </Step>
         </Stepper>
       </Box>
@@ -534,678 +619,6 @@ background: #FFF;"
   );
 };
 
-// const Home = () => {
-//   return (
-//     <div className={styles.container}>
-//       <div className={styles.container_div}>
-//         <div className={styles.student_greeting_heading}>
-//           <p>Hey Abhishek!</p>
-//           <p>Welcome to Masai!</p>
-//         </div>
-//         <div className={styles.main_heading}>
-//           <p>
-//             Start Your Journey in <span>3 Steps</span>
-//           </p>
-//         </div>
-//         <div className={styles.nested_container_first}>
-//           <Flex gap="24px">
-//             <Box
-//               display="flex"
-//               justifyContent="center"
-//               alignItems="center"
-//               w="48px"
-//               h="48px"
-//               bgColor="var(--extended-purple-200, #B7B8E5)"
-//               borderRadius="57px"
-//               padding="9px"
-//               flexShrink="0"
-//             >
-//               <Box
-//                 display="flex"
-//                 justifyContent="center"
-//                 alignItems="center"
-//                 w="30px"
-//                 h="30px"
-//                 bgColor="var(--secondary-purple-500, #6E71CC)"
-//                 borderRadius="16px"
-//                 padding="7px"
-//                 flexShrink="0"
-//               >
-//                 <Box
-//                   display="flex"
-//                   w="16px"
-//                   h="16px"
-//                   justifyContent="center"
-//                   flexShrink="0"
-//                   alignItems="center"
-//                   color="var(--primary-white-fff, #FFF);"
-//                   fontFamily="Open Sans"
-//                   fontSize="14px"
-//                   fontWeight="600"
-//                   letterSpacing="1.25px"
-//                   lineHeight="24px"
-//                 >
-//                   1
-//                 </Box>
-//               </Box>
-//             </Box>
-//             <Box
-//             width="571px"
-//               border="1px"
-//               borderRadius="8px"
-//               bgColor=" var(--secondary-purple-500, #6E71CC)"
-//               boxShadow="0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10);"
-//             >
-//               <Accordion defaultIndex={[0]} allowMultiple >
-//                 <AccordionItem border="0px" padding="0px 16px 16px 16px" >
-//                   <AccordionButton
-//                     border="0px"
-//                     _hover={{ bg: "none" }}
-//                     display="flex"
-//                     justifyContent="space-between"
-//                   >
-//                     <Text
-//                       fontSize="20px"
-//                       fontWeight="700"
-//                       line-height="28px"
-//                       color="var(--primary-white-fff, #FFF);"
-//                     >
-//                       Register For Free Webinar
-//                     </Text>
 
-//                     <AccordionIcon />
-//                   </AccordionButton>
-//                   <AccordionPanel
-//                     display="flex"
-//                     flexDirection="column"
-//                     border="border: 1px solid var(--neutral-grey-100, #E5E5E5);
-// background: #FFF;"
-//                     borderRadius="12px"
-//                   >
-//                     <Flex flexDirection="column" gap="16px">
-//                       <Flex bgColor="#FFEBF0" >
-//                         <Box display="flex" flexDirection="column" gap="10px">
-//                           <Text
-//                             fontFamily="Poppins"
-//                             fontSize="18px"
-//                             fontWeight="700"
-//                             lineHeight="24px"
-//                           >
-//                             Learn to build amazing tools using ChatGPT in just
-//                             60 minutes
-//                           </Text>
-//                           <Flex>
-//                             <Text
-//                               color="var(--neutral-grey-900, #21191B)"
-//                               fontWeight="600"
-//                               lineHeight="24px"
-//                               fontSize="16px"
-//                             >
-//                               By Albert Sebastian
-//                             </Text>
-//                             <Text
-//                               color="var(--neutral-grey-700, #544D4F)"
-//                               fontFamily="Open Sans"
-//                               fontSize="14px"
-//                               fontWeight="400"
-//                               lineHeight="24px"
-//                             >
-//                               Promt Engineer,Masai
-//                             </Text>
-//                           </Flex>
-//                           <Flex>
-//                             <Image src={calender} />
-//                             <Text
-//                               color="var(--neutral-grey-900, #21191B)"
-//                               fontFamily="Open Sans"
-//                               fontSize="14px"
-//                               fontWeight="600"
-//                               lineHeight="24px"
-//                               textTransform="capitalize"
-//                             >
-//                               26th august, saturday
-//                             </Text>
-//                           </Flex>
-//                         </Box>
-//                         <Box>
-//                           <Image src={albert} alt="Albert" />
-//                         </Box>
-//                       </Flex>
-//                       <Flex
-//                         flexDirection="column"
-//                         gap="12px"
-//                         alignItems="center"
-//                         alignSelf="stretch"
-//                       >
-//                         <Text
-//                           color="#000"
-//                           fontFamily="Poppins"
-//                           fontSize="20px"
-//                           fontStyle="normal"
-//                           fontWeight="700"
-//                           lineHeight="28px"
-//                           textAlign="center"
-//                         >
-//                           A Prompt Engineering Webinar
-//                         </Text>
-//                         <Flex gap="10px" alignItems="center">
-//                           <Box>
-//                             <Text
-//                               color="#000"
-//                               fontFamily="Open Sans"
-//                               fontSize="14px"
-//                               fontStyle="normal"
-//                               fontWeight="600"
-//                               lineHeight="24px"
-//                             >
-//                               06:00
-//                             </Text>
-//                             <Text
-//                               color="#000"
-//                               fontFamily="Open Sans"
-//                               fontSize="12px"
-//                               fontStyle="normal"
-//                               fontWeight="400"
-//                               lineHeight="16px"
-//                               flexShrink="0"
-//                             >
-//                               PM
-//                             </Text>
-//                           </Box>
-//                           <Flex alignItems="center">
-//                             <Image src={roundedImage} />
-//                             <Image src={lineImage} />
-//                           </Flex>
-//                           <Box>
-//                             <Text
-//                               color="#000"
-//                               fontFamily="Open Sans"
-//                               fontSize="14px"
-//                               fontStyle="normal"
-//                               fontWeight="600"
-//                               lineHeight="24px"
-//                             >
-//                               07:30
-//                             </Text>
-//                             <Text
-//                               color="#000"
-//                               fontFamily="Open Sans"
-//                               fontSize="12px"
-//                               fontStyle="normal"
-//                               fontWeight="400"
-//                               lineHeight="16px"
-//                               flexShrink="0"
-//                             >
-//                               PM
-//                             </Text>
-//                           </Box>
-//                         </Flex>
-//                         <Box
-//                           display="flex"
-//                           w="full"
-//                           justifyContent="center"
-//                           alignItems="center"
-//                         >
-//                           <Button
-//                             fontFamily="Open Sans"
-//                             fontSize="14px"
-//                             fontStyle="normal"
-//                             fontWeight="600"
-//                             lineHeight="24px"
-//                             letterSpacing="1.25px"
-//                             textTransform="upperCase"
-//                             bgColor="var(--secondary-blue-500, #3470E4)"
-//                             w="full"
-//                             padding="8px 16px"
-//                             borderRadius="8px"
-//                           >
-//                             Register now with 1 click
-//                           </Button>
-//                         </Box>
-//                         <Flex alignItems="flex-end" gap="7px">
-//                           <Box>
-//                             <Image src={fireLogo} />
-//                           </Box>
-//                           <Text
-//                             color="#000"
-//                             fontFamily="Open Sans"
-//                             fontSize="10.816px"
-//                             fontStyle="normal"
-//                             fontWeight="400"
-//                             lineHeight="135.5%"
-//                           >
-//                             <Text as="span" color="red">
-//                               924
-//                             </Text>
-//                             people have already registered
-//                           </Text>
-//                         </Flex>
-//                       </Flex>
-//                     </Flex>
-//                   </AccordionPanel>
-//                 </AccordionItem>
-//               </Accordion>
-//             </Box>
-//           </Flex>
-//         </div>
-//         <div className={styles.nested_container_first}>
-//           <Flex gap="24px" alignItems="start" mt="24px">
-//             <Box
-//               display="flex"
-//               justifyContent="center"
-//               alignItems="center"
-//               w="48px"
-//               h="48px"
-//               bgColor="var(--extended-purple-200, #B7B8E5)"
-//               borderRadius="57px"
-//               padding="9px"
-//               flexShrink="0"
-//             >
-//               <Box
-//                 display="flex"
-//                 justifyContent="center"
-//                 alignItems="center"
-//                 w="30px"
-//                 h="30px"
-//                 bgColor="var(--secondary-purple-500, #6E71CC)"
-//                 borderRadius="16px"
-//                 padding="7px"
-//                 flexShrink="0"
-//               >
-//                 <Box
-//                   display="flex"
-//                   w="16px"
-//                   h="16px"
-//                   justifyContent="center"
-//                   flexShrink="0"
-//                   alignItems="center"
-//                   color="var(--primary-white-fff, #FFF);"
-//                   fontFamily="Open Sans"
-//                   fontSize="14px"
-//                   fontWeight="600"
-//                   letterSpacing="1.25px"
-//                   lineHeight="24px"
-//                 >
-//                   2
-//                 </Box>
-//               </Box>
-//             </Box>
-//             <Box
-//              width="571px"
-//              border="1px"
-//              borderRadius="8px"
-
-//               bgColor=" var(--secondary-purple-500, #6E71CC)"
-//               boxShadow="0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10);"
-//             >
-//               <Accordion defaultIndex={[0]} allowMultiple>
-//                 <AccordionItem border="0px" padding="0px 16px 16px 16px" >
-//                   <AccordionButton
-//                     border="0px"
-//                     _hover={{ bg: "none" }}
-//                     display="flex"
-//                     justifyContent="space-between"
-//                     width="100%"
-//                   >
-//                     <Box textAlign="left">
-//                       <Text
-//                         fontSize="20px"
-//                         fontWeight="700"
-//                         line-height="28px"
-//                         color="var(--primary-white-fff, #FFF);"
-//                       >
-//                         Finish MSAT
-//                       </Text>
-//                       <Text
-//                         fontFamily="Open Sans"
-//                         fontSize="16px"
-//                         fontStyle="normal"
-//                         fontWeight="400"
-//                         lineHeight="24px"
-//                       >
-//                         (Masai School Admission Test)
-//                       </Text>
-//                     </Box>
-
-//                     <AccordionIcon />
-//                   </AccordionButton>
-//                   <AccordionPanel
-//                     display="flex"
-//                     flexDirection="column"
-//                     gap="16px"
-//                     border="border: 1px solid var(--neutral-grey-100, #E5E5E5) background: #FFF;"
-//                     borderRadius="12px"
-//                     flexShrink="0"
-
-//                   >
-//                     <iframe
-
-//                       src="https://www.youtube.com/embed/cA80lsg0mlo"
-//                       title="An Insight into our MSAT (Masai School Admissions Test)"
-//                       frameborder="0"
-//                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-//                       allowfullscreen
-//                     ></iframe>
-//                     <Box display="flex" alignItems="center" flexDirection="row-reverse">
-//                       <Button borderRadius="8px" background= "var(--primary-white-fff, #FFF)" border="1px solid var(--neutral-grey-300, #CCC)" width="258px" padding="12px 20px">Start Msat</Button>
-//                     </Box>
-//                   </AccordionPanel>
-//                 </AccordionItem>
-//               </Accordion>
-//             </Box>
-//           </Flex>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// function Home() {
-// const { activeStep } = useSteps({
-//   index: 0,
-//   count: steps.length,
-// })
-
-//   return (
-//     <Stepper index={activeStep} orientation='vertical' height='400px' gap='0'>
-//       <Step key={0}>
-//         <StepIndicator>
-//           <StepStatus
-//             complete={<StepIcon />}
-//             incomplete={<StepNumber />}
-//             active={<StepNumber />}
-//           />
-//         </StepIndicator>
-
-//         <Box flexShrink='0'>
-
-//           <StepDescription>
-//           <Box
-//             width="571px"
-//               border="1px"
-//               borderRadius="8px"
-//               bgColor=" var(--secondary-purple-500, #6E71CC)"
-//               boxShadow="0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10);"
-//             >
-//               <Accordion defaultIndex={[0]} allowMultiple >
-//                 <AccordionItem border="0px" padding="0px 16px 16px 16px" >
-//                   <AccordionButton
-//                     border="0px"
-//                     _hover={{ bg: "none" }}
-//                     display="flex"
-//                     justifyContent="space-between"
-//                   >
-//                     <Text
-//                       fontSize="20px"
-//                       fontWeight="700"
-//                       line-height="28px"
-//                       color="var(--primary-white-fff, #FFF);"
-//                     >
-//                       Register For Free Webinar
-//                     </Text>
-
-//                     <AccordionIcon />
-//                   </AccordionButton>
-//                   <AccordionPanel
-//                     display="flex"
-//                     flexDirection="column"
-//                     border="border: 1px solid var(--neutral-grey-100, #E5E5E5);
-// background: #FFF;"
-//                     borderRadius="12px"
-//                   >
-//                     <Flex flexDirection="column" gap="16px">
-//                       <Flex bgColor="#FFEBF0" >
-//                         <Box display="flex" flexDirection="column" gap="10px">
-//                           <Text
-//                             fontFamily="Poppins"
-//                             fontSize="18px"
-//                             fontWeight="700"
-//                             lineHeight="24px"
-//                           >
-//                             Learn to build amazing tools using ChatGPT in just
-//                             60 minutes
-//                           </Text>
-//                           <Flex>
-//                             <Text
-//                               color="var(--neutral-grey-900, #21191B)"
-//                               fontWeight="600"
-//                               lineHeight="24px"
-//                               fontSize="16px"
-//                             >
-//                               By Albert Sebastian
-//                             </Text>
-//                             <Text
-//                               color="var(--neutral-grey-700, #544D4F)"
-//                               fontFamily="Open Sans"
-//                               fontSize="14px"
-//                               fontWeight="400"
-//                               lineHeight="24px"
-//                             >
-//                               Promt Engineer,Masai
-//                             </Text>
-//                           </Flex>
-//                           <Flex>
-//                             <Image src={calender} />
-//                             <Text
-//                               color="var(--neutral-grey-900, #21191B)"
-//                               fontFamily="Open Sans"
-//                               fontSize="14px"
-//                               fontWeight="600"
-//                               lineHeight="24px"
-//                               textTransform="capitalize"
-//                             >
-//                               26th august, saturday
-//                             </Text>
-//                           </Flex>
-//                         </Box>
-//                         <Box>
-//                           <Image src={albert} alt="Albert" />
-//                         </Box>
-//                       </Flex>
-//                       <Flex
-//                         flexDirection="column"
-//                         gap="12px"
-//                         alignItems="center"
-//                         alignSelf="stretch"
-//                       >
-//                         <Text
-//                           color="#000"
-//                           fontFamily="Poppins"
-//                           fontSize="20px"
-//                           fontStyle="normal"
-//                           fontWeight="700"
-//                           lineHeight="28px"
-//                           textAlign="center"
-//                         >
-//                           A Prompt Engineering Webinar
-//                         </Text>
-//                         <Flex gap="10px" alignItems="center">
-//                           <Box>
-//                             <Text
-//                               color="#000"
-//                               fontFamily="Open Sans"
-//                               fontSize="14px"
-//                               fontStyle="normal"
-//                               fontWeight="600"
-//                               lineHeight="24px"
-//                             >
-//                               06:00
-//                             </Text>
-//                             <Text
-//                               color="#000"
-//                               fontFamily="Open Sans"
-//                               fontSize="12px"
-//                               fontStyle="normal"
-//                               fontWeight="400"
-//                               lineHeight="16px"
-//                               flexShrink="0"
-//                             >
-//                               PM
-//                             </Text>
-//                           </Box>
-//                           <Flex alignItems="center">
-//                             <Image src={roundedImage} />
-//                             <Image src={lineImage} />
-//                           </Flex>
-//                           <Box>
-//                             <Text
-//                               color="#000"
-//                               fontFamily="Open Sans"
-//                               fontSize="14px"
-//                               fontStyle="normal"
-//                               fontWeight="600"
-//                               lineHeight="24px"
-//                             >
-//                               07:30
-//                             </Text>
-//                             <Text
-//                               color="#000"
-//                               fontFamily="Open Sans"
-//                               fontSize="12px"
-//                               fontStyle="normal"
-//                               fontWeight="400"
-//                               lineHeight="16px"
-//                               flexShrink="0"
-//                             >
-//                               PM
-//                             </Text>
-//                           </Box>
-//                         </Flex>
-//                         <Box
-//                           display="flex"
-//                           w="full"
-//                           justifyContent="center"
-//                           alignItems="center"
-//                         >
-//                           <Button
-//                             fontFamily="Open Sans"
-//                             fontSize="14px"
-//                             fontStyle="normal"
-//                             fontWeight="600"
-//                             lineHeight="24px"
-//                             letterSpacing="1.25px"
-//                             textTransform="upperCase"
-//                             bgColor="var(--secondary-blue-500, #3470E4)"
-//                             w="full"
-//                             padding="8px 16px"
-//                             borderRadius="8px"
-//                           >
-//                             Register now with 1 click
-//                           </Button>
-//                         </Box>
-//                         <Flex alignItems="flex-end" gap="7px">
-//                           <Box>
-//                             <Image src={fireLogo} />
-//                           </Box>
-//                           <Text
-//                             color="#000"
-//                             fontFamily="Open Sans"
-//                             fontSize="10.816px"
-//                             fontStyle="normal"
-//                             fontWeight="400"
-//                             lineHeight="135.5%"
-//                           >
-//                             <Text as="span" color="red">
-//                               924
-//                             </Text>
-//                             people have already registered
-//                           </Text>
-//                         </Flex>
-//                       </Flex>
-//                     </Flex>
-//                   </AccordionPanel>
-//                 </AccordionItem>
-//               </Accordion>
-//             </Box>
-//           </StepDescription>
-//         </Box>
-
-//         <StepSeparator />
-//       </Step>
-
-//       <Step key={1}>
-//         <StepIndicator>
-//           <StepStatus
-//             complete={<StepIcon />}
-//             incomplete={<StepNumber />}
-//             active={<StepNumber />}
-//           />
-//         </StepIndicator>
-
-//         <Box flexShrink='0'>
-
-//           <StepDescription>
-//           <Box
-//              width="571px"
-//              border="1px"
-//              borderRadius="8px"
-
-//               bgColor=" var(--secondary-purple-500, #6E71CC)"
-//               boxShadow="0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10);"
-//             >
-//               <Accordion defaultIndex={[0]} allowMultiple>
-//                 <AccordionItem border="0px" padding="0px 16px 16px 16px" >
-//                   <AccordionButton
-//                     border="0px"
-//                     _hover={{ bg: "none" }}
-//                     display="flex"
-//                     justifyContent="space-between"
-//                     width="100%"
-//                   >
-//                     <Box textAlign="left">
-//                       <Text
-//                         fontSize="20px"
-//                         fontWeight="700"
-//                         line-height="28px"
-//                         color="var(--primary-white-fff, #FFF);"
-//                       >
-//                         Finish MSAT
-//                       </Text>
-//                       <Text
-//                         fontFamily="Open Sans"
-//                         fontSize="16px"
-//                         fontStyle="normal"
-//                         fontWeight="400"
-//                         lineHeight="24px"
-//                       >
-//                         (Masai School Admission Test)
-//                       </Text>
-//                     </Box>
-
-//                     <AccordionIcon />
-//                   </AccordionButton>
-//                   <AccordionPanel
-//                     display="flex"
-//                     flexDirection="column"
-//                     gap="16px"
-//                     border="border: 1px solid var(--neutral-grey-100, #E5E5E5) background: #FFF;"
-//                     borderRadius="12px"
-//                     flexShrink="0"
-
-//                   >
-//                     <iframe
-
-//                       src="https://www.youtube.com/embed/cA80lsg0mlo"
-//                       title="An Insight into our MSAT (Masai School Admissions Test)"
-//                       frameborder="0"
-//                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-//                       allowfullscreen
-//                     ></iframe>
-//                     <Box display="flex" alignItems="center" flexDirection="row-reverse">
-//                       <Button borderRadius="8px" background= "var(--primary-white-fff, #FFF)" border="1px solid var(--neutral-grey-300, #CCC)" width="258px" padding="12px 20px">Start Msat</Button>
-//                     </Box>
-//                   </AccordionPanel>
-//                 </AccordionItem>
-//               </Accordion>
-//             </Box>
-//           </StepDescription>
-//         </Box>
-
-//         <StepSeparator />
-//       </Step>
-
-//     </Stepper>
-//   )
-// }
 
 export default Home;

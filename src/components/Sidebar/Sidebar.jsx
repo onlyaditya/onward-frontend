@@ -43,7 +43,7 @@ export const SideBar = () => {
             imageSrc={home}
             label="Home"
             // isActive={activeTab === ""}
-            onClick={() => handleTabClick("")}
+            onClick={() => handleTabClick("dashboard")}
           />
           <SidebarItem
             imageSrc={course}

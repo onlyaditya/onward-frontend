@@ -1,21 +1,29 @@
-import React from "react";
+import React,{useState} from "react";
 import Navbar from "./Navbar/Navbar";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex ,Image ,Text} from "@chakra-ui/react";
 import { SideBar } from "./Sidebar/Sidebar";
 import RightSidebar from "./RightSidebar/RightSidebar";
+import BottomNavbar from "./Navbar/BottmNavbar";
+import PhoneRightSidebar from "./RightSidebar/PhoneRightSidebar";
 
 export const CommonLayout = ({ children }) => {
+  const [slideIndex, setSlideIndex] = useState(0);
+ 
+ 
+ 
   return (
-    <Box>
+    <Box >
     <Navbar />
-    <Flex  >
+    <Flex  
+        bgColor={"#F2F6FF"}
+    height={"100vh"}
+    >
       <Box display={{ base: "none", lg: "inline-block" }} width={"15%"}>
         <SideBar />
       </Box>
       <Box
         display={"inline-block"}
         width={"60%"}
-        // padding={"16px 251px 0px 24px"}
       >
         {children}
       </Box>
@@ -41,6 +49,15 @@ export const CommonLayout = ({ children }) => {
         <RightSidebar />
       </Box>
     </Flex>
+
+<Box  display={{ base: "block", md: "none" }}>
+  <PhoneRightSidebar/>
+</Box>
+
+    
+    <Box w="100%"  display={{base:'block',md:"none"}} position={"fixed"} bottom={0} >
+       <BottomNavbar/>
+    </Box>
   </Box>
   );
 };
