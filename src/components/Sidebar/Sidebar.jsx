@@ -38,45 +38,36 @@ export const SideBar = () => {
     <Hide below="md">
       <Box
         bg="gray.200"
-        h="100vh"
-        boxShadow="lg"
+        h="80vh"
         background="white"
-        position={"fixed"}
+        position={"sticky"}
         w={active ? "210px" : "54px"}
         transition="width 0.7s"
-        left={"0"}
+        top="70px"
         overflow="hidden"
-        // minW={{ lg: "200px", md: "64px", sm: "64px" }}
       >
-        {/* <Box display="inline-block" onClick={() => handleTabClick("menu")} p={2}>
-          <Image src={hamburger} />
-        </Box> */}
         <Stack spacing={6} p={5}>
           <SidebarItem
             imageSrc={hamburger}
             label=""
-            // isActive={activeTab === ""}
             onClick={() => handleTabClick("menu")}
             active={active}
           />
           <SidebarItem
             imageSrc={home}
             label="Home"
-            // isActive={activeTab === ""}
             onClick={() => handleTabClick("")}
             active={active}
           />
           <SidebarItem
             imageSrc={course}
             label="Courses"
-            // isActive={acstiveTab === "courses"}/
             onClick={() => handleTabClick("courses")}
             active={active}
           />
           <SidebarItem
             imageSrc={selflearning}
             label="Self Learning"
-            // onClick={() => handleTabClick("Self Learning")}
             active={active}
           />
           kk
@@ -84,9 +75,6 @@ export const SideBar = () => {
             <AccordionItem border="0px">
               <AccordionButton
                 align="center"
-                // background={`${
-                //   activeTab === "activities" ? "Highlight" : null
-                // }`}
                 cursor={"pointer"}
                 p={"0"}
                 borderLeftWidth={activeTab === "activity" ? "4px" : "0px"} // Add left border when active
