@@ -18,14 +18,22 @@ import course from "../../assets/allsvgimages/course.svg";
 import selflearning from "../../assets/allsvgimages/selflearning.svg";
 import activities from "../../assets/allsvgimages/activities.svg";
 import { useNavigate } from "react-router";
+import hamburger from "../../assets/allsvgimages/hamburger.svg";
 
 export const SideBar = () => {
   const [activeTab, setActiveTab] = useState("Home");
+  const [active, setActive] = useState(true);
   const navigate = useNavigate();
+
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+    if (tab == "menu") {
+      setActive(!active);
+      return;
+    }
     navigate(`/${tab}`);
   };
+
   return (
     <Hide below="md">
       <Box
@@ -34,66 +42,91 @@ export const SideBar = () => {
         boxShadow="lg"
         background="white"
         position={"fixed"}
-        w={"220px"}
+        w={active ? "210px" : "54px"}
+        transition="width 0.7s"
         left={"0"}
+        overflow="hidden"
         // minW={{ lg: "200px", md: "64px", sm: "64px" }}
       >
-        <Stack spacing={1} p={2} >
+        {/* <Box display="inline-block" onClick={() => handleTabClick("menu")} p={2}>
+          <Image src={hamburger} />
+        </Box> */}
+        <Stack spacing={6} p={5}>
+          <SidebarItem
+            imageSrc={hamburger}
+            label=""
+            // isActive={activeTab === ""}
+            onClick={() => handleTabClick("menu")}
+            active={active}
+          />
           <SidebarItem
             imageSrc={home}
             label="Home"
             // isActive={activeTab === ""}
             onClick={() => handleTabClick("")}
+            active={active}
           />
           <SidebarItem
             imageSrc={course}
             label="Courses"
             // isActive={acstiveTab === "courses"}/
             onClick={() => handleTabClick("courses")}
+            active={active}
           />
           <SidebarItem
             imageSrc={selflearning}
             label="Self Learning"
             // onClick={() => handleTabClick("Self Learning")}
+            active={active}
           />
-
+          kk
           <Accordion allowToggle onClick={() => handleTabClick("activities")}>
             <AccordionItem border="0px">
               <AccordionButton
                 align="center"
-                background={`${
-                  activeTab === "activities" ? "Highlight" : null
-                }`}
+                // background={`${
+                //   activeTab === "activities" ? "Highlight" : null
+                // }`}
                 cursor={"pointer"}
-
-                p={"3"}
+                p={"0"}
                 borderLeftWidth={activeTab === "activity" ? "4px" : "0px"} // Add left border when active
                 borderColor="blue.500" // Border color when active
-                transition={"ease-out"}
+                // transition={"ease-out"}
                 width={"full"}
+                _hover={{ paddingLeft: "5px", fontWeight: "600" }}
+                transition=" all 0.3s"
               >
-                <Flex align={"center"} justify={"flex-start"} gap={"6px"}>
+                <Flex
+                  align={"center"}
+                  justify={"flex-start"}
+                  gap={"6px"}
+                  w="200px"
+                >
                   <Image
                     src={activities}
                     alt={"Activities"}
                     width="24px"
                     height="24px"
                   />
-                  <Hide below={"lg"}>
-                    <Flex flexWrap={"wrap"} gap={"6px"}>
-                      <Text ml={"1"}>Activities</Text>
-                      <Badge
-                        rounded="full"
-                        px="1"
-                        fontSize="0.8em"
-                        colorScheme="orange"
-                      >
-                        New
-                      </Badge>
-                    </Flex>
-                  </Hide>
+                  <Flex gap={"6px"} alignItems="center">
+                    <Text ml={"1"}>Activities</Text>
+                    <Badge
+                      rounded="full"
+                      px="1"
+                      color="#CC926E"
+                      fontFamily="Open Sans"
+                      fontSize="12px"
+                      fontStyle="normal"
+                      fontWeight="700"
+                      lineHeight="16px"
+                      textTransform="uppercase"
+                      mr="10px"
+                    >
+                      New
+                    </Badge>
+                  </Flex>
+                  <AccordionIcon />
                 </Flex>
-                <AccordionIcon />
               </AccordionButton>
               <AccordionPanel ml={"8"}>MasterClass</AccordionPanel>
               <AccordionPanel ml={"8"}>Events</AccordionPanel>
@@ -106,25 +139,22 @@ export const SideBar = () => {
   );
 };
 
-function SidebarItem({ imageSrc, label, onClick, isActive }) {
+function SidebarItem({ imageSrc, label, onClick, isActive, active }) {
   return (
     <Flex
-      align="center"
-      background={`${isActive ? "Highlight" : null}`}
-      cursor={"pointer"}
-      p={"3"}
-      borderLeftWidth={isActive ? "4px" : "0px"} // Add left border when active
-      borderColor="blue.500" // Border color when active
+      align={"center"}
+      justify={"flex-start"}
+      gap={"6px"}
       onClick={onClick}
-      transition={"ease-out"}
-      width={"full"}
+      w="180px"
+      cursor="pointer"
+      _hover={{ paddingLeft: "5px", fontWeight: "600" }}
+      transition=" all 0.3s"
     >
-      <img src={imageSrc} alt={label} width="20px" height="20px" />
-      <Hide below={"lg"}>
-        <Text fontSize={{ sm: "x-small", md: "smaller", lg: "md" }} ml={2}>
-          {label}
-        </Text>
-      </Hide>
+      <Image src={imageSrc} alt={"Activities"} width="24px" height="24px" />
+      <Flex gap={"6px"}>
+        <Text ml={"1"}>{label}</Text>
+      </Flex>
     </Flex>
   );
 }
