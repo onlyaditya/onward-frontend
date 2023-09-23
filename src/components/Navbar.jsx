@@ -30,7 +30,7 @@ export const Navbar = ({ btnRef, onOpen }) => {
         w={"100%"}
         p={{
           base: "",
-          sm: "0 16px 0 16px",
+          base: "12px 10px 12px 10px",
           md: "0 16px 0 16px",
           lg: "0 16px 0 16px",
           xl: "0 80px 0 80px",
