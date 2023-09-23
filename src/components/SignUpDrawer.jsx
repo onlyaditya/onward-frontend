@@ -207,7 +207,7 @@ function SignUpDrawer({
         <Drawer
           size="md"
           isOpen={isOpen}
-          placement={"bottom"}
+          placement={"right"}
           onClose={() => {
             onClose();
             setSignIn(false);
