@@ -24,6 +24,10 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
+import NavbarDrawer from "./NavbarDrawer";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getUserDetails } from "../../redux/authReducer/auth.action";
 
 const Links = ["Dashboard", "Projects", "Team"];
 
@@ -48,7 +52,13 @@ const NavLink = (props) => {
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen:NavDrawerisOpen, onOpen:NavDraweronOpen, onClose:NavDraweronClose } = useDisclosure()
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    dispatch(getUserDetails())
+  },[])
 
+const {userDetails}=useSelector((store)=>store.authReducer)
   return (
     <>
       <Box
@@ -76,7 +86,7 @@ export default function Navbar() {
             onClick={isOpen ? onClose : onOpen}
           />
           {/* <HStack spacing={8} alignItems={'center'}> */}
-          <Box display="flex">
+          <Box display="flex" mr={{ base: "100px", md: "180px", lg: "0" }}>
             <Image src={logo} />
           </Box>
 
@@ -108,15 +118,18 @@ export default function Navbar() {
               </Text>
             </Flex>
             <Flex
-              display={{ base: "none", md: "flex" }}
+              display={"flex"}
               padding="1px 8px 1px 1px"
               border="1px solid var(--alert-warning, #2b3dff)"
               borderRadius="32px"
               alignItems="center"
               gap="4px"
             >
-              <Image src={callImage} />
+              <a href="tel:+1234569870">
+                <Image src={callImage} />
+              </a>
               <Text
+                display={{ base: "none", md: "block" }}
                 color="var(--primary-red-900, #0A0103)"
                 textAlign="center"
                 fontFamily="Open Sans"
@@ -130,22 +143,36 @@ export default function Navbar() {
             <Box display={{ base: "none", md: "block" }}>
               <Image src={notification} />
             </Box>
-            <Flex justifyContent="flex-end" alignItems="center" gap="2px">
-              <Avatar
-                width="24px"
-                height="24px"
-                src="https://bit.ly/dan-abramov"
-              />
-              <Box display={{ base: "none", md: "block" }}>
-                <Image src={bottomarrow} />
-              </Box>
-            </Flex>
+            <Menu >
+              <MenuButton >
+                <Flex justifyContent="flex-end" alignItems="center" gap="2px">
+                  { <Avatar
+                  name={userDetails && userDetails.userName}
+                  bgColor={"#000"}
+                    color={"#fff"}
+                    width="24px"
+                    height="24px"
+                    // src="https://bit.ly/dan-abramov"
+                  />}
+                  <Box display={{ base: "none", md: "block" }}>
+                    <Image src={ bottomarrow} />
+                  </Box>
+                </Flex>
+              </MenuButton>
+              <MenuList  >
+                <MenuItem w>My Profile</MenuItem>
+                <MenuItem>My Tutorials</MenuItem>
+                <MenuItem>My BookMark</MenuItem>
+                <MenuItem>My Certificates</MenuItem>
+                <MenuItem>Sign Out</MenuItem>
+              </MenuList>
+            </Menu>
           </Flex>
         </Flex>
 
         {isOpen ? (
-          <Box pb={4} display={{ md: "none" }}>
-            WE will create a drawer
+          <Box display={{ md: "none" }}>
+            <NavbarDrawer onOpen={onOpen} isOpen={isOpen} />
           </Box>
         ) : null}
       </Box>

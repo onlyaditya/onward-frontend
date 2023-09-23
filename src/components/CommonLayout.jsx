@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./Navbar/Navbar";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { SideBar } from "./Sidebar/Sidebar";
 import RightSidebar from "./RightSidebar/RightSidebar";
+import BottomNavbar from "./Navbar/BottmNavbar";
+import PhoneRightSidebar from "./RightSidebar/PhoneRightSidebar";
 
 export const CommonLayout = ({ children, rightsidebar }) => {
+  const [slideIndex, setSlideIndex] = useState(0);
+
   return (
     <Box>
       <Navbar />
-      <Flex mt="70px">
+      <Flex mt="70px" width={"100%"}>
         <Box
           display={{ base: "none", lg: "block" }}
           background="white"
@@ -16,13 +20,15 @@ export const CommonLayout = ({ children, rightsidebar }) => {
         >
           <SideBar />
         </Box>
-        <Box flexGrow="1">{children}</Box>
+        <Box width={{base:"80%",md:"67%"}} flexGrow={{base:"0",md:"1"}}>{children}</Box>
 
         <Box
+        
           display={{
             base: "none",
             lg: rightsidebar == "no" ? "none" : "block",
           }}
+          // width={"260px"}
           width={"260px"}
           position={"sticky"}
           // right="0"
@@ -46,6 +52,19 @@ export const CommonLayout = ({ children, rightsidebar }) => {
           <RightSidebar />
         </Box>
       </Flex>
+
+      <Box display={{ base: "block", md: "none" }}>
+        <PhoneRightSidebar />
+      </Box>
+
+      <Box
+        w="100%"
+        display={{ base: "block", md: "none" }}
+        position={"fixed"}
+        bottom={0}
+      >
+        <BottomNavbar />
+      </Box>
     </Box>
   );
 };
