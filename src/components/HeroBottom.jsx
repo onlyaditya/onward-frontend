@@ -4,7 +4,7 @@ import Vector from "../assets/Vector_145.svg";
 
 export default function HeroBottom() {
   return (
-    <div>
+    <div style={{ maxWidth: "1440px", margin: "0 auto 0 auto" }}>
       <Box
         w={"100%"}
         h={"100px"}
