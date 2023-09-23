@@ -36,6 +36,7 @@ import {
 import StartMsat from "./StartMsat";
 import ShowRegistrationAlert from "./ShowRegistrationAlert";
 import { Link } from "react-router-dom";
+import {getUserDetails} from './getuserDetails'
 
 
 const Home = () => {
@@ -45,6 +46,11 @@ const Home = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const  {activeStep,setActiveStep}  = useSteps({index: 0});
   const [showAlert, setShowAlert] = useState(false);
+
+ 
+  useEffect(()=>{
+    getUserDetails()
+  },[])
 
   const handleCourses=(val)=>{
       setSelectedCourse(val)
