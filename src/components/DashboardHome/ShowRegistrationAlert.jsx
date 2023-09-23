@@ -4,13 +4,14 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
+  Box,
 } from "@chakra-ui/react";
 
 function ShowRegistrationAlert({ showAlert, onClose }) {
   return (
     <>
       {showAlert && (
-        <div
+        <Box
           style={{
             position: "fixed",
             top: 0,
@@ -34,14 +35,14 @@ function ShowRegistrationAlert({ showAlert, onClose }) {
             textAlign="center"
           >
             <AlertIcon boxSize="70px" mt={"0"} color={"green"} />
-            <AlertTitle mt={4} mb={1} fontSize="lg">
+            <AlertTitle mt={4} mb={1} fontSize="lg" fontSize="20px" color={"green"}>
               User Registration has been Successful
             </AlertTitle>
-            <AlertDescription maxWidth="m" color={"green"}>
+            <AlertDescription maxWidth="m" color={"green"} fontSize={"15px"}>
               Thanks for registration. We will send you a zoom link to your email.
             </AlertDescription>
           </Alert>
-        </div>
+        </Box>
       )}
     </>
   );

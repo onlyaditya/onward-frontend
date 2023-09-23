@@ -29,7 +29,7 @@ export const CommonLayout = ({ children, rightsidebar }) => {
             lg: rightsidebar == "no" ? "none" : "block",
           }}
           // width={"260px"}
-          width={"17%"}
+          width={"260px"}
           position={"sticky"}
           // right="0"
           height={"89vh"}
@@ -53,18 +53,18 @@ export const CommonLayout = ({ children, rightsidebar }) => {
         </Box>
       </Flex>
 
-      {/* <Box display={{ base: "block", md: "none" }}>
+      <Box display={{ base: "block", md: "none" }}>
         <PhoneRightSidebar />
-      </Box> */}
+      </Box>
 
-      {/* <Box
+      <Box
         w="100%"
         display={{ base: "block", md: "none" }}
         position={"fixed"}
         bottom={0}
       >
         <BottomNavbar />
-      </Box> */}
+      </Box>
     </Box>
   );
 };

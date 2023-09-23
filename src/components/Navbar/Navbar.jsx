@@ -25,6 +25,9 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 import NavbarDrawer from "./NavbarDrawer";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getUserDetails } from "../../redux/authReducer/auth.action";
 
 const Links = ["Dashboard", "Projects", "Team"];
 
@@ -50,7 +53,12 @@ const NavLink = (props) => {
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const { isOpen:NavDrawerisOpen, onOpen:NavDraweronOpen, onClose:NavDraweronClose } = useDisclosure()
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    dispatch(getUserDetails())
+  },[])
 
+const {userDetails}=useSelector((store)=>store.authReducer)
   return (
     <>
       <Box
@@ -138,13 +146,16 @@ export default function Navbar() {
             <Menu >
               <MenuButton >
                 <Flex justifyContent="flex-end" alignItems="center" gap="2px">
-                  <Avatar
+                  { <Avatar
+                  name={userDetails && userDetails.userName}
+                  bgColor={"#000"}
+                    color={"#fff"}
                     width="24px"
                     height="24px"
-                    src="https://bit.ly/dan-abramov"
-                  />
+                    // src="https://bit.ly/dan-abramov"
+                  />}
                   <Box display={{ base: "none", md: "block" }}>
-                    <Image src={bottomarrow} />
+                    <Image src={ bottomarrow} />
                   </Box>
                 </Flex>
               </MenuButton>

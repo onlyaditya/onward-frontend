@@ -6,8 +6,7 @@ import SignUpDrawer from "../components/SignUpDrawer";
 import SignIn from "../components/SignIn";
 import VerifyNumber from "../components/VerifyNumber";
 import { Drawer, useDisclosure } from "@chakra-ui/react";
-import Mainpage from "../components/Mainpage";
-import New from "../components/New";
+
 
 export const HomePage = () => {
   const [reg, setReg] = useState("");

@@ -8,6 +8,9 @@ import {
   POST_LOGIN_OTP_REQUEST,
   POST_LOGIN_OTP_FAILURE,
   POST_LOGIN_OTP_SUCCESS,
+  GET_USER_DETAILS_REQUEST,
+  GET_USER_DETAILS_FAILURE,
+  GET_USER_DETAILS_SUCCESS,
 } from "../actionTypes";
 
 const initialState = {
@@ -16,6 +19,7 @@ const initialState = {
   registerInfo: "",
   otp: "",
   token: "waiting",
+  userDetails:{}
 };
 
 export const reducer = (state = initialState, { type, payload }) => {
@@ -41,6 +45,13 @@ export const reducer = (state = initialState, { type, payload }) => {
       return { ...state, isLoading: false, isError: true };
     case POST_LOGIN_OTP_SUCCESS:
       return { ...state, isLoading: false, token: payload.message };
+      case GET_USER_DETAILS_REQUEST:
+      return { ...state, isLoading: true };
+    case GET_USER_DETAILS_FAILURE:
+      return { ...state, isLoading: false, isError: true };
+    case GET_USER_DETAILS_SUCCESS:
+      return { ...state, isLoading: false, userDetails: payload };
+    
     default:
       return state;
   }

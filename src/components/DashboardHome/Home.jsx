@@ -36,7 +36,8 @@ import {
 import StartMsat from "./StartMsat";
 import ShowRegistrationAlert from "./ShowRegistrationAlert";
 import { Link } from "react-router-dom";
-import {getUserDetails} from './getuserDetails'
+import { getUserDetails } from "../../redux/authReducer/auth.action";
+import { useDispatch ,useSelector} from "react-redux";
 
 
 const Home = () => {
@@ -47,10 +48,13 @@ const Home = () => {
   const  {activeStep,setActiveStep}  = useSteps({index: 0});
   const [showAlert, setShowAlert] = useState(false);
 
- 
+ const dispatch=useDispatch();
   useEffect(()=>{
-    getUserDetails()
+    dispatch(getUserDetails())
   },[])
+
+const {userDetails}=useSelector((store)=>store.authReducer)
+
 
   const handleCourses=(val)=>{
       setSelectedCourse(val)
@@ -119,7 +123,7 @@ const Home = () => {
           fontSize={{base:"14px",md:"24px"}}
           color={"#000"}
           lineHeight={"24px"}
-          >Hey Abhishek!</Text>
+          >{userDetails?.userName}!</Text>
           <Text
            fontFamily={"Open Sans"}
            fontStyle={"normal"}
@@ -163,13 +167,27 @@ const Home = () => {
             <Box flexShrink="0">
               <StepDescription>
                 <Box
+                
                    width={{base:"310px",md:"80vw",lg:'571px'}}
                   borderRadius="8px"
                   bgColor={registerAccordion?"#fff":"var(--secondary-purple-500, #6E71CC)"}
                   boxShadow="0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10);"
                 >
+                 {
+                  showAlert &&
+                   <Box
+                   width={"100%"}
+                   h={"100%"}
+                   bgColor={"transparent"}
+                   top={-20}
+                   position={"absolute"}
+                   zIndex={"1000000"}
+                   >
+                   {showAlert && <ShowRegistrationAlert showAlert={showAlert}/>}
+                     
+                   </Box>
+                 }
 
-                  {showAlert && <ShowRegistrationAlert showAlert={showAlert}/>}
                   <Accordion defaultIndex={[0]} allowMultiple>
                     <AccordionItem border="0px" padding="0px 16px 16px 16px">
                       <AccordionButton

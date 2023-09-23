@@ -48,7 +48,7 @@ const PhoneRightSidebar = () => {
         fontWeight={"600"}
         lineHeight={"24px"}
         mb="12px"
-        mt="650px"
+        mt="40px"
       >
         Read what our students have to say
       </Text>
