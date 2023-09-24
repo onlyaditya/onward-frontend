@@ -57,7 +57,7 @@ export const Navbar = ({ btnRef, onOpen }) => {
                 display={"block"}
                 p={"8px 16px"}
                 className={style.Linktext}
-                onClick={() => navigate("/newcourses")}
+                onClick={() => navigate("/courses")}
                 _hover={{ backgroundColor: "#fffafb", color: "red" }}
               >
                 COURSES
@@ -66,7 +66,7 @@ export const Navbar = ({ btnRef, onOpen }) => {
                 display={"block"}
                 p={"8px 16px"}
                 className={style.Linktext}
-                onClick={() => navigate("/events")}
+                onClick={() => navigate("/")}
                 _hover={{ backgroundColor: "#fffafb", color: "red" }}
               >
                 EVENTS & CONTESTS
@@ -75,7 +75,7 @@ export const Navbar = ({ btnRef, onOpen }) => {
                 display={"block"}
                 p={"8px 16px"}
                 className={style.Linktext}
-                onClick={() => navigate("/freeresources")}
+                onClick={() => navigate("/")}
                 _hover={{ backgroundColor: "#fffafb", color: "red" }}
               >
                 FREE RESOURCES
@@ -84,7 +84,7 @@ export const Navbar = ({ btnRef, onOpen }) => {
                 display={"block"}
                 p={"8px 16px"}
                 className={style.Linktext}
-                onClick={() => navigate("/hirefromus")}
+                onClick={() => navigate("/")}
                 _hover={{ backgroundColor: "#fffafb", color: "red" }}
               >
                 HIRE FROM US
@@ -93,7 +93,7 @@ export const Navbar = ({ btnRef, onOpen }) => {
                 display={"block"}
                 p={"8px 16px"}
                 className={style.Linktext}
-                onClick={() => navigate("/referandearn")}
+                onClick={() => navigate("/refer_and_earn")}
                 _hover={{ backgroundColor: "#fffafb", color: "red" }}
               >
                 REFER AND EARN
@@ -138,7 +138,14 @@ export const Navbar = ({ btnRef, onOpen }) => {
         </Flex>
 
         <Flex flexShrink={"0"} alignItems={"center"} h={"88px"}>
-          <Image src={MasaiLogo} alt="MasaiLogo" />
+          <Image
+            onClick={() => {
+              navigate("/");
+            }}
+            cursor={"pointer"}
+            src={MasaiLogo}
+            alt="MasaiLogo"
+          />
         </Flex>
 
         <Flex
@@ -220,6 +227,7 @@ export const Navbar = ({ btnRef, onOpen }) => {
             p={"12px 16px"}
             color={"#6E71CC"}
             bg={"#e5feff"}
+            onClick={() => navigate("/refer_and_earn")}
           >
             REFER & EARN
           </Button>
