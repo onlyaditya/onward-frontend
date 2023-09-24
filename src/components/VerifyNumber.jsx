@@ -17,6 +17,8 @@ import {
   DrawerContent,
   useToast,
   Link,
+  Show,
+  Spinner,
 } from "@chakra-ui/react";
 
 export default function VerifyNumber({
@@ -31,22 +33,23 @@ export default function VerifyNumber({
   signIn,
 }) {
   const [errorMessageWrongOTP, setErrorMessageWrongOTP] = useState("");
+  const [verifyotpbutton, setVerifyotpbutton] = useState(false);
   const [seconds, setSeconds] = useState(30);
   const [pin, setPin] = useState("");
   const dispatch = useDispatch();
   const toast = useToast();
   const navigate = useNavigate();
 
-  const tokendata = useSelector((details) => {
-    return details.authReducer.token;
+  let state = useSelector((details) => {
+    return details.authReducer;
   });
 
   useEffect(() => {
-    console.log("inside useEffect", tokendata);
-    if (tokendata !== "waiting") {
+    //console.log("inside useEffect", state);
+    if (state.token !== "waiting" && state.isLoading === false) {
       redirect();
     }
-  }, [tokendata]);
+  }, [state]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -56,7 +59,6 @@ export default function VerifyNumber({
         clearInterval(timer);
       }
     }, 1000);
-
     return () => clearInterval(timer);
   }, [seconds]);
 
@@ -70,6 +72,7 @@ export default function VerifyNumber({
   };
 
   function VerifyOTP() {
+    setVerifyotpbutton(true);
     if (pin === "" || pin.length < 6) {
       toast({
         title: "Error",
@@ -79,22 +82,19 @@ export default function VerifyNumber({
         isClosable: true,
         position: "top",
       });
+      setVerifyotpbutton(false);
     } else {
       //console.log("Pin Value:", pin);
       let otpobj = {
         value: email,
       };
-      dispatch(Checkotp(pin, otpobj)).then(() => {
-        redirect();
-      });
+      dispatch(Checkotp(pin, otpobj));
     }
   }
 
-  console.log("outer toekn data", tokendata);
-
   function redirect() {
-    if (tokendata !== "waiting" && tokendata !== "wrong otp") {
-      console.log("success", tokendata);
+    if (state.token !== "waiting" && state.token !== "wrong otp") {
+      //console.log("success", state.token);
       toast({
         title: "Success",
         description: "Succesfully Sign Up",
@@ -103,161 +103,302 @@ export default function VerifyNumber({
         isClosable: true,
         position: "top",
       });
+      setVerifyotpbutton(false);
       navigate("/dashboard");
     } else {
-      console.log("not success", tokendata);
+      // console.log("not success", state.token);
       toast({
         title: "Error",
-        description: "Invalid OTP",
+        description: "Wrong OTP",
         status: "error",
         duration: 3000,
         isClosable: true,
         position: "top",
       });
+      setVerifyotpbutton(false);
     }
   }
 
   return (
     <div className="SignUpContainer" style={{ display: "flex" }}>
-      <div style={{ width: "100vw" }}> </div>
+      <Show above="md">
+        <Drawer
+          size="md"
+          isOpen={isOpen}
+          placement={"right"}
+          onClose={() => {
+            onClose();
+            setSignIn(!signIn);
+          }}
+          finalFocusRef={btnRef}
+        >
+          <DrawerOverlay />
+          <Box>
+            <DrawerContent w={"33%"}>
+              <Box margin={"3% 0 0 90%"}>
+                <DrawerCloseButton />
+              </Box>
 
-      <div
-        style={{
-          display: "block",
-          position: "Fixed",
-          top: "0",
-          left: "0",
-          width: "100vw",
-          height: "100vh",
-          background: "rgba(0, 0, 0, 0.5)",
-          zIndex: "999",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      ></div>
-      <Drawer
-        size="md"
-        isOpen={isOpen}
-        placement={{ base: "bottom", md: "right" }}
-        onClose={() => {
-          onClose();
-          setSignIn(!signIn);
-        }}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay />
-        <Box>
-          <DrawerContent w={"33%"}>
-            <Box margin={"3% 0 0 90%"}>
-              <DrawerCloseButton />
-            </Box>
+              <Box padding={"210px 48px 319px 48px"}>
+                <Heading
+                  fontFamily={"Poppins"}
+                  color={"#03081A"}
+                  fontSize={"24px"}
+                  fontStyle={"normal"}
+                  fontWeight={700}
+                  lineHeight={"32px"}
+                  as={"h3"}
+                >
+                  Verify Number
+                </Heading>
 
-            <Box padding={"210px 48px 319px 48px"}>
-              <Heading
-                fontFamily={"Poppins"}
-                color={"#03081A"}
-                fontSize={"24px"}
-                fontStyle={"normal"}
-                fontWeight={700}
-                lineHeight={"32px"}
-                as={"h3"}
-              >
-                Verify Number
-              </Heading>
+                <Box>
+                  <Flex marginTop={"16px"}>
+                    <Text
+                      fontSize={"16px"}
+                      fontStyle={"normal"}
+                      fontWeight={600}
+                      lineHeight={"24px"}
+                      as={"h3"}
+                      fontFamily={"Open Sans"}
+                      color={"#544D4F"}
+                    >
+                      Enter OTP sent to {mobile}
+                    </Text>
+                    <Text
+                      marginLeft={"8px"}
+                      fontSize={"16px"}
+                      fontStyle={"normal"}
+                      fontWeight={600}
+                      lineHeight={"24px"}
+                      as={"h3"}
+                      textDecoration={"underline"}
+                      fontFamily={"Open Sans"}
+                      color={"#4358F6"}
+                      _hover={{ cursor: "pointer" }}
+                    >
+                      Edit
+                    </Text>
+                  </Flex>
 
-              <Box>
-                <Flex marginTop={"16px"}>
+                  <Box marginTop={"16px"}>
+                    <HStack>
+                      <PinInput
+                        onChange={handleChange}
+                        //onComplete={handleChange}
+                        placeholder=""
+                        defaultValue=""
+                      >
+                        <PinInputField bg={"#F3F3F3"} />
+                        <PinInputField bg={"#F3F3F3"} />
+                        <PinInputField bg={"#F3F3F3"} />
+                        <PinInputField bg={"#F3F3F3"} />
+                        <PinInputField bg={"#F3F3F3"} />
+                        <PinInputField bg={"#F3F3F3"} />
+                      </PinInput>
+                    </HStack>
+                  </Box>
+                </Box>
+
+                <Flex
+                  marginTop={"8px"}
+                  display={"flex"}
+                  flexDirection={"column"}
+                >
                   <Text
-                    fontSize={"16px"}
                     fontStyle={"normal"}
                     fontWeight={600}
-                    lineHeight={"24px"}
-                    as={"h3"}
-                    fontFamily={"Open Sans"}
-                    color={"#544D4F"}
+                    lineHeight={"16px"}
+                    fontSize={"12px"}
+                    fontFamily={""}
                   >
-                    Enter OTP sent to {mobile}
+                    Resend OTP in {seconds} seconds
                   </Text>
+                  {/* <br /> */}
                   <Text
-                    marginLeft={"8px"}
-                    fontSize={"16px"}
+                    color={"#D61E27"}
                     fontStyle={"normal"}
-                    fontWeight={600}
+                    fontWeight={400}
                     lineHeight={"24px"}
-                    as={"h3"}
-                    textDecoration={"underline"}
+                    fontSize={"14px"}
                     fontFamily={"Open Sans"}
-                    color={"#4358F6"}
-                    _hover={{ cursor: "pointer" }}
                   >
-                    Edit
+                    {errorMessageWrongOTP}
                   </Text>
                 </Flex>
 
-                <Box marginTop={"16px"}>
-                  <HStack>
-                    <PinInput
-                      onChange={handleChange}
-                      //onComplete={handleChange}
-                      placeholder=""
-                      defaultValue=""
-                    >
-                      <PinInputField bg={"#F3F3F3"} />
-                      <PinInputField bg={"#F3F3F3"} />
-                      <PinInputField bg={"#F3F3F3"} />
-                      <PinInputField bg={"#F3F3F3"} />
-                      <PinInputField bg={"#F3F3F3"} />
-                      <PinInputField bg={"#F3F3F3"} />
-                    </PinInput>
-                  </HStack>
-                </Box>
+                <Button
+                  marginTop={"16px"}
+                  fontStyle={"normal"}
+                  p={"12px 20px"}
+                  fontWeight={600}
+                  lineHeight={"24px"}
+                  fontSize={"18px"}
+                  fontFamily={""}
+                  textTransform={"uppercase"}
+                  w={"100%"}
+                  color={"#FFFFFF"}
+                  bg={"#3470E4"}
+                  borderRadius={"8px"}
+                  _hover={{ background: "#1647A5" }}
+                  onClick={VerifyOTP}
+                >
+                  {verifyotpbutton == true ? (
+                    <Spinner
+                      thickness="4px"
+                      speed="0.65s"
+                      emptyColor="gray.200"
+                      color="#FFF"
+                      size="md"
+                    />
+                  ) : (
+                    "verify"
+                  )}
+                </Button>
+              </Box>
+            </DrawerContent>
+          </Box>
+        </Drawer>
+      </Show>
+      <Show below="md">
+        <Drawer
+          size="md"
+          isOpen={isOpen}
+          placement={"bottom"}
+          onClose={() => {
+            onClose();
+            setSignIn(!signIn);
+          }}
+          finalFocusRef={btnRef}
+        >
+          <DrawerOverlay />
+          <Box>
+            <DrawerContent w={"33%"}>
+              <Box margin={"3% 0 0 90%"}>
+                <DrawerCloseButton />
               </Box>
 
-              <Flex marginTop={"8px"} display={"flex"} flexDirection={"column"}>
-                <Text
+              <Box padding={"210px 48px 319px 48px"}>
+                <Heading
+                  fontFamily={"Poppins"}
+                  color={"#03081A"}
+                  fontSize={"24px"}
                   fontStyle={"normal"}
-                  fontWeight={600}
-                  lineHeight={"16px"}
-                  fontSize={"12px"}
-                  fontFamily={""}
+                  fontWeight={700}
+                  lineHeight={"32px"}
+                  as={"h3"}
                 >
-                  Resend OTP in {seconds} seconds
-                </Text>
-                {/* <br /> */}
-                <Text
-                  color={"#D61E27"}
-                  fontStyle={"normal"}
-                  fontWeight={400}
-                  lineHeight={"24px"}
-                  fontSize={"14px"}
-                  fontFamily={"Open Sans"}
-                >
-                  {errorMessageWrongOTP}
-                </Text>
-              </Flex>
+                  Verify Number
+                </Heading>
 
-              <Button
-                marginTop={"16px"}
-                fontStyle={"normal"}
-                p={"12px 20px"}
-                fontWeight={600}
-                lineHeight={"24px"}
-                fontSize={"18px"}
-                fontFamily={""}
-                textTransform={"uppercase"}
-                w={"100%"}
-                color={"#FFFFFF"}
-                bg={"#3470E4"}
-                borderRadius={"8px"}
-                _hover={{ background: "#1647A5" }}
-                onClick={VerifyOTP}
-              >
-                verify
-              </Button>
-            </Box>
-          </DrawerContent>
-        </Box>
-      </Drawer>
+                <Box>
+                  <Flex marginTop={"16px"}>
+                    <Text
+                      fontSize={"16px"}
+                      fontStyle={"normal"}
+                      fontWeight={600}
+                      lineHeight={"24px"}
+                      as={"h3"}
+                      fontFamily={"Open Sans"}
+                      color={"#544D4F"}
+                    >
+                      Enter OTP sent to {email}
+                    </Text>
+                    <Text
+                      marginLeft={"8px"}
+                      fontSize={"16px"}
+                      fontStyle={"normal"}
+                      fontWeight={600}
+                      lineHeight={"24px"}
+                      as={"h3"}
+                      textDecoration={"underline"}
+                      fontFamily={"Open Sans"}
+                      color={"#4358F6"}
+                      _hover={{ cursor: "pointer" }}
+                    >
+                      Edit
+                    </Text>
+                  </Flex>
+
+                  <Box marginTop={"16px"}>
+                    <HStack>
+                      <PinInput
+                        onChange={handleChange}
+                        //onComplete={handleChange}
+                        placeholder=""
+                        defaultValue=""
+                      >
+                        <PinInputField bg={"#F3F3F3"} />
+                        <PinInputField bg={"#F3F3F3"} />
+                        <PinInputField bg={"#F3F3F3"} />
+                        <PinInputField bg={"#F3F3F3"} />
+                        <PinInputField bg={"#F3F3F3"} />
+                        <PinInputField bg={"#F3F3F3"} />
+                      </PinInput>
+                    </HStack>
+                  </Box>
+                </Box>
+
+                <Flex
+                  marginTop={"8px"}
+                  display={"flex"}
+                  flexDirection={"column"}
+                >
+                  <Text
+                    fontStyle={"normal"}
+                    fontWeight={600}
+                    lineHeight={"16px"}
+                    fontSize={"12px"}
+                    fontFamily={""}
+                  >
+                    Resend OTP in {seconds} seconds
+                  </Text>
+                  {/* <br /> */}
+                  <Text
+                    color={"#D61E27"}
+                    fontStyle={"normal"}
+                    fontWeight={400}
+                    lineHeight={"24px"}
+                    fontSize={"14px"}
+                    fontFamily={"Open Sans"}
+                  >
+                    {errorMessageWrongOTP}
+                  </Text>
+                </Flex>
+
+                <Button
+                  marginTop={"16px"}
+                  fontStyle={"normal"}
+                  p={"12px 20px"}
+                  fontWeight={600}
+                  lineHeight={"24px"}
+                  fontSize={"18px"}
+                  fontFamily={""}
+                  textTransform={"uppercase"}
+                  w={"100%"}
+                  color={"#FFFFFF"}
+                  bg={"#3470E4"}
+                  borderRadius={"8px"}
+                  _hover={{ background: "#1647A5" }}
+                  onClick={VerifyOTP}
+                >
+                  {verifyotpbutton == true ? (
+                    <Spinner
+                      thickness="4px"
+                      speed="0.65s"
+                      emptyColor="gray.200"
+                      color="#FFF"
+                      size="md"
+                    />
+                  ) : (
+                    "verify"
+                  )}
+                </Button>
+              </Box>
+            </DrawerContent>
+          </Box>
+        </Drawer>
+      </Show>
     </div>
   );
 }

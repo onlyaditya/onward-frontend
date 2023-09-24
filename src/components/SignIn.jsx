@@ -15,6 +15,8 @@ import {
   Input,
   FormLabel,
   FormControl,
+  Show,
+  Spinner,
 } from "@chakra-ui/react";
 
 export default function SignIn({
@@ -33,16 +35,25 @@ export default function SignIn({
   const dispatch = useDispatch();
   const toast = useToast();
   const isInitialRender = useRef(true);
+  const [signinbutttondisable, setSignInButtonDisable] = useState(false);
 
-  const otpdata = useSelector((details) => details.authReducer.otp);
+  const state = useSelector((details) => details.authReducer);
 
+  console.log(state);
   useEffect(() => {
-    if (otpdata !== "waiting") {
+    console.log("Inside useEffect");
+    if (state.otp !== "waiting" && state.isLoading === false) {
       sendrequest();
     }
-  }, [otpdata]);
+  }, [state]);
+
+  function handleEmailChange(e) {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+  }
 
   function handlelogin() {
+    setSignInButtonDisable(true);
     let obj = {
       value: email,
     };
@@ -50,8 +61,8 @@ export default function SignIn({
   }
 
   function sendrequest() {
-    if (otpdata === "user not registered") {
-      console.log("inside already", otpdata);
+    if (state.otp === "user not registered") {
+      console.log("inside already", state.otp.otp);
       toast({
         title: "Error",
         description: "User Not Registered",
@@ -60,153 +71,268 @@ export default function SignIn({
         isClosable: true,
         position: "top",
       });
+      setSignInButtonDisable(false);
       return;
-    } else if (otpdata === "OTP sent") {
-      console.log("inside sucess", otpdata);
+    } else if (state.otp === "OTP sent") {
+      console.log("inside sucess", state.otp.otp);
       toast({
         title: "Success",
-        description: "Login Successfull",
+        description: "OTP Send Successfully",
         status: "success",
         duration: 3000,
         isClosable: true,
         position: "top",
       });
+      setSignInButtonDisable(false);
       setReg("Otp");
     } else {
-      console.log(otpdata);
-      // toast({
-      //   title: "Error",
-      //   description: "Something went wrong",
-      //   status: "error",
-      //   duration: 3000,
-      //   isClosable: true,
-      //   position: "top",
-      // });
+      console.log(state.otp);
+      setSignInButtonDisable(false);
     }
   }
 
-  //   toast({
-  //     title: "Success",
-  //     description: "OTP send Succesfully",
-  //     status: "success",
-  //     duration: 3000,
-  //     isClosable: true,
-  //     position: "top",
-  //   });
-  //   setReg("Otp");
-  // }
-
   return (
-    <div className="SignInContainer" style={{ display: "flex" }}>
-      <Drawer
-        size="md"
-        isOpen={isOpen}
-        placement={{ base: "bottom", md: "right" }}
-        onClose={() => {
-          onClose();
-          setSignIn(false);
-        }}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay />
-        <Box>
-          <DrawerContent w={"33%"}>
-            <Box margin={"3% 0 0 90%"}>
-              <DrawerCloseButton />
-            </Box>
+    <div>
+      <Show above="md">
+        <Drawer
+          size="md"
+          isOpen={isOpen}
+          placement={"right"}
+          onClose={() => {
+            onClose();
+            setSignIn(false);
+          }}
+          finalFocusRef={btnRef}
+        >
+          <DrawerOverlay />
+          <Box>
+            <DrawerContent w={"33%"}>
+              <Box margin={"3% 0 0 90%"}>
+                <DrawerCloseButton />
+              </Box>
 
-            <Box padding={"210px 48px 319px 48px"}>
-              <Heading
-                fontFamily={"Poppins"}
-                color={"#03081A"}
-                fontSize={"24px"}
-                fontStyle={"normal"}
-                fontWeight={700}
-                lineHeight={"32px"}
-                as={"h3"}
-                display={"flex"}
-                justifyContent={"center"}
-                onClick={() => {
-                  setSignIn(!signIn);
-                }}
-              >
-                Sign In
-              </Heading>
-
-              <Flex
-                margin={"16px 0 16px 0"}
-                display={"flex"}
-                justifyContent={"center"}
-                alignItems={{ base: "center", md: "flex-start" }}
-              >
-                <Text
-                  fontSize={"16px"}
+              <Box padding={"210px 48px 319px 48px"}>
+                <Heading
+                  fontFamily={"Poppins"}
+                  color={"#03081A"}
+                  fontSize={"24px"}
                   fontStyle={"normal"}
-                  fontWeight={600}
-                  lineHeight={"24px"}
+                  fontWeight={700}
+                  lineHeight={"32px"}
                   as={"h3"}
-                  fontFamily={"Open Sans"}
-                  color={"#544D4F"}
-                >
-                  {" "}
-                  New User?
-                </Text>
-
-                <Text
-                  marginLeft={"8px"}
-                  fontSize={"16px"}
-                  fontStyle={"normal"}
-                  fontWeight={600}
-                  lineHeight={"24px"}
-                  as={"h3"}
-                  fontFamily={"Open Sans"}
-                  color={"#4358F6"}
-                  _hover={{ cursor: "pointer" }}
+                  display={"flex"}
+                  justifyContent={"center"}
                   onClick={() => {
                     setSignIn(!signIn);
                   }}
                 >
-                  Sign up
-                </Text>
-              </Flex>
+                  Sign In
+                </Heading>
 
-              <FormControl>
-                <FormLabel>
-                  Phone number or email address{" "}
-                  <spam style={{ color: "red" }}>*</spam>
-                </FormLabel>
-                <Input
-                  onChange={(e) => {
-                    setEmail(e.target.value);
+                <Flex
+                  margin={"16px 0 16px 0"}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignItems={{ base: "center", md: "flex-start" }}
+                >
+                  <Text
+                    fontSize={"16px"}
+                    fontStyle={"normal"}
+                    fontWeight={600}
+                    lineHeight={"24px"}
+                    as={"h3"}
+                    fontFamily={"Open Sans"}
+                    color={"#544D4F"}
+                  >
+                    {" "}
+                    New User?
+                  </Text>
+
+                  <Text
+                    marginLeft={"8px"}
+                    fontSize={"16px"}
+                    fontStyle={"normal"}
+                    fontWeight={600}
+                    lineHeight={"24px"}
+                    as={"h3"}
+                    fontFamily={"Open Sans"}
+                    color={"#4358F6"}
+                    _hover={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setSignIn(!signIn);
+                    }}
+                  >
+                    Sign up
+                  </Text>
+                </Flex>
+
+                <FormControl>
+                  <FormLabel>
+                    Phone number or email address{" "}
+                    <spam style={{ color: "red" }}>*</spam>
+                  </FormLabel>
+                  <Input
+                    onChange={handleEmailChange}
+                    placeholder="Enter phone number or email address "
+                    type="Text"
+                  />
+                </FormControl>
+
+                <Button
+                  //   isDisabled={submitDisabled}
+                  marginTop={"16px"}
+                  fontStyle={"normal"}
+                  p={"12px 20px"}
+                  fontWeight={600}
+                  lineHeight={"24px"}
+                  fontSize={"18px"}
+                  fontFamily={""}
+                  textTransform={"uppercase"}
+                  w={"100%"}
+                  color={"#FFF"}
+                  bg={"#3470E4"}
+                  borderRadius={"8px"}
+                  _hover={{ background: "#1647A5" }}
+                  onClick={handlelogin}
+                >
+                  {signinbutttondisable ? (
+                    <Spinner
+                      thickness="4px"
+                      speed="0.65s"
+                      emptyColor="gray.200"
+                      color="#FFF"
+                      size="md"
+                    />
+                  ) : (
+                    "continue"
+                  )}
+                </Button>
+              </Box>
+            </DrawerContent>
+          </Box>
+        </Drawer>
+      </Show>
+      <Show below="md">
+        <Drawer
+          size="md"
+          isOpen={isOpen}
+          placement={"bottom"}
+          onClose={() => {
+            onClose();
+            setSignIn(false);
+          }}
+          finalFocusRef={btnRef}
+        >
+          <DrawerOverlay />
+          <Box>
+            <DrawerContent w={"33%"}>
+              <Box margin={"3% 0 0 90%"}>
+                <DrawerCloseButton />
+              </Box>
+
+              <Box padding={"210px 48px 319px 48px"}>
+                <Heading
+                  fontFamily={"Poppins"}
+                  color={"#03081A"}
+                  fontSize={"24px"}
+                  fontStyle={"normal"}
+                  fontWeight={700}
+                  lineHeight={"32px"}
+                  as={"h3"}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  onClick={() => {
+                    setSignIn(!signIn);
                   }}
-                  placeholder="Enter phone number or email address "
-                  type="Text"
-                />
-              </FormControl>
+                >
+                  Sign In
+                </Heading>
 
-              <Button
-                //   isDisabled={submitDisabled}
-                marginTop={"16px"}
-                fontStyle={"normal"}
-                p={"12px 20px"}
-                fontWeight={600}
-                lineHeight={"24px"}
-                fontSize={"18px"}
-                fontFamily={""}
-                textTransform={"uppercase"}
-                w={"100%"}
-                color={"#FFF"}
-                bg={"#3470E4"}
-                borderRadius={"8px"}
-                _hover={{ background: "#1647A5" }}
-                onClick={handlelogin}
-              >
-                continue
-              </Button>
-            </Box>
-          </DrawerContent>
-        </Box>
-      </Drawer>
+                <Flex
+                  margin={"16px 0 16px 0"}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignItems={{ base: "center", md: "flex-start" }}
+                >
+                  <Text
+                    fontSize={"16px"}
+                    fontStyle={"normal"}
+                    fontWeight={600}
+                    lineHeight={"24px"}
+                    as={"h3"}
+                    fontFamily={"Open Sans"}
+                    color={"#544D4F"}
+                  >
+                    {" "}
+                    New User?
+                  </Text>
+
+                  <Text
+                    marginLeft={"8px"}
+                    fontSize={"16px"}
+                    fontStyle={"normal"}
+                    fontWeight={600}
+                    lineHeight={"24px"}
+                    as={"h3"}
+                    fontFamily={"Open Sans"}
+                    color={"#4358F6"}
+                    _hover={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setSignIn(!signIn);
+                    }}
+                  >
+                    Sign up
+                  </Text>
+                </Flex>
+
+                <FormControl>
+                  <FormLabel>
+                    Phone number or email address{" "}
+                    <spam style={{ color: "red" }}>*</spam>
+                  </FormLabel>
+                  <Input
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                    placeholder="Enter phone number or email address "
+                    type="Text"
+                  />
+                </FormControl>
+
+                <Button
+                  //   isDisabled={submitDisabled}
+                  marginTop={"16px"}
+                  fontStyle={"normal"}
+                  p={"12px 20px"}
+                  fontWeight={600}
+                  lineHeight={"24px"}
+                  fontSize={"18px"}
+                  fontFamily={""}
+                  textTransform={"uppercase"}
+                  w={"100%"}
+                  color={"#FFF"}
+                  bg={"#3470E4"}
+                  borderRadius={"8px"}
+                  _hover={{ background: "#1647A5" }}
+                  onClick={handlelogin}
+                >
+                  {signinbutttondisable ? (
+                    <Spinner
+                      thickness="4px"
+                      speed="0.65s"
+                      emptyColor="gray.200"
+                      color="#FFF"
+                      size="md"
+                    />
+                  ) : (
+                    "continue"
+                  )}
+                </Button>
+              </Box>
+            </DrawerContent>
+          </Box>
+        </Drawer>
+      </Show>
     </div>
   );
 }
