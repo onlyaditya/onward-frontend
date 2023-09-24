@@ -7,7 +7,6 @@ import BottomNavbar from "./Navbar/BottmNavbar";
 import PhoneRightSidebar from "./RightSidebar/PhoneRightSidebar";
 
 export const CommonLayout = ({ children, rightsidebar, bottomnav }) => {
-  const [slideIndex, setSlideIndex] = useState(0);
 
   return (
     <Box>
@@ -27,10 +26,8 @@ export const CommonLayout = ({ children, rightsidebar, bottomnav }) => {
             base: "none",
             lg: rightsidebar == "no" ? "none" : "block",
           }}
-          // width={"260px"}
           width={"260px"}
           position={"sticky"}
-          // right="0"
           height={"89vh"}
           overflow={"scroll"}
           scrollbarWidth="none"
