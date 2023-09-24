@@ -60,7 +60,7 @@ export const HomePage = () => {
         />
       )}
       <Navbar btnRef={btnRef} onOpen={onOpen} />
-       <Hero />
+      <Hero />
       <HeroBottom />
       {/* <Userpage /> */}
     </div>
