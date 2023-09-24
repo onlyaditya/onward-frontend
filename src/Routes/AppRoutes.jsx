@@ -14,16 +14,18 @@ import OnboardingJoinus from "../pages/Onboarding/OnboardingJoinus";
 import Congratulations from "../pages/Onboarding/Congratulations";
 import DashboardLanding from "../pages/DashboardLanding";
 import TestPage from "../pages/TestPage/TestPage";
+import Userpage from "../pages/Userpage";
 
 export const AppRoutes = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/dashboard" element={<DashboardLanding/>}/>
-        <Route path="/test" element={<TestPage/>}/>
+        <Route path="/dashboard" element={<DashboardLanding />} />
+        <Route path="/test" element={<TestPage />} />
         <Route path="/activities" element={<Activities />} />
         <Route path="/courses" element={<OurCoursesPage />} />
+        <Route path="/profile" element={<Userpage />} />
         <Route path="/activity/detail/:id" element={<ActivityDetail />} />
         <Route
           path="*"
