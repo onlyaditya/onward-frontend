@@ -1,25 +1,10 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  Text,
-  Drawer,
-  useDisclosure,
-} from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
-import User from "../assets/User.svg";
+import { Box, Button, Image, Text } from "@chakra-ui/react";
+import React, { useState, useEffect, useRef } from "react";
 import Vector from "../assets/Vector.svg";
-import Airtel_Logo from "../assets/Airtel_Logo.svg";
 import style from "./Hero.module.css";
 import StartDoubleBreket from "../assets/StartDoubleBreket.svg";
 import EndDoubleBreket from "../assets/EndDoubleBreket.svg";
 import Vector2 from "../assets/Vector_147.svg";
-import { Navbar } from "./Navbar";
-import HeroBottom from "./HeroBottom";
-import SignUpDrawer from "./SignUpDrawer";
-import VerifyNumber from "./VerifyNumber";
-import SignIn from "./SignIn";
 
 function Hero() {
   const dataObjects = [
@@ -55,14 +40,7 @@ function Hero() {
     },
   ];
 
-  const [reg, setReg] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [mobile, setMobile] = useState("");
-  const [signIn, setSignIn] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const firstDrawer = useDisclosure();
-  const btnRef = React.useRef();
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % dataObjects.length);
@@ -75,37 +53,11 @@ function Hero() {
 
   return (
     <div bgColor={"#fcfafa"} style={{ width: "100%" }}>
-      <Drawer
-        size="md"
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
-        {reg ? (
-          <VerifyNumber mobile={mobile} setReg={setReg} />
-        ) : (
-          // signIn ? (
-          //   <SignIn
-          //     onClose={firstDrawer.onClose}
-          //     isOpen={firstDrawer.isOpen}
-          //     onOpen={firstDrawer.onOpen}
-          //   />
-          //) :
-          <SignUpDrawer
-            mobile={mobile}
-            setMobile={setMobile}
-            setReg={setReg}
-            setSignIn={setSignIn}
-          />
-        )}
-      </Drawer>
-
-      <Navbar btnRef={btnRef} onOpen={onOpen} />
-
       <Box
-        // border={"2px solid blue"}
-        display={"flex"}
+        border={"2px solid blue"}
+        margin={"0 auto 0 auto"}
+        display={{ sm: "", md: "", lg: "flex" }}
+        flexDirection={{ sm: "row", md: "", lg: "" }}
         flexWrap={"wrap"}
         flexShrink={"0"}
         w={{ sm: "100%", md: "100%", lg: "100%", xl: "100%" }}
@@ -113,11 +65,11 @@ function Hero() {
         bg={"#FCFAFA"}
       >
         <Box
-          // border={"2px solid red"}
+          border={"2px solid red"}
           w={{ lg: "624px", md: "574px", sm: "" }}
           position={{ lg: "absolute", md: "static", sm: "static" }}
           zIndex={"10"}
-          display={"flex"}
+          // display={"flex"}
           flexDirection={"column"}
           margin={{
             base: "175px 0px 99px 0px",
@@ -138,7 +90,7 @@ function Hero() {
           >
             <Text display={"inline"}> Realise Your Potential With </Text>
             <Text
-              // border={"1px solid green"}
+              border={"1px solid green"}
               display={"inline-block"}
               fontSize={{ sm: "24px", md: "24px", lg: "48px", xl: "48px" }}
               fontStyle={"normal"}
@@ -185,7 +137,7 @@ function Hero() {
         </Box>
 
         <Box
-          // border={"2px solid black"}
+          border={"2px solid black"}
           display={"flex"}
           w={"700px"}
           h={"572px"}
@@ -256,8 +208,6 @@ function Hero() {
           </Box>
         </Box>
       </Box>
-
-      <HeroBottom />
     </div>
   );
 }

@@ -1,25 +1,20 @@
-import {
-  GET_ACTIVITIES_FAILURE,
-  GET_ACTIVITIES_REQUEST,
-  GET_ACTIVITIES_SUCCESS,
-} from "../actionTypes";
+import * as types from "../actionTypes";
 
 const initialState = {
   isLoading: false,
   isError: false,
-  activities: [],
+  questions: [],
 };
 
 export const reducer = (state = initialState, { type, payload }) => {
   console.log(payload);
   switch (type) {
-    case GET_ACTIVITIES_REQUEST:
+    case types.GET_TEST_REQUEST:
       return { ...state, isLoading: true };
-    case GET_ACTIVITIES_FAILURE:
+    case types.GET_TEST_FAILURE:
       return { ...state, isLoading: false, isError: true };
-    case GET_ACTIVITIES_SUCCESS:
-      return { ...state, isLoading: false, activities: payload };
-
+    case types.GET_TEST_SUCCESS:
+      return { ...state, isLoading: false, questions: payload };
     default:
       return state;
   }
