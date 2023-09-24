@@ -55,14 +55,16 @@ const Home = () => {
 
   const generateAssessment = async () => {
     const apiUrl = `https://assess-test-api.masaischool.com/student/assessments/generate-test`;
+    const randomNumber = Math.floor(Math.random() * 10000);
+    const uID = randomNumber.toString().padStart(5, "0");
 
     const requestData = {
-      uniqueID: "97498882403809",
+      uniqueID: userDetails.userId || uID,
       assessmentTemplateId: "650f817ae33d4e8ad51707f6",
       redirectClientUrl: "http://localhost:3000/results",
-      email: "rajesh.pachika@gmail.com",
+      email: userDetails.email,
       callback_url:
-        "https://zealous-jay-jersey.cyclic.cloud/v2/profile-assessment/test-platform-callback",
+        "https://dash-board.up.railway.app/v2/profile-assessment/test-platform-callback",
     };
 
     const headers = {

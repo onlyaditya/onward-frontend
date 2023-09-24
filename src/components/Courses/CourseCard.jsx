@@ -7,11 +7,8 @@ const CourseCard = ({ title, applied, icon, handleChangeCourse }) => {
   return (
     <>
       <Box
-        width={"340px"}
-        left={"24px"}
-        top={"349px"}
-        gap={"24px"}
-        borderRadius={"12px"}
+        width={["100%", "360px"]}
+        borderRadius={["0px","12px"]}
         bg={"rgba(255, 255, 255, 1)"}
         display={"flex"}
         justifyContent={"center"}
@@ -38,16 +35,18 @@ const CourseCard = ({ title, applied, icon, handleChangeCourse }) => {
             <Text fontSize={12} fontWeight={"bold"} marginBottom={1}>
               {title}
             </Text>
-            <Box display={"flex"} justifyContent={"flex-start"} marginRight={2}>
-              <Text fontSize={10} marginRight={5} marginBottom={1}>
-                30-Aug-2023
-              </Text>
-              <Text fontSize={10} marginRight={5} marginBottom={1}>
-                30 Weeks
-              </Text>
-              <Text fontSize={10} marginRight={5} marginBottom={1}>
-                11am - 11pm
-              </Text>
+            <Box
+              display={"flex"}
+              justifyContent={"flex-start"}
+              gap="5px"
+              alignItems="center"
+              fontSize={10}
+            >
+              <Text>30-Aug-2023</Text>
+              <Text>.</Text>
+              <Text>30 Weeks</Text>
+              <Text>.</Text>
+              <Text>11am - 11pm</Text>
             </Box>
             {applied === true ? (
               <Text
