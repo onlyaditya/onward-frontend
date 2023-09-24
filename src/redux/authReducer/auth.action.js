@@ -9,6 +9,9 @@ import {
   POST_LOGIN_OTP_REQUEST,
   POST_LOGIN_OTP_FAILURE,
   POST_LOGIN_OTP_SUCCESS,
+   GET_USER_DETAILS_REQUEST,
+   GET_USER_DETAILS_FAILURE,
+   GET_USER_DETAILS_SUCCESS,
 } from "../actionTypes";
 
 export const postregister = (data) => (dispatch) => {
@@ -53,3 +56,22 @@ export const Checkotp = (data, otpobj) => (dispatch) => {
       dispatch({ type: POST_LOGIN_OTP_FAILURE, payload: err });
     });
 };
+
+const token = JSON.parse(localStorage.getItem("user"));
+const headers={
+  'Content-Type': 'application/json', 
+  'Authorization': token
+}
+
+export const getUserDetails=()=>(dispatch)=>{
+    dispatch({type:GET_USER_DETAILS_REQUEST})
+  axios.get(`https://dash-board.up.railway.app/user-details`,{
+      headers:headers
+  }).then((res)=>{
+    dispatch({type:GET_USER_DETAILS_SUCCESS,payload:res.data})
+      // console.log(res.data);
+  }).catch((err)=>{
+    dispatch({type:GET_USER_DETAILS_FAILURE,payload:err})
+    //   console.log("err",err);
+  })
+}
