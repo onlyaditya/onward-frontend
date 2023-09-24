@@ -25,15 +25,15 @@ const Onboardingform = () => {
   if (dob && gradyear) {
     console.log(dob, gradyear, working);
 
-    // axios.patch(
-    //   "https://dash-board.up.railway.app/update-profile",
-    //   {
-    //     dob: dob,
-    //     graduation: gradyear,
-    //     work: !!working,
-    //   },
-    //   { headers: { Authorization: token } }
-    // );
+    axios.patch(
+      "https://dash-board.up.railway.app/update-profile",
+      {
+        dob: dob,
+        // graduation: gradyear,
+        // work: !!working,
+      },
+      { headers: { Authorization: token } }
+    );
 
     const getDetails = async () => {
       let token = JSON.parse(localStorage.getItem("auth"));
@@ -64,10 +64,9 @@ const Onboardingform = () => {
 
       // Calculate age
       var age = currentDate.getFullYear() - selectedDate.getFullYear();
-      // console.log(age);
 
       // Check if the user is between 18 and 28 years old
-      if (age >= 18 && age < 28) {
+      if (age >= 18 && age < 30) {
         console.log(e.target.value);
         setDob(e.target.value);
         return true;
@@ -107,19 +106,16 @@ const Onboardingform = () => {
 
     setGradyear(e.target.value);
   };
-
-
-
+  
   return (
-    <CommonLayout>
+    <CommonLayout rightsidebar={"no"} bottomnav={"no"}>
       <Box
-        w="1179px"
-        h="90vh"
-        bgColor="var(--extended-blue-50, #F2F6FF)"
-        ml={["0px","50px"]}
-        pt={["50px","80px"]}
+        flexGrow="1"
+        h="89vh"
+        bgColor="#F2F6FF"
+        py={["12px", "24px"]}
+        px={["16px", "28px"]}
         position="relative"
-        // border="1px solid red"
       >
         {/*Onboarding flow contianer */}
         <OnboardingFlow
@@ -127,7 +123,6 @@ const Onboardingform = () => {
           bg={"var(--secondary-purple-500, #6E71CC)"}
           section={"1"}
         />
-
         {/* DOB , Graduation and  currently working container  */}
         <Box
           display="inline-flex"
@@ -135,14 +130,18 @@ const Onboardingform = () => {
           alignItems="flex-start"
           gap="16px"
           mt="40px"
-          ml="27px"
           wrap="wrap"
         >
           {/* DOB and Graduation container */}
-          <Flex alignItems="flex-start" gap="24px" wrap='wrap' w={["370px","auto"]}>
+          <Flex
+            alignItems="flex-start"
+            gap="24px"
+            wrap="wrap"
+            w={["343px", "auto"]}
+          >
             {/* DOB container */}
             <Flex
-              w="552px"
+              w={["100%", "520px"]}
               flexDirection="column"
               alignItems="flex-start"
               gap="6px"
@@ -170,7 +169,7 @@ const Onboardingform = () => {
             </Flex>
             {/* Graduation container */}
             <Flex
-              w="552px"
+              w={["100%", "520px"]}
               flexDirection="column"
               alignItems="flex-start"
               gap="6px"
@@ -189,37 +188,7 @@ const Onboardingform = () => {
               >
                 Select your graduation month & year*
               </Flex>
-              {/* <Flex
-            alignItems="flex-start"
-            alignSelf="stretch"
-            borderRadius="8px"
-            border="1px solid var(--neutral-grey-300, #CCC)"
-            bgColor="var(--primary-white-fff, #FFF)"
-            color="var(--primary-red-900, #0A0103)"
-            fontfamily="Open Sans"
-            fontSize="16px"
-            fontStyle="normal"
-            fonWeight="400"
-            lineHeight="24px"
-          >
-            <Flex p="12px" alignItems="center" gap="8px" flex="1 0 0">
-              12/2020
-            </Flex>
-            <Flex p="12px" alignItems="center" gap="5px" alignSelf="stretch">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <path
-                  d="M5.53783 6.66602L10.0003 11.1285L14.4628 6.66602L15.8337 8.04657L10.0003 13.8799L4.16699 8.04657L5.53783 6.66602Z"
-                  fill="#0A0103"
-                />
-              </svg>
-            </Flex>
-          </Flex> */}
+
               <Input
                 type="date"
                 bgColor="#fff"
@@ -255,54 +224,42 @@ const Onboardingform = () => {
         </Box>
         {/* next button */}
         <Flex
-          w={["420px","1179px"]}
-          p="12px 24px 12px 1069px"
-          pl={["80px","1069px"]}
+          w="100%"
           justifyContent="flex-end"
           alignItems="center"
           background="#FFF"
           boxShadow="0px -1px 0px 0px #D9D9D9"
           position="absolute"
-          bottom={["200px","0px"]}
+          bottom={["0px", "0px"]}
+          left="0px"
         >
-          {dob && gradyear && working ? (
-            <button
-              style={{
-                padding: "12px 20px",
-                borderRadius: "8px",
-                background: "var(--secondary-blue-500, #3470E4)",
-                color: "var(--primary-white-fff, #FFF)",
-                fontFamily: "Open Sans",
-                fontSize: "18px",
-                fontStyle: "normal",
-                fontWeight: "600",
-                lineHeight: "24px",
-                textTransform: "uppercase",
-              }}
-            >
+          <button
+            style={{
+              padding: "12px 20px",
+              marginRight: "14px",
+              marginTop: "5px",
+              borderRadius: "8px",
+              background: "var(--secondary-blue-500, #3470E4)",
+              color: "var(--primary-white-fff, #FFF)",
+              fontFamily: "Open Sans",
+              fontSize: "18px",
+              fontStyle: "normal",
+              fontWeight: "600",
+              lineHeight: "24px",
+              textTransform: "uppercase",
+            }}
+            onClick={() => {
+              if (!(dob && gradyear && working)) {
+                alert("Please select all fields!");
+              }
+            }}
+          >
+            {dob && gradyear && working ? (
               <Link to="/home/onboardingid">next</Link>
-            </button>
-          ) : (
-            <button
-              style={{
-                padding: "12px 20px",
-                borderRadius: "8px",
-                background: "var(--secondary-blue-500, #3470E4)",
-                color: "var(--primary-white-fff, #FFF)",
-                fontFamily: "Open Sans",
-                fontSize: "18px",
-                fontStyle: "normal",
-                fontWeight: "600",
-                lineHeight: "24px",
-                textTransform: "uppercase",
-              }}
-              onClick={() => {
-                alert("please select all fields");
-              }}
-            >
-              next
-            </button>
-          )}
+            ) : (
+              "next"
+            )}
+          </button>
         </Flex>
       </Box>
     </CommonLayout>

@@ -20,7 +20,7 @@ const StartMsat = ({onClose,handleCourses,selectedCourse,onConfirm}) => {
     setTimeout(() => {
       setIsLoading(false);
       onConfirm();
-    }, 11000);
+    }, 5000);
   };
 
   
@@ -38,8 +38,8 @@ if(isLoading){
     >
       <Box
       display="flex"
-      width="436px"
-      padding="24px"
+      width={{base:"90%",md:"436px"}}
+      padding={{base:"10px 16px 16px 16px",md:"24px"}}
       flexDirection="column"
       alignItems="start"
       flexShrink={0}
@@ -54,10 +54,11 @@ if(isLoading){
         color="var(--primary-red-900, #0A0103)"
         textAlign="center"
         fontFamily="Poppins"
-        fontSize="20px"
+        fontSize={{base:"16px",md:"20px"}}
         fontStyle="normal"
         fontWeight="700"
         lineHeight="28px"
+        mt={"16px"}
       >
         Before you proceed accept that you are
       </Text>
@@ -69,16 +70,17 @@ if(isLoading){
         gap="8px"
         alignSelf="self-start"
         bgColor={"var(--primary-white-fff, #FFF)"}
+        borderRadius={"12px"}
       >
         <Box
           display={"flex"}
-          width={"358px"}
+          width={{base:"90%",md:"358px"}}
           flexDirection={"column"}
           alignItems={"flex-start"}
           gap={"12px"}
         >
           <Flex gap="16px" alignItems={"flex-start"} alignSelf={"stretch"}>
-            <Image src={checkIcon} />
+            <Image src={checkIcon} w={{base:"24px",md:"32px"}} />
             <Text
               color="#5E4FB7"
               fontFamily="Open Sans"
@@ -91,7 +93,7 @@ if(isLoading){
             </Text>
           </Flex>
           <Flex gap="16px" alignItems={"flex-start"} alignSelf={"stretch"}>
-            <Image src={checkIcon} />
+          <Image src={checkIcon} w={{base:"24px",md:"32px"}} />
             <Text
               color="#5E4FB7"
               fontFamily="Open Sans"
@@ -104,7 +106,7 @@ if(isLoading){
             </Text>
           </Flex>
           <Flex gap="16px" alignItems={"flex-start"} alignSelf={"stretch"}>
-            <Image src={checkIcon} />
+          <Image src={checkIcon} w={{base:"24px",md:"32px"}} />
             <Text
               color="#5E4FB7"
               fontFamily="Open Sans"
@@ -118,7 +120,7 @@ if(isLoading){
             </Text>
           </Flex>
           <Flex gap="16px" alignItems={"flex-start"} alignSelf={"stretch"}>
-            <Image src={checkIcon} />
+          <Image src={checkIcon} w={{base:"24px",md:"32px"}} />
             <Text
               color="#5E4FB7"
               fontFamily="Open Sans"
@@ -195,7 +197,7 @@ if(isLoading){
         gap="10px"
         borderRadius="8px"
         background="var(--secondary-blue-500, #3470E4)"
-        isDisabled={selectedCourse}
+        isDisabled={!selectedCourse}
         onClick={handleConfirm}
         >CONFIRM</Button>
 

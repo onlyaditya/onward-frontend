@@ -1,8 +1,9 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
 import React from "react";
 import { Banner } from "../../components/Activities/Banner";
 import { ActivitiesTabs } from "../../components/Activities/ActivitiesTabs";
 import { ActivityCard } from "../../components/ActivityCard/ActivityCard";
+import sideBanner from "../../assets/images/sideBanner.png";
 
 export const ActivityOptions = () => {
   return (
@@ -11,7 +12,6 @@ export const ActivityOptions = () => {
       height={"full"}
       minH={"100vh"}
       py={"4"}
-      border={"1px solid green"}
       bg={"var(--extended-blue-50, #F2F6FF)"}
     >
       <Banner

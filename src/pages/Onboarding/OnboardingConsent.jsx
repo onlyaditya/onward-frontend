@@ -6,16 +6,17 @@ import { CommonLayout } from "../../components/CommonLayout";
 
 const OnboardingConsent = () => {
   return (
-    <CommonLayout>
+    <CommonLayout rightsidebar={"no"} bottomnav={"no"}>
       <Box
-        w="1179px"
-        h="90vh"
-        ml={["0px", "50px"]}
-        pt={["50px", "80px"]}
-        bgColor="var(--extended-blue-50, #F2F6FF)"
+        flexGrow="1"
+        h="89vh"
+        bgColor="#F2F6FF"
+        py={["12px", "24px"]}
+        px={["16px", "28px"]}
         position="relative"
       >
         {/*Onboarding flow contianer */}
+
         <OnboardingFlow
           color={"var(--primary-white-fff, #FFF)"}
           bg={"var(--secondary-purple-500, #6E71CC)"}
@@ -23,17 +24,23 @@ const OnboardingConsent = () => {
         />
 
         {/* <OnboardingConsent /> */}
-        <Box
-          display="inline-flex"
+
+        <Flex
           flexDirection="column"
           alignItems="flex-start"
           gap="8px"
-          ml="36px"
-          my="40px"
+          my={["20px", "40px"]}
+          w={["343px", "auto"]}
         >
           {/* agreement container */}
-          <Flex flexDirection="column" alignItems="flex-start" gap="4px">
-            <Flex w="925px" alignItems="flex-start" gap="4px">
+
+          <Flex
+            flexDirection="column"
+            alignItems="flex-start"
+            gap="4px"
+            w={["343px", "auto"]}
+          >
+            <Flex w={["343px", "925px"]} alignItems="flex-start" gap="4px">
               <Flex
                 w="24px"
                 h="24px"
@@ -55,10 +62,9 @@ const OnboardingConsent = () => {
               </Flex>
               <Flex
                 flexDirection="column"
-                alignI
-                tems="flex-start"
+                alignItems="flex-start"
                 color="var(--neutral-grey-700, #544D4F)"
-                // fontFamily="Open Sans"
+                fontFamily="Open Sans"
                 fontSize="14px"
                 fontStyle="normal"
                 fontWeight="400"
@@ -69,7 +75,13 @@ const OnboardingConsent = () => {
                 which can be accessed below and reaffirm my acceptance.
               </Flex>
             </Flex>
-            <Flex p="0px 24px" alignItems="flex-start" gap="32px">
+            <Flex
+              p="0px 24px"
+              alignItems="flex-start"
+              gap={["8px", "32px"]}
+              w={["343px", "925px"]}
+              flexWrap="wrap"
+            >
               <Flex alignItems="flex-start" gap="4px">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +142,6 @@ const OnboardingConsent = () => {
                 >
                   <mask
                     id="mask0_3_21856"
-                    // style="mask-type:alpha"
                     maskUnits="userSpaceOnUse"
                     x="0"
                     y="0"
@@ -160,9 +171,15 @@ const OnboardingConsent = () => {
               </Flex>
             </Flex>
           </Flex>
+
           {/* acknowledge container */}
-          <Flex w="1128px" h="24px" alignItems="flex-start" gap="4px">
-            <Flex w="24px" h="24px" justifyContent="center" alignItems="center">
+          <Flex
+            w={["343px", "auto"]}
+            h={["auto", "24px"]}
+            alignItems="flex-start"
+            gap="4px"
+          >
+            <Flex w="24px" justifyContent="center" alignItems="center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -177,7 +194,6 @@ const OnboardingConsent = () => {
               </svg>
             </Flex>
             <Text
-              h="24px"
               flex="1 0 0"
               color="var(--neutral-grey-700, #544D4F)"
               fontFamily="Open Sans"
@@ -191,8 +207,14 @@ const OnboardingConsent = () => {
               complete the course.{" "}
             </Text>
           </Flex>
+
           {/* scholarship container */}
-          <Flex flexDirection="column" alignItems="flex-start" gap="4px">
+          <Flex
+            flexDirection="column"
+            alignItems="flex-start"
+            gap="4px"
+            w={["343px", "auto"]}
+          >
             <Flex w="925px" alignItems="flex-start" gap="4px">
               <Flex
                 w="24px"
@@ -218,7 +240,7 @@ const OnboardingConsent = () => {
                 alignI
                 tems="flex-start"
                 color="var(--neutral-grey-700, #544D4F)"
-                // fontFamily="Open Sans"
+                fontFamily="Open Sans"
                 fontSize="14px"
                 fontStyle="normal"
                 fontWeight="400"
@@ -255,23 +277,24 @@ const OnboardingConsent = () => {
               </Flex>
             </Flex>
           </Flex>
-        </Box>
+        </Flex>
 
         {/* next button */}
         <Flex
-          w={["420px", "1179px"]}
-          p="12px 24px 12px 1069px"
-          pl={["80px", "1069px"]}
+          w="100%"
           justifyContent="flex-end"
           alignItems="center"
           background="#FFF"
           boxShadow="0px -1px 0px 0px #D9D9D9"
           position="absolute"
-          bottom={["200px", "0px"]}
+          bottom={["0px", "0px"]}
+          left="0px"
         >
           <button
             style={{
               padding: "12px 20px",
+              marginRight: "14px",
+              marginTop: "5px",
               borderRadius: "8px",
               background: "var(--secondary-blue-500, #3470E4)",
               color: "var(--primary-white-fff, #FFF)",
