@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
   Flex,
   Image,
   Link,
-  VStack,
-  Collapse,
   Text,
+  Drawer,
+  DrawerBody,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import MasaiLogo from "../assets/MasaiLogo-dark-web.svg";
 import burger_menu_icon from "../assets/burger_menu_icon.svg";
@@ -15,15 +19,89 @@ import style from "./Navbar.module.css";
 import { useNavigate } from "react-router";
 
 export const Navbar = ({ btnRef, onOpen }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const {
+    isOpen: isOpenDrawer1,
+    onOpen: onOpenDrawer1,
+    onClose: onCloseDrawer1,
+  } = useDisclosure();
   const navigate = useNavigate();
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+
+  var userlogin;
+  useEffect(() => {
+    userlogin = JSON.parse(localStorage.getItem("user"));
+  }, [userlogin]);
+
+  const HandleSIgnOutButton = () => {
+    if (userlogin != "") {
+      onOpen();
+    } else {
+      localStorage.removeItem("user");
+    }
   };
 
   return (
-    //<div>Navbar</div>;
     <div>
+      <div zIndex={"995"} position="absolute">
+        <Drawer
+          size={"full"}
+          placement="top"
+          onClose={onCloseDrawer1}
+          isOpen={isOpenDrawer1}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerBody>
+              <DrawerCloseButton />
+              <Link
+                margin={"88px 0 0 0"}
+                display={"block"}
+                p={"8px 16px"}
+                className={style.Linktext}
+                onClick={() => navigate("/newcourses")}
+                _hover={{ backgroundColor: "#fffafb", color: "red" }}
+              >
+                COURSES
+              </Link>
+              <Link
+                display={"block"}
+                p={"8px 16px"}
+                className={style.Linktext}
+                onClick={() => navigate("/events")}
+                _hover={{ backgroundColor: "#fffafb", color: "red" }}
+              >
+                EVENTS & CONTESTS
+              </Link>
+              <Link
+                display={"block"}
+                p={"8px 16px"}
+                className={style.Linktext}
+                onClick={() => navigate("/freeresources")}
+                _hover={{ backgroundColor: "#fffafb", color: "red" }}
+              >
+                FREE RESOURCES
+              </Link>
+              <Link
+                display={"block"}
+                p={"8px 16px"}
+                className={style.Linktext}
+                onClick={() => navigate("/hirefromus")}
+                _hover={{ backgroundColor: "#fffafb", color: "red" }}
+              >
+                HIRE FROM US
+              </Link>
+              <Link
+                display={"block"}
+                p={"8px 16px"}
+                className={style.Linktext}
+                onClick={() => navigate("/referandearn")}
+                _hover={{ backgroundColor: "#fffafb", color: "red" }}
+              >
+                REFER AND EARN
+              </Link>
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
+      </div>
       <Box
         position={"fixed"}
         alignItems={"center"}
@@ -53,29 +131,9 @@ export const Navbar = ({ btnRef, onOpen }) => {
           <Flex display={{ sm: "block", md: "block", lg: "none" }}>
             <Image
               src={burger_menu_icon}
-              onClick={toggleMenu}
+              onClick={onOpenDrawer1}
               variant="outline"
             />
-
-            <Collapse in={isOpen}>
-              <VStack p={4} spacing={2} align="stretch" bg="gray.100">
-                <Text fontSize="xl">Menu</Text>
-
-                <Button variant="link">COURSES</Button>
-                <Button variant="link">FEES & PAP</Button>
-                <Button variant="link">EVENTS & CONTESTS</Button>
-                <Button variant="link">FREE RESOURCES</Button>
-                <Button variant="link">HIRE FROM US</Button>
-                <Button variant="link">REFER AND EARN</Button>
-                <Button
-                  onClick={toggleMenu}
-                  variant="link"
-                  alignSelf="flex-end"
-                >
-                  Close
-                </Button>
-              </VStack>
-            </Collapse>
           </Flex>
         </Flex>
 
@@ -167,7 +225,7 @@ export const Navbar = ({ btnRef, onOpen }) => {
           </Button>
           <Button
             ref={btnRef}
-            onClick={onOpen}
+            onClick={HandleSIgnOutButton}
             p={"12px 16px"}
             border={"1px solid rgb(255, 0, 0)"}
             color={"red"}
@@ -175,9 +233,12 @@ export const Navbar = ({ btnRef, onOpen }) => {
             _hover={{ backgroundColor: "#fffafb" }}
           >
             SIGN UP
+            {/* {userlogin == "" ? "SIGN UP" : "SIGN OUT"} */}
           </Button>
         </Flex>
       </Box>
     </div>
   );
 };
+
+// localStorage.removeItem("keyName");

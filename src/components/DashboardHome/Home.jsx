@@ -23,12 +23,10 @@ import {
   StepNumber,
   StepSeparator,
   StepStatus,
-  StepTitle,
   Stepper,
   useSteps,
   useDisclosure,
   ModalOverlay,
-  ModalHeader,
   ModalContent,
   ModalBody,
   Modal,
@@ -38,6 +36,7 @@ import ShowRegistrationAlert from "./ShowRegistrationAlert";
 import { Link } from "react-router-dom";
 import { getUserDetails } from "../../redux/authReducer/auth.action";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 const Home = () => {
   const [isConfirmClicked, setIsConfirmClicked] = useState(false);
@@ -53,6 +52,33 @@ const Home = () => {
   }, []);
 
   const { userDetails } = useSelector((store) => store.authReducer);
+
+  const generateAssessment = async () => {
+    const apiUrl = `https://assess-test-api.masaischool.com/student/assessments/generate-test`;
+
+    const requestData = {
+      uniqueID: "97498882403809",
+      assessmentTemplateId: "650f817ae33d4e8ad51707f6",
+      redirectClientUrl: "http://localhost:3000/results",
+      email: "rajesh.pachika@gmail.com",
+      callback_url:
+        "https://zealous-jay-jersey.cyclic.cloud/v2/profile-assessment/test-platform-callback",
+    };
+
+    const headers = {
+      "client-id": "62fcc9206e3a3a7e54bf3a52",
+    };
+
+    try {
+      const response = await axios.post(apiUrl, requestData, { headers });
+      // const assessmentUrl = response.data.url;
+      window.location.href = `${response.data.url}`;
+      console.log(response.data.url);
+      console.log("Generated assessment URL:");
+    } catch (error) {
+      console.error("Error generating assessment:", error);
+    }
+  };
 
   const handleCourses = (val) => {
     setSelectedCourse(val);
@@ -70,13 +96,8 @@ const Home = () => {
   const handleConfirm = () => {
     setIsConfirmClicked(true);
     onClose(); // Close the modal if needed
+    generateAssessment();
   };
-
-  // Redirect to /test when isConfirmClicked is true
-  if (isConfirmClicked) {
-    console.log("Redirecting to /test");
-    window.location.href = "/test";
-  }
 
   const [registerAccordion, setRegisterAccordion] = useState(false);
   const [msatAccordion, setMsatAccordion] = useState(false);
@@ -97,7 +118,7 @@ const Home = () => {
 
   return (
     <Box
-      width="100%"
+      width={["343px", "100%"]}
       display="inline-flex"
       padding="16px 251px 0px 24px"
       alignItems="center"
@@ -119,7 +140,7 @@ const Home = () => {
             color={"#000"}
             lineHeight={"24px"}
           >
-            {userDetails?.userName}!
+            Hey {userDetails?.userName}!
           </Text>
           <Text
             fontFamily={"Open Sans"}
@@ -218,8 +239,8 @@ const Home = () => {
                       <AccordionPanel
                         display="flex"
                         flexDirection="column"
-                        border="border: 1px solid var(--neutral-grey-100, #E5E5E5);
-background: #FFF;"
+                        border="border: 1px solid var(--neutral-grey-100, #E5E5E5)"
+                        background="#FFF"
                         borderRadius="12px"
                       >
                         <Flex flexDirection="column" gap="16px">
