@@ -1,5 +1,5 @@
-import { Box, Flex, Input } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
+import React, { useRef, useState } from "react";
 import OnboardingFlow from "./OnboardingFlow";
 import { Link } from "react-router-dom";
 import { CommonLayout } from "../../components/CommonLayout";
@@ -7,28 +7,84 @@ import axios from "axios";
 
 const OnboardingIdverif = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef(null);
 
-  const handlefilechange = (e) => {
-    let token = JSON.parse(localStorage.getItem("auth"));
-    setSelectedFile(e.target.file);
-    console.log(e.target.value);
-    // axios.patch(
-    //   "https://dash-board.up.railway.app/update-profile",
-    //   {
-    //     adharCard: e.target.value,
-    //   },
-    //   { headers: { Authorization: token } }
-    // );
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
   };
+  console.log(selectedFile);
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    setSelectedFile(file);
+  };
+
+  const handleBrowseClick = () => {
+    // Trigger the file input when the "Browse" text is clicked
+    fileInputRef.current.click();
+  };
+  // const [selectedFile, setSelectedFile] = useState(null);
+
+  // const formData = new FormData();
+  // // const [selectedFile, setSelectedFile] = useState(null);
+
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0];
+  //   setSelectedFile(file);
+  // };
+
+  // const handlefilechange = async (e) => {
+  //   let token = JSON.parse(localStorage.getItem("auth"));
+
+  //   // setSelectedFile(e.target.file);
+
+  //   formData.append("image1", e.target.value);
+
+  //   console.log(e.target.value);
+
+  //   // let res = await axios.post(
+  //   //   "https://dash-board.up.railway.app/uploads",
+  //   //   formData,
+  //   //   { headers: { Authorization: token } }
+  //   // );
+
+  //   // console.log(res);
+  // };
+
+  // const handlefilechange2 = async (e) => {
+  //   let token = JSON.parse(localStorage.getItem("auth"));
+
+  //   // setSelectedFile(e.target.file);
+
+  //   formData.append("image2", e.target.value);
+
+  //   console.log(formData);
+
+  //   let res = await axios.post(
+  //     "https://dash-board.up.railway.app/uploads",
+  //     formData,
+  //     { headers: { Authorization: token } }
+  //   );
+
+  //   console.log(res);
+  // };
+
   return (
-    <CommonLayout>
+    <CommonLayout rightsidebar={"no"} bottomnav={"no"}>
       <Box
-        w="1179px"
-        h="90vh"
-        bgColor="var(--extended-blue-50, #F2F6FF)"
-        ml={["0px", "50px"]}
-        pt={["50px", "80px"]}
+        flexGrow="1"
+        h="89vh"
+        bgColor="#F2F6FF"
+        py={["12px", "24px"]}
+        px={["16px", "28px"]}
         position="relative"
+        overflow="scroll"
       >
         {/*Onboarding flow contianer */}
         <OnboardingFlow
@@ -36,14 +92,12 @@ const OnboardingIdverif = () => {
           bg={"var(--secondary-purple-500, #6E71CC)"}
           section={"2"}
         />
-
         {/* <OnboardingIdverif /> */}
         <Box
           display="inline-flex"
           flexDirection="column"
           alignItems="flex-start"
           gap="16px"
-          ml="35px"
           mt="40px"
         >
           {/* Aadhar front side container */}
@@ -52,7 +106,7 @@ const OnboardingIdverif = () => {
             flexDirection="column"
             alignItems="flex-start"
             gap="8px"
-            w={["360px", "500px"]}
+            w={["343px", "500px"]}
           >
             <Box
               color="var(--neutral-grey-900, #21191B)"
@@ -62,15 +116,44 @@ const OnboardingIdverif = () => {
               fontWeight="600"
               lineHeight="24px"
             >
-              Upload the front side of your Aadhaar for verification *
+              Upload the front side of your Aadhaar *
             </Box>
-            <Flex alignItems="flex-start" gap="12px">
-              <Input
-                placeholder="Drag and drop here"
-                type="file"
-                onChange={handlefilechange}
-                name="image1"
-              />
+            <Flex alignItems="center" gap={["5px", "12px"]}>
+              <Box
+                border="2px dashed #ccc"
+                padding="1rem"
+                textAlign="center"
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                cursor="pointer"
+                borderRadius="8px"
+                w={["300px", "492px"]}
+                bgColor="#fff"
+              >
+                {selectedFile ? (
+                  <Text>Selected File: {selectedFile.name}</Text>
+                ) : (
+                  <Flex gap="10px">
+                    Drag & drop here or
+                    <Text
+                      onClick={handleBrowseClick}
+                      style={{ cursor: "pointer" }}
+                      color="#3470E4"
+                      fontWeight="600"
+                    >
+                      Browse
+                    </Text>
+                  </Flex>
+                )}
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept=".jpg, .jpeg, .png"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                  ref={fileInputRef}
+                />
+              </Box>
               <Box w="48px" h="48px" p="8px">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +164,6 @@ const OnboardingIdverif = () => {
                 >
                   <mask
                     id="mask0_3_21960"
-                    // style="mask-type:alpha"
                     maskUnits="userSpaceOnUse"
                     x="0"
                     y="0"
@@ -106,7 +188,7 @@ const OnboardingIdverif = () => {
             flexDirection="column"
             alignItems="flex-start"
             gap="8px"
-            w={["360px", "500px"]}
+            w={["343px", "500px"]}
           >
             <Box
               color="var(--neutral-grey-900, #21191B)"
@@ -116,80 +198,46 @@ const OnboardingIdverif = () => {
               fontWeight="600"
               lineHeight="24px"
             >
-              Upload the front side of your Aadhaar for verification *
+              Upload the back side of your Aadhaar *
             </Box>
-            <Flex alignItems="flex-start" gap="12px">
-              <Input
-                placeholder="Drag and drop here"
-                type="file"
-                onChange={handlefilechange}
-                name="image2"
-              />
-              {/* <Flex
-                w="492px"
-                h="48px"
-                p="12px 125px"
-                justifyContent="center"
-                alignItems="center"
+            <Flex alignItems="center" gap={["5px", "12px"]}>
+              <Box
+                border="2px dashed #ccc"
+                padding="1rem"
+                textAlign="center"
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                cursor="pointer"
                 borderRadius="8px"
-                border="1px dashed var(--neutral-grey-400, #B3B3B3)"
-                background="#FFF"
+                w={["300px", "492px"]}
+                bgColor="#fff"
               >
-                <Flex
-                  w="242px"
-                  h="24px"
-                  justifyContent="center"
-                  alignItems="flex-start"
-                  gap="7px"
-                  flexShrink="0"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12ZM12 2L6.46 7.46L7.88 8.88L11 5.75V15H13V5.75L16.13 8.88L17.55 7.45L12 2Z"
-                      fill="#87D5AE"
-                    />
-                  </svg>
-                  <Box
-                    color="var(--neutral-grey-800, #3B3435)"
-                    textAlign="center"
-                    fontFamily="Open Sans"
-                    fontSize="16px"
-                    fontStyle="normal"
-                    fontWeight="400"
-                    lineHeight="24px"
-                  >
-                    Drag & drop here or{" "}
-                    <span
-                      style={{
-                        color: "var(--secondary-blue-500, #3470E4)",
-                        fontFamily: "Open Sans",
-                        fontSize: "16px",
-                        fontStyle: "normal",
-                        fontWeight: "600",
-                        lineHeight: "24px",
-                      }}
+                {selectedFile ? (
+                  <Text>Selected File: {selectedFile.name}</Text>
+                ) : (
+                  <Flex gap="10px">
+                    Drag & drop here or
+                    <Text
+                      onClick={handleBrowseClick}
+                      style={{ cursor: "pointer" }}
+                      color="#3470E4"
+                      fontWeight="600"
                     >
                       Browse
-                    </span>
-                  </Box>
-                </Flex>
-              </Flex> */}
+                    </Text>
+                  </Flex>
+                )}
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept=".jpg, .jpeg, .png"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                  ref={fileInputRef}
+                />
+              </Box>
+
               <Box w="48px" h="48px" p="8px">
-                {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="48"
-              height="48"
-              viewBox="0 0 48 48"
-              fill="none"
-            >
-              <circle cx="24" cy="24" r="23.5" stroke="#D9D9D9" />
-            </svg> */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"
@@ -199,7 +247,6 @@ const OnboardingIdverif = () => {
                 >
                   <mask
                     id="mask0_3_21960"
-                    // style="mask-type:alpha"
                     maskUnits="userSpaceOnUse"
                     x="0"
                     y="0"
@@ -222,19 +269,20 @@ const OnboardingIdverif = () => {
 
         {/* next button */}
         <Flex
-          w={["420px", "1179px"]}
-          p="12px 24px 12px 1069px"
-          pl={["80px", "1069px"]}
+          w="100%"
           justifyContent="flex-end"
           alignItems="center"
           background="#FFF"
           boxShadow="0px -1px 0px 0px #D9D9D9"
           position="absolute"
-          bottom={["200px", "0px"]}
+          bottom={["0px", "0px"]}
+          left="0px"
         >
           <button
             style={{
               padding: "12px 20px",
+              marginRight: "14px",
+              marginTop: "5px",
               borderRadius: "8px",
               background: "var(--secondary-blue-500, #3470E4)",
               color: "var(--primary-white-fff, #FFF)",
