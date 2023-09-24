@@ -14,18 +14,23 @@ import OnboardingJoinus from "../pages/Onboarding/OnboardingJoinus";
 import Congratulations from "../pages/Onboarding/Congratulations";
 import DashboardLanding from "../pages/DashboardLanding";
 import TestPage from "../pages/TestPage/TestPage";
+import Userpage from "../pages/Userpage";
+
 import ReferAndEarn from "../components/ReferAndEarn";
+
 
 export const AppRoutes = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/dashboard" element={<DashboardLanding />} />
-        <Route path="/test" element={<TestPage />} />
-        <Route path="/activities" element={<Activities />} />
+        <Route path="/dashboard" element={<DashboardLanding/>}/>
+        <Route path="/test" element={<TestPage/>} />
+        <Route path="/activities" element={<Activities />}/>
         <Route path="/courses" element={<OurCoursesPage />} />
-        <Route path="/refer_and_earn" element={<ReferAndEarn />} />
+        <Route path="/profile" element={<Userpage />} />
+          <Route path="/refer_and_earn" element={<ReferAndEarn />} />
+
         <Route path="/activity/detail/:id" element={<ActivityDetail />} />
         <Route
           path="*"
