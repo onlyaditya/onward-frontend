@@ -11,7 +11,6 @@ export const ActivityOptions = () => {
       height={"full"}
       minH={"100vh"}
       py={"4"}
-      border={"1px solid green"}
       bg={"var(--extended-blue-50, #F2F6FF)"}
     >
       <Banner
