@@ -53,12 +53,12 @@ const NavLink = (props) => {
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const { isOpen:NavDrawerisOpen, onOpen:NavDraweronOpen, onClose:NavDraweronClose } = useDisclosure()
-  const dispatch=useDispatch();
-  useEffect(()=>{
-    dispatch(getUserDetails())
-  },[])
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserDetails());
+  }, []);
 
-const {userDetails}=useSelector((store)=>store.authReducer)
+  const { userDetails } = useSelector((store) => store.authReducer);
   return (
     <>
       <Box
@@ -143,23 +143,25 @@ const {userDetails}=useSelector((store)=>store.authReducer)
             <Box display={{ base: "none", md: "block" }}>
               <Image src={notification} />
             </Box>
-            <Menu >
-              <MenuButton >
+            <Menu>
+              <MenuButton>
                 <Flex justifyContent="flex-end" alignItems="center" gap="2px">
-                  { <Avatar
-                  name={userDetails && userDetails.userName}
-                  bgColor={"#000"}
-                    color={"#fff"}
-                    width="24px"
-                    height="24px"
-                    // src="https://bit.ly/dan-abramov"
-                  />}
+                  {
+                    <Avatar
+                      name={userDetails && userDetails.userName}
+                      bgColor={"#000"}
+                      color={"#fff"}
+                      width="24px"
+                      height="24px"
+                      // src="https://bit.ly/dan-abramov"
+                    />
+                  }
                   <Box display={{ base: "none", md: "block" }}>
-                    <Image src={ bottomarrow} />
+                    <Image src={bottomarrow} />
                   </Box>
                 </Flex>
               </MenuButton>
-              <MenuList  >
+              <MenuList>
                 <MenuItem w>My Profile</MenuItem>
                 <MenuItem>My Tutorials</MenuItem>
                 <MenuItem>My BookMark</MenuItem>

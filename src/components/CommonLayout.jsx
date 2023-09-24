@@ -6,7 +6,7 @@ import RightSidebar from "./RightSidebar/RightSidebar";
 import BottomNavbar from "./Navbar/BottmNavbar";
 import PhoneRightSidebar from "./RightSidebar/PhoneRightSidebar";
 
-export const CommonLayout = ({ children, rightsidebar }) => {
+export const CommonLayout = ({ children, rightsidebar, bottomnav }) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   return (
@@ -20,10 +20,9 @@ export const CommonLayout = ({ children, rightsidebar }) => {
         >
           <SideBar />
         </Box>
-        <Box width={{base:"80%",md:"67%"}} flexGrow={{base:"0",md:"1"}}>{children}</Box>
+        <Box flexGrow={"1"}>{children}</Box>
 
         <Box
-        
           display={{
             base: "none",
             lg: rightsidebar == "no" ? "none" : "block",
@@ -53,13 +52,15 @@ export const CommonLayout = ({ children, rightsidebar }) => {
         </Box>
       </Flex>
 
-      <Box display={{ base: "block", md: "none" }}>
+      <Box
+        display={{ base: (bottomnav = "no" ? "none" : "block"), md: "none" }}
+      >
         <PhoneRightSidebar />
       </Box>
 
       <Box
         w="100%"
-        display={{ base: "block", md: "none" }}
+        display={{ base: (bottomnav = "no" ? "none" : "block"), md: "none" }}
         position={"fixed"}
         bottom={0}
       >
