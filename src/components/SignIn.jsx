@@ -39,9 +39,9 @@ export default function SignIn({
 
   const state = useSelector((details) => details.authReducer);
 
-  console.log(state);
+  //console.log(state);
   useEffect(() => {
-    console.log("Inside useEffect");
+    //console.log("Inside useEffect");
     if (state.otp !== "waiting" && state.isLoading === false) {
       sendrequest();
     }
@@ -62,7 +62,7 @@ export default function SignIn({
 
   function sendrequest() {
     if (state.otp === "user not registered") {
-      console.log("inside already", state.otp.otp);
+      //console.log("inside already", state.otp.otp);
       toast({
         title: "Error",
         description: "User Not Registered",
@@ -74,7 +74,7 @@ export default function SignIn({
       setSignInButtonDisable(false);
       return;
     } else if (state.otp === "OTP sent") {
-      console.log("inside sucess", state.otp.otp);
+      //console.log("inside sucess", state.otp.otp);
       toast({
         title: "Success",
         description: "OTP Send Successfully",
@@ -86,7 +86,7 @@ export default function SignIn({
       setSignInButtonDisable(false);
       setReg("Otp");
     } else {
-      console.log(state.otp);
+      //console.log(state.otp);
       setSignInButtonDisable(false);
     }
   }

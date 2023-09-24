@@ -1,12 +1,53 @@
-import React from "react";
-import { Text, Box, Image, Grid, Show, Hide } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { FaUserCircle } from "@chakra-ui/icons";
+import { Text, Box, Image, Grid, Show, Hide, Icon } from "@chakra-ui/react";
 import UserImage from "../assets/UserImage.svg";
 import UserProfile from "../components/UserProfile";
 import IncrmentIcons from "../assets/IncrmentIcons.svg";
 import BackArrow from "../assets/BackArrow.svg";
 import { CommonLayout } from "../components/CommonLayout";
+import UserImageblack from "../assets/UserImageblack.png";
 
 function Userpage(props) {
+  const [userdata, setUserdata] = useState("");
+
+  let state = useSelector((details) => {
+    return details.authReducer.userDetails;
+  });
+
+  console.log(state);
+
+  useEffect(() => {
+    // fetchData();
+  });
+
+  // let token = localStorage.getItem("user");
+  // console.log(token);
+
+  // const headers = {
+  //   Authorization: token,
+  //   "Content-Type": "application/json",
+  // };
+
+  // const fetchData = async () => {
+  //   try {
+  //     const apiUrl = `https://dash-board.up.railway.app/user-details`;
+  //     const response = await axios.get(apiUrl, {
+  //       headers: headers,
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+  //     console.log(response);
+  //     setUserdata(response);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+
   return (
     <>
       <CommonLayout rightsidebar={"no"} bottomnav={"no"}>
@@ -87,13 +128,12 @@ function Userpage(props) {
           >
             <Image
               display={"flex"}
-              //   margin={{ sm: "auto auto", md: "" }}
-              //   justifyContent={{ base: "center", md: "" }}
+              bgColor={"white"}
               marginTop={{ base: "12px", md: "0px" }}
               alignSelf={"center"}
               w={"100px"}
               h={"100px"}
-              src={UserImage}
+              src={UserImageblack}
             />
             <Text
               display={"flex"}
@@ -103,23 +143,23 @@ function Userpage(props) {
               lineHeight={"24px"}
               justifyContent={{ base: "center", md: "" }}
             >
-              {"Shaban Khan"}
+              {state.userName}
             </Text>
           </Box>
           <Grid
             templateColumns={{ base: "1fr", md: "1fr 1fr" }}
             gap={{ base: "12px", md: "16px" }}
           >
-            <UserProfile Title={"Name"} data={"Shaban"} />
+            <UserProfile Title={"Name"} data={state.userName} />
             <UserProfile
               Title={"Mobile Number"}
-              data={"9044945896"}
+              data={state.phone}
               button={true}
               buttonValue={"REFER NOW"}
             />
             <UserProfile
               Title={"Email Address"}
-              data={"Shabhankhan!23456@gmail.com"}
+              data={state.email}
               button={true}
               buttonValue={"VERIFY"}
             />

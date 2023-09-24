@@ -53,10 +53,10 @@ function SignUpDrawer({
   const toast = useToast();
 
   const otpdata = useSelector((details) => details.authReducer.otp.message);
-  console.log(otpdata);
+  //console.log(otpdata);
 
   const state = useSelector((details) => details.authReducer);
-  console.log(state);
+  //console.log(state);
 
   useEffect(() => {
     if (state.registerInfo !== "" && state.isLoading == false) {
@@ -109,7 +109,7 @@ function SignUpDrawer({
     setErrorMessageName("");
 
     if (state.registerInfo == "User Already Exist") {
-      console.log("inside already", state.registerInfo);
+      //console.log("inside already", state.registerInfo);
       toast({
         title: "Error",
         description: "User Already Exist",
@@ -125,7 +125,7 @@ function SignUpDrawer({
         value: email,
       };
       dispatch(login(otpobj));
-      console.log("inside sucess", state.registerInfo);
+      //console.log("inside sucess", state.registerInfo);
       toast({
         title: "Success",
         description: "OTP send Succesfully",
@@ -137,7 +137,7 @@ function SignUpDrawer({
       setSubmitDisabled(false);
       setReg("Otp");
     } else {
-      console.log(state.registerInfo);
+      //console.log(state.registerInfo);
     }
     setSubmitDisabled(false);
   }
