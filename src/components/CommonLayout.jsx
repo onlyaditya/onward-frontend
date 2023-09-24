@@ -20,7 +20,7 @@ export const CommonLayout = ({ children, rightsidebar }) => {
         >
           <SideBar />
         </Box>
-        <Box width={{base:"80%",md:"67%"}} flexGrow={{base:"0",md:"1"}}>{children}</Box>
+        <Box flexGrow={"1"}>{children}</Box>
 
         <Box
         
