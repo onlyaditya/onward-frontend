@@ -1,10 +1,10 @@
 import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 
-const ScoreCard = ({ name, result, marks }) => {
+const ScoreCard = ({ name, result, marks, maxMarks }) => {
   return (
     <Box
-      maxW="314px"
+      maxW="250px"
       h="63px"
       borderRadius="16px"
       border="1px solid var(--extended-purple-100, #CFD0EE)"
@@ -47,7 +47,7 @@ const ScoreCard = ({ name, result, marks }) => {
         </svg>
       </Box>
       <Flex wrap="wrap" mt="9px">
-        <Flex justify="space-between" fontFamily="Open Sans" w="100%" mr="5px">
+        <Flex justify="space-between" fontFamily="Open Sans" w="95%" mr="5px">
           <Box
             w="150px"
             color="var(--primary-red-900, #0A0103)"
@@ -78,7 +78,7 @@ const ScoreCard = ({ name, result, marks }) => {
           fontWeight="400"
           lineHeight="24px"
         >
-          Marks : {marks}/100
+          Marks : {marks}/{maxMarks}
         </Box>
       </Flex>
     </Box>
