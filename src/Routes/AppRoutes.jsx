@@ -18,18 +18,18 @@ import Userpage from "../pages/Userpage";
 
 import ReferAndEarn from "../components/ReferAndEarn";
 
-
 export const AppRoutes = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/dashboard" element={<DashboardLanding/>}/>
-        <Route path="/test" element={<TestPage/>} />
-        <Route path="/activities" element={<Activities />}/>
+        <Route path="/dashboard" element={<DashboardLanding />} />
+        <Route path="/test" element={<TestPage />} />
+        <Route path="/activities" element={<Activities />} />
         <Route path="/courses" element={<OurCoursesPage />} />
         <Route path="/profile" element={<Userpage />} />
-          <Route path="/refer_and_earn" element={<ReferAndEarn />} />
+        <Route path="/refer_and_earn" element={<ReferAndEarn />} />
+        <Route path="/results" element={<Result />} />
 
         <Route path="/activity/detail/:id" element={<ActivityDetail />} />
         <Route
