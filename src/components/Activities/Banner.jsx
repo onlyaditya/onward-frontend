@@ -10,9 +10,9 @@ export const Banner = ({ bgColor, text }) => {
       display={"flex"}
       alignItems={"center"}
       pr={6}
-      m={5}
+      m={["2", "5"]}
+      w={["343px", "900px"]}
       borderRadius={"md"}
-      width={"95%"}
     >
       <Flex justifyContent={"center"} alignItems="center" flexGrow={1}>
         <Text
