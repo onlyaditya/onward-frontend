@@ -28,7 +28,6 @@ import {
   useSteps,
   useDisclosure,
   ModalOverlay,
-  ModalHeader,
   ModalContent,
   ModalBody,
   Modal,
