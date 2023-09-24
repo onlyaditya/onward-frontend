@@ -28,6 +28,7 @@ import NavbarDrawer from "./NavbarDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserDetails } from "../../redux/authReducer/auth.action";
+import { useNavigate } from "react-router-dom";
 
 const Links = ["Dashboard", "Projects", "Team"];
 
@@ -53,12 +54,13 @@ const NavLink = (props) => {
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const { isOpen:NavDrawerisOpen, onOpen:NavDraweronOpen, onClose:NavDraweronClose } = useDisclosure()
-  const dispatch=useDispatch();
-  useEffect(()=>{
-    dispatch(getUserDetails())
-  },[])
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserDetails());
+  }, []);
+  const navigate = useNavigate();
 
-const {userDetails}=useSelector((store)=>store.authReducer)
+  const { userDetails } = useSelector((store) => store.authReducer);
   return (
     <>
       <Box
@@ -87,7 +89,13 @@ const {userDetails}=useSelector((store)=>store.authReducer)
           />
           {/* <HStack spacing={8} alignItems={'center'}> */}
           <Box display="flex" mr={{ base: "100px", md: "180px", lg: "0" }}>
-            <Image src={logo} />
+            <Image
+              src={logo}
+              onClick={() => {
+                navigate("/");
+              }}
+              cursor={"pointer"}
+            />
           </Box>
 
           {/* {right side navbar} */}
@@ -113,6 +121,10 @@ const {userDetails}=useSelector((store)=>store.authReducer)
                 fontSize="14px"
                 fontWeight="600"
                 lineHeight="24px"
+                onClick={() => {
+                  navigate("/refer_and_earn");
+                }}
+                cursor={"pointer"}
               >
                 Refer and Earn
               </Text>
@@ -143,23 +155,25 @@ const {userDetails}=useSelector((store)=>store.authReducer)
             <Box display={{ base: "none", md: "block" }}>
               <Image src={notification} />
             </Box>
-            <Menu >
-              <MenuButton >
+            <Menu>
+              <MenuButton>
                 <Flex justifyContent="flex-end" alignItems="center" gap="2px">
-                  { <Avatar
-                  name={userDetails && userDetails.userName}
-                  bgColor={"#000"}
-                    color={"#fff"}
-                    width="24px"
-                    height="24px"
-                    // src="https://bit.ly/dan-abramov"
-                  />}
+                  {
+                    <Avatar
+                      name={userDetails && userDetails.userName}
+                      bgColor={"#000"}
+                      color={"#fff"}
+                      width="24px"
+                      height="24px"
+                      // src="https://bit.ly/dan-abramov"
+                    />
+                  }
                   <Box display={{ base: "none", md: "block" }}>
-                    <Image src={ bottomarrow} />
+                    <Image src={bottomarrow} />
                   </Box>
                 </Flex>
               </MenuButton>
-              <MenuList  >
+              <MenuList>
                 <MenuItem w>My Profile</MenuItem>
                 <MenuItem>My Tutorials</MenuItem>
                 <MenuItem>My BookMark</MenuItem>
