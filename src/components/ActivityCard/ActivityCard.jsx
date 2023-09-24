@@ -13,7 +13,7 @@ export const ActivityCard = () => {
   }, []);
 
   return (
-    <Flex flexWrap={"wrap"} gap={"10"} px={"7"}>
+    <Flex flexWrap={"wrap"} gap={"10"} px={"7"} w="920px">
       {activities.length > 0 &&
         activities.map((el) => {
           return <Card key={el.activityId} {...el} />;
