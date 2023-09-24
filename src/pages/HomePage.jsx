@@ -7,7 +7,6 @@ import SignIn from "../components/SignIn";
 import VerifyNumber from "../components/VerifyNumber";
 import { Drawer, useDisclosure } from "@chakra-ui/react";
 
-
 export const HomePage = () => {
   const [reg, setReg] = useState("");
   const [mobile, setMobile] = useState("");
@@ -61,9 +60,6 @@ export const HomePage = () => {
       <Navbar btnRef={btnRef} onOpen={onOpen} />
       <Hero />
       <HeroBottom />
-      {/* <Navbar /> */}
-      {/* <Mainpage /> */}
-      {/* <New /> */}
     </div>
   );
 };

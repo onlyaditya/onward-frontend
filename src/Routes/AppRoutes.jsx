@@ -21,9 +21,9 @@ export const AppRoutes = () => {
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/dashboard" element={<DashboardLanding />} />
-        <Route path="/test" element={<TestPage />} />
-        <Route path="/activities" element={<Activities />} />
+        <Route path="/dashboard" element={<DashboardLanding/>}/>
+        <Route path="/test" element={<TestPage/>} />
+        <Route path="/activities" element={<Activities />}/>
         <Route path="/courses" element={<OurCoursesPage />} />
         <Route path="/profile" element={<Userpage />} />
         <Route path="/activity/detail/:id" element={<ActivityDetail />} />
