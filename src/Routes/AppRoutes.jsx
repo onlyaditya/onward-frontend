@@ -16,6 +16,7 @@ import DashboardLanding from "../pages/DashboardLanding";
 import TestPage from "../pages/TestPage/TestPage";
 import AdmitCard from "../pages/Onboarding/AdmitCard";
 import ReferAndEarn from "../components/ReferAndEarn";
+import { ResultScreen } from "../pages/Results/ResultScreen";
 
 export const AppRoutes = () => {
   return (
@@ -43,7 +44,7 @@ export const AppRoutes = () => {
             </Text>
           }
         />
-        <Route path="home/results" element={<Result />} />
+        <Route path="home/results" element={<ResultScreen />} />
         <Route path="home/onboardingform" element={<Onboardingform />} />
         <Route path="home/onboardingid" element={<OnboardingIdverif />} />
         <Route path="home/onboardingconsent" element={<OnboardingConsent />} />
