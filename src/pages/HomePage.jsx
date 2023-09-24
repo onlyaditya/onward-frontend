@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import Hero from "../components/Hero";
 import { Navbar } from "../components/Navbar";
-import HeroBottom from "../components/HeroBottom";
 import SignUpDrawer from "../components/SignUpDrawer";
 import SignIn from "../components/SignIn";
 import VerifyNumber from "../components/VerifyNumber";
@@ -60,10 +59,6 @@ export const HomePage = () => {
       )}
       <Navbar btnRef={btnRef} onOpen={onOpen} />
       <Hero />
-      {/* <HeroBottom /> */}
-      {/* <Navbar /> */}
-      {/* <Mainpage /> */}
-      {/* <New /> */}
     </div>
   );
 };

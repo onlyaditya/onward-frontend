@@ -16,11 +16,12 @@ function ShowRegistrationAlert({ showAlert, onClose }) {
             position: "fixed",
             top: 0,
             left: 0,
-            width: "90%",
+            width: "100%",
             height: "100%",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.9)",
             zIndex: 100000000,
           }}
         >
@@ -35,11 +36,12 @@ function ShowRegistrationAlert({ showAlert, onClose }) {
             textAlign="center"
           >
             <AlertIcon boxSize="70px" mt={"0"} color={"green"} />
-            <AlertTitle mt={4} mb={1} fontSize="lg" fontSize="20px" color={"green"}>
+            <AlertTitle mt={4} mb={1} fontSize="20px" color={"white"}>
               User Registration has been Successful
             </AlertTitle>
-            <AlertDescription maxWidth="m" color={"green"} fontSize={"15px"}>
-              Thanks for registration. We will send you a zoom link to your email.
+            <AlertDescription maxWidth="m" color={"white"} fontSize={"15px"}>
+              Thanks for registration. We will send you a zoom link to your
+              email.
             </AlertDescription>
           </Alert>
         </Box>

@@ -15,6 +15,8 @@ import Congratulations from "../pages/Onboarding/Congratulations";
 import DashboardLanding from "../pages/DashboardLanding";
 import TestPage from "../pages/TestPage/TestPage";
 import AdmitCard from "../pages/Onboarding/AdmitCard";
+import Userpage from "../pages/Userpage";
+
 import ReferAndEarn from "../components/ReferAndEarn";
 import { ResultScreen } from "../pages/Results/ResultScreen";
 
@@ -27,7 +29,10 @@ export const AppRoutes = () => {
         <Route path="/test" element={<TestPage />} />
         <Route path="/activities" element={<Activities />} />
         <Route path="/courses" element={<OurCoursesPage />} />
+        <Route path="/profile" element={<Userpage />} />
         <Route path="/refer_and_earn" element={<ReferAndEarn />} />
+        <Route path="/results" element={<Result />} />
+
         <Route path="/activity/detail/:id" element={<ActivityDetail />} />
         <Route
           path="*"
