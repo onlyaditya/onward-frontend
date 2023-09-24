@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar/Navbar";
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text,Button } from "@chakra-ui/react";
 import { SideBar } from "./Sidebar/Sidebar";
 import RightSidebar from "./RightSidebar/RightSidebar";
 import BottomNavbar from "./Navbar/BottmNavbar";
