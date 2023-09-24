@@ -23,7 +23,6 @@ import {
   StepNumber,
   StepSeparator,
   StepStatus,
-  StepTitle,
   Stepper,
   useSteps,
   useDisclosure,
@@ -104,12 +103,6 @@ const Home = () => {
     onClose(); // Close the modal if needed
     generateAssessment();
   };
-
-  // Redirect to /test when isConfirmClicked is true
-  // if (isConfirmClicked) {
-  //   console.log("Redirecting to /test");
-  //   window.location.href = "/test";
-  // }
 
   const [registerAccordion, setRegisterAccordion] = useState(false);
   const [msatAccordion, setMsatAccordion] = useState(false);
