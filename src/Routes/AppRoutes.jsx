@@ -14,6 +14,7 @@ import OnboardingJoinus from "../pages/Onboarding/OnboardingJoinus";
 import Congratulations from "../pages/Onboarding/Congratulations";
 import DashboardLanding from "../pages/DashboardLanding";
 import TestPage from "../pages/TestPage/TestPage";
+import AdmitCard from "../pages/Onboarding/AdmitCard";
 
 export const AppRoutes = () => {
   return (
@@ -46,6 +47,7 @@ export const AppRoutes = () => {
         <Route path="home/onboardingconsent" element={<OnboardingConsent />} />
         <Route path="home/onboardingjoin" element={<OnboardingJoinus />} />
         <Route path="home/congrats" element={<Congratulations />} />
+        <Route path="home/admitcard" element={<AdmitCard />} />
       </Routes>
     </>
   );
