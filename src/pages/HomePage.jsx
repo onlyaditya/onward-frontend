@@ -6,12 +6,8 @@ import SignUpDrawer from "../components/SignUpDrawer";
 import SignIn from "../components/SignIn";
 import VerifyNumber from "../components/VerifyNumber";
 import { Drawer, useDisclosure } from "@chakra-ui/react";
-<<<<<<< Updated upstream
-
-=======
 // import UserProfile from "../components/UserProfile";
 import Userpage from "../pages/Userpage";
->>>>>>> Stashed changes
 
 export const HomePage = () => {
   const [reg, setReg] = useState("");
@@ -64,7 +60,7 @@ export const HomePage = () => {
         />
       )}
       <Navbar btnRef={btnRef} onOpen={onOpen} />
-      <Hero />
+       <Hero />
       <HeroBottom />
       {/* <Userpage /> */}
     </div>
