@@ -6,7 +6,12 @@ import RightSidebar from "./RightSidebar/RightSidebar";
 import BottomNavbar from "./Navbar/BottmNavbar";
 import PhoneRightSidebar from "./RightSidebar/PhoneRightSidebar";
 
-export const CommonLayout = ({ children, rightsidebar, bottomnav }) => {
+export const CommonLayout = ({
+  children,
+  rightsidebar,
+  bottomnav,
+  handleReferPageStatus,
+}) => {
   return (
     <Box>
       <Navbar />

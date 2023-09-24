@@ -16,6 +16,9 @@ import DashboardLanding from "../pages/DashboardLanding";
 import TestPage from "../pages/TestPage/TestPage";
 import Userpage from "../pages/Userpage";
 
+import ReferAndEarn from "../components/ReferAndEarn";
+
+
 export const AppRoutes = () => {
   return (
     <>
@@ -26,6 +29,8 @@ export const AppRoutes = () => {
         <Route path="/activities" element={<Activities />}/>
         <Route path="/courses" element={<OurCoursesPage />} />
         <Route path="/profile" element={<Userpage />} />
+          <Route path="/refer_and_earn" element={<ReferAndEarn />} />
+
         <Route path="/activity/detail/:id" element={<ActivityDetail />} />
         <Route
           path="*"

@@ -10,11 +10,20 @@ import { Banner } from "../../components/Activities/Banner";
 import { SideBar } from "../../components/Sidebar/Sidebar";
 import Navbar from "../../components/Navbar/Navbar";
 import { CommonLayout } from "../../components/CommonLayout";
+import ReferAndEarn from "../../components/ReferAndEarn";
 
 const OurCoursesPage = () => {
   const [activeCourse, setActiveCourse] = useState("");
   const handleChangeCourse = (course) => {
     setActiveCourse(course);
+  };
+  const [isReferPageActive, setIsReferPageActive] = useState(false);
+  const handleReferPageStatus = (flag) => {
+    if (flag === true) {
+      setIsReferPageActive(true);
+    } else {
+      setIsReferPageActive(false);
+    }
   };
   return (
     <>
@@ -22,6 +31,8 @@ const OurCoursesPage = () => {
         <Box>
           {activeCourse ? (
             <CoursePage activeCourse={activeCourse} />
+          ) : isReferPageActive ? (
+            <ReferAndEarn />
           ) : (
             <Flex background="rgba(242, 246, 255, 1)">
               <Box background="rgba(242, 246, 255, 1)" w="98%">
@@ -33,7 +44,7 @@ const OurCoursesPage = () => {
                     }
                   />
                 </Box>
-                <Box p={["0", "4"]}  w="100%">
+                <Box p={["0", "4"]} w="100%">
                   <Tabs>
                     <TabList>
                       <Tab>All</Tab>
@@ -64,7 +75,7 @@ const OurCoursesPage = () => {
                           </Text>
                         </Box>
                         <Box
-                          p={["0","0"]}
+                          p={["0", "0"]}
                           color="white"
                           display={"flex"}
                           gap={"16px"}
