@@ -24,7 +24,6 @@ export const ActivityOptions = () => {
         <ActivitiesTabs />
         <ActivityCard />
       </Box>
-      <Image width="300px" src={sideBanner}></Image>
     </Flex>
   );
 };
