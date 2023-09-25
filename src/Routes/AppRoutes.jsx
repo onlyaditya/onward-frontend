@@ -14,9 +14,11 @@ import OnboardingJoinus from "../pages/Onboarding/OnboardingJoinus";
 import Congratulations from "../pages/Onboarding/Congratulations";
 import DashboardLanding from "../pages/DashboardLanding";
 import TestPage from "../pages/TestPage/TestPage";
+import AdmitCard from "../pages/Onboarding/AdmitCard";
 import Userpage from "../pages/Userpage";
 
 import ReferAndEarn from "../components/ReferAndEarn";
+import { ResultScreen } from "../pages/Results/ResultScreen";
 
 export const AppRoutes = () => {
   return (
@@ -47,12 +49,13 @@ export const AppRoutes = () => {
             </Text>
           }
         />
-        <Route path="home/results" element={<Result />} />
+        <Route path="home/results" element={<ResultScreen />} />
         <Route path="home/onboardingform" element={<Onboardingform />} />
         <Route path="home/onboardingid" element={<OnboardingIdverif />} />
         <Route path="home/onboardingconsent" element={<OnboardingConsent />} />
         <Route path="home/onboardingjoin" element={<OnboardingJoinus />} />
         <Route path="home/congrats" element={<Congratulations />} />
+        <Route path="home/admitcard" element={<AdmitCard />} />
       </Routes>
     </>
   );
