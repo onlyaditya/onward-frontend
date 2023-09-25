@@ -19,6 +19,7 @@ import Userpage from "../pages/Userpage";
 
 import ReferAndEarn from "../components/ReferAndEarn";
 import { ResultScreen } from "../pages/Results/ResultScreen";
+import Welcome from "../pages/Onboarding/Welcome";
 
 export const AppRoutes = () => {
   return (
@@ -56,6 +57,7 @@ export const AppRoutes = () => {
         <Route path="home/onboardingjoin" element={<OnboardingJoinus />} />
         <Route path="home/congrats" element={<Congratulations />} />
         <Route path="home/admitcard" element={<AdmitCard />} />
+        <Route path="home/welcome" element={<Welcome />} />
       </Routes>
     </>
   );

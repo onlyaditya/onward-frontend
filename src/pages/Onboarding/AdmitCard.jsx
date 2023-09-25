@@ -1,7 +1,53 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
-import React from "react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import masai from "../../assets/allsvgimages/Group.svg";
 
 const AdmitCard = () => {
+  const [user, setUser] = useState("");
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonth = monthNames[currentDate.getMonth()];
+  const currentYear = currentDate.getFullYear();
+
+  useEffect(() => {
+    getDetails();
+  }, []);
+
+  const getDetails = async () => {
+    let token = JSON.parse(localStorage.getItem("auth"));
+
+    console.log(token);
+    try {
+      let res = await axios.get(
+        "https://dash-board.up.railway.app/user-details",
+        { headers: { Authorization: token } }
+      );
+      console.log(res);
+      setUser(res.data.userName);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleWelcome=()=>{
+    window.location.href = "http://localhost:3000/home/welcome";
+  }
   return (
     <Flex
       w="100%"
@@ -22,7 +68,13 @@ const AdmitCard = () => {
         alignItems="center"
         pt="40px"
       >
-        <Box position="absolute" top="10px" right='20px' _hover={{cursor:"pointer"}}>
+        <Box
+          position="absolute"
+          top="10px"
+          right="20px"
+          _hover={{ cursor: "pointer" }}
+          onClick={handleWelcome}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -156,14 +208,15 @@ const AdmitCard = () => {
             </Flex>
           </Flex>
           <Flex gap="20px" w="80%" m="auto" mt="20px">
-            <Box w="72px" h="72px" flexShrink="0">
+            <Box w="72px" h="72px" flexShrink="0" position="relative">
+              <Image src={masai} position="absolute" top="25px" left="9px"/>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="73"
                 height="72"
                 viewBox="0 0 73 72"
-                fill="none"
               >
+                fill="none"
                 <circle
                   cx="36.3418"
                   cy="36"
@@ -218,7 +271,7 @@ const AdmitCard = () => {
                   fontWeight="700"
                   lineHeight="20px"
                 >
-                  Abhishek Ravindran
+                  {user}
                 </Text>
               </Flex>
               <Flex>
@@ -264,7 +317,7 @@ const AdmitCard = () => {
                   fontWeight="700"
                   lineHeight="20px"
                 >
-                  04 june 2022
+                  {currentDay} {currentMonth} {currentYear}
                 </Text>
               </Flex>
             </Flex>

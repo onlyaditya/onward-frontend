@@ -25,15 +25,15 @@ const Onboardingform = () => {
   if (dob && gradyear) {
     console.log(dob, gradyear, working);
 
-    axios.patch(
-      "https://dash-board.up.railway.app/update-profile",
-      {
-        dob: dob,
-        // graduation: gradyear,
-        // work: !!working,
-      },
-      { headers: { Authorization: token } }
-    );
+    // axios.patch(
+    //   "https://dash-board.up.railway.app/update-profile",
+    //   {
+    //     dob: dob,
+    //     graduation: gradyear,
+    //     work: !!working,
+    //   },
+    //   { headers: { Authorization: token } }
+    // );
 
     const getDetails = async () => {
       let token = JSON.parse(localStorage.getItem("auth"));
