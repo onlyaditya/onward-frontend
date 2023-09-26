@@ -23,31 +23,6 @@ function Userpage(props) {
     // fetchData();
   });
 
-  // let token = localStorage.getItem("user");
-  // console.log(token);
-
-  // const headers = {
-  //   Authorization: token,
-  //   "Content-Type": "application/json",
-  // };
-
-  // const fetchData = async () => {
-  //   try {
-  //     const apiUrl = `https://dash-board.up.railway.app/user-details`;
-  //     const response = await axios.get(apiUrl, {
-  //       headers: headers,
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Network response was not ok");
-  //     }
-  //     console.log(response);
-  //     setUserdata(response);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
-
   return (
     <>
       <CommonLayout rightsidebar={"no"} bottomnav={"no"}>
