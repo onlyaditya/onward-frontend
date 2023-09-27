@@ -132,12 +132,7 @@ function Userpage(props) {
               button={true}
               buttonValue={"REFER NOW"}
             />
-            <UserProfile
-              Title={"Email Address"}
-              data={state.email}
-              button={true}
-              buttonValue={"VERIFY"}
-            />
+            <UserProfile Title={"Email Address"} data={state.email} />
             <UserProfile Title={"Referral Code"} data={"TXHE5S"} />
           </Grid>
         </Box>

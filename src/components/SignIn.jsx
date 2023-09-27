@@ -106,7 +106,7 @@ export default function SignIn({
         >
           <DrawerOverlay />
           <Box>
-            <DrawerContent w={"33%"}>
+            <DrawerContent>
               <Box margin={"3% 0 0 90%"}>
                 <DrawerCloseButton />
               </Box>
@@ -225,7 +225,7 @@ export default function SignIn({
         >
           <DrawerOverlay />
           <Box>
-            <DrawerContent w={"33%"}>
+            <DrawerContent>
               <Box margin={"3% 0 0 90%"}>
                 <DrawerCloseButton />
               </Box>

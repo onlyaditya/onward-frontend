@@ -15,23 +15,72 @@ import Congratulations from "../pages/Onboarding/Congratulations";
 import DashboardLanding from "../pages/DashboardLanding";
 import TestPage from "../pages/TestPage/TestPage";
 import Userpage from "../pages/Userpage";
-
 import ReferAndEarn from "../components/ReferAndEarn";
-
+import PrivateRouting from "../components/PrivateRouting/PrivateRouting";
 
 export const AppRoutes = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/dashboard" element={<DashboardLanding/>}/>
-        <Route path="/test" element={<TestPage/>} />
-        <Route path="/activities" element={<Activities />}/>
-        <Route path="/courses" element={<OurCoursesPage />} />
-        <Route path="/profile" element={<Userpage />} />
-          <Route path="/refer_and_earn" element={<ReferAndEarn />} />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRouting>
+              {" "}
+              <DashboardLanding />
+            </PrivateRouting>
+          }
+        />
+        <Route
+          path="/test"
+          element={
+            <PrivateRouting>
+              <TestPage />
+            </PrivateRouting>
+          }
+        />
+        <Route
+          path="/activities"
+          element={
+            <PrivateRouting>
+              <Activities />
+            </PrivateRouting>
+          }
+        />
+        <Route
+          path="/courses"
+          element={
+            <PrivateRouting>
+              <OurCoursesPage />
+            </PrivateRouting>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRouting>
+              <Userpage />
+            </PrivateRouting>
+          }
+        />
+        <Route
+          path="/refer_and_earn"
+          element={
+            <PrivateRouting>
+              <ReferAndEarn />
+            </PrivateRouting>
+          }
+        />
 
-        <Route path="/activity/detail/:id" element={<ActivityDetail />} />
+        <Route
+          path="/activity/detail/:id"
+          element={
+            <PrivateRouting>
+              <ActivityDetail />
+            </PrivateRouting>
+          }
+        />
         <Route
           path="*"
           element={
@@ -47,12 +96,54 @@ export const AppRoutes = () => {
             </Text>
           }
         />
-        <Route path="home/results" element={<Result />} />
-        <Route path="home/onboardingform" element={<Onboardingform />} />
-        <Route path="home/onboardingid" element={<OnboardingIdverif />} />
-        <Route path="home/onboardingconsent" element={<OnboardingConsent />} />
-        <Route path="home/onboardingjoin" element={<OnboardingJoinus />} />
-        <Route path="home/congrats" element={<Congratulations />} />
+        <Route
+          path="home/results"
+          element={
+            <PrivateRouting>
+              <Result />
+            </PrivateRouting>
+          }
+        />
+        <Route
+          path="home/onboardingform"
+          element={
+            <PrivateRouting>
+              <Onboardingform />
+            </PrivateRouting>
+          }
+        />
+        <Route
+          path="home/onboardingid"
+          element={
+            <PrivateRouting>
+              <OnboardingIdverif />
+            </PrivateRouting>
+          }
+        />
+        <Route
+          path="home/onboardingconsent"
+          element={
+            <PrivateRouting>
+              <OnboardingConsent />
+            </PrivateRouting>
+          }
+        />
+        <Route
+          path="home/onboardingjoin"
+          element={
+            <PrivateRouting>
+              <OnboardingJoinus />
+            </PrivateRouting>
+          }
+        />
+        <Route
+          path="home/congrats"
+          element={
+            <PrivateRouting>
+              <Congratulations />
+            </PrivateRouting>
+          }
+        />
       </Routes>
     </>
   );
