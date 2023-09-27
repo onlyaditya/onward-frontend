@@ -60,9 +60,10 @@ const Home = () => {
 
     const requestData = {
       uniqueID: userDetails.userId || uID,
-      assessmentTemplateId: "650f817ae33d4e8ad51707f6",
+      assessmentTemplateId: "64ef03a00bf0f105e8c8253e",
       redirectClientUrl: "http://localhost:3000/results",
       email: userDetails.email,
+      client_id: "62fcc9206e3a3a7e54bf3a52",
       callback_url:
         "https://dash-board.up.railway.app/v2/profile-assessment/test-platform-callback",
     };

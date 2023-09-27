@@ -8,7 +8,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ScoreCard from "./ScoreCard";
 import ellipse from "../../assets/allsvgimages/ellipse.svg";
 import { Link } from "react-router-dom";
@@ -17,6 +17,64 @@ import axios from "axios";
 
 const Result = () => {
   const [value, setValue] = React.useState("");
+  const [sectionScores, setSectionScores] = useState([
+    {
+      sectionId: "650f14dde33d4e8ad514c27e",
+      sectionScore: 0,
+      sectionName: "VC - 1",
+      isVideoSection: true,
+      sectionMaxMarks: 10,
+    },
+    {
+      sectionId: "650f14dde33d4e8ad514c282",
+      sectionScore: 0,
+      sectionName: "VC - 2",
+      isVideoSection: true,
+      sectionMaxMarks: 10,
+    },
+    {
+      sectionId: "650f14dfe33d4e8ad514c296",
+      sectionScore: 0,
+      sectionName: "Cognitive Ability",
+      isVideoSection: false,
+      sectionMaxMarks: 36,
+    },
+    {
+      sectionId: "650f14e0e33d4e8ad514c2bc",
+      sectionScore: 0,
+      sectionName: "Attention to Detail",
+      isVideoSection: false,
+      sectionMaxMarks: 15.5,
+    },
+    {
+      sectionId: "650f14e1e33d4e8ad514c2e7",
+      sectionScore: 0,
+      sectionName: "Verbal Ability",
+      isVideoSection: false,
+      sectionMaxMarks: 30,
+    },
+  ]);
+  const [percentageScore, setPercentageScore] = useState(0);
+  const [isPassed, setIsPassed] = useState(false);
+
+  useEffect(() => {
+    //call the score api, and set the response in SetSectionScore
+    // axios.get("", )
+    // https://dash-board.up.railway.app/score
+  }, []);
+  useEffect(() => {
+    let maxMarks = 0,
+      marksObtained = 0;
+    sectionScores.forEach((section) => {
+      maxMarks += section.sectionMaxMarks;
+      marksObtained += section.sectionScore;
+    });
+    const percentageScore = (marksObtained / maxMarks) * 100;
+    setPercentageScore(percentageScore);
+    if (maxMarks !== 0 && percentageScore >= 30) {
+      setIsPassed(true);
+    }
+  }, [sectionScores]);
 
   localStorage.setItem(
     "auth",
@@ -48,21 +106,43 @@ const Result = () => {
     var c1 = "#F2F6FF";
     var c2 = "#3470E4";
   }
-
-  console.log(value);
-  return (
-    <Box
-      maxW="1400px"
-      h="100vh"
-      bgColor="#F2F6FF"
-      pt="50px"
+  console.log({ percentageScore });
+  const correctSvg = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
     >
-      <Flex gap="32px" ml={["10px", "70px"]} wrap="wrap" mr={["10px","0px"]}>
+      <path
+        d="M21 6.99984L9 18.9998L3.5 13.4998L4.91 12.0898L9 16.1698L19.59 5.58984L21 6.99984Z"
+        fill="#6FCD9E"
+      />
+    </svg>
+  );
+  const crossSvg = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+        fill="#ED0331"
+      />
+    </svg>
+  );
+  return (
+    <Box maxW="1400px" h="100vh" bgColor="#F2F6FF" pt="50px">
+      <Flex gap="32px" ml={["10px", "70px"]} wrap="wrap" mr={["10px", "0px"]}>
         {/* results main container */}
 
         <Box
-          // maxW="711px"
-          h={["600px","424px"]}
+          maxW="711px"
+          h={["600px", "424px"]}
           borderRadius="16px"
           border="1px solid var(--neutral-grey-100, #E5E5E5)"
           bgColor="#fff"
@@ -80,8 +160,8 @@ const Result = () => {
             direction="column"
             align="center"
             gap="8px"
-            mt={["100px","87px"]}
-            ml={["50px","178px"]}
+            mt={["100px", "87px"]}
+            ml={["50px", "178px"]}
             mr={["10px"]}
             fontStyle="normal"
             fontWeight="700"
@@ -103,7 +183,11 @@ const Result = () => {
               fontSize="16px"
               lineHeight="20px"
             >
-              Congratulations! You have cleared the MSAT!
+              {sectionScores.length > 0
+                ? isPassed
+                  ? "Congratulations! You have cleared the MSAT!"
+                  : "Sorry, you failed to clear the MSAT"
+                : "Please wait while we get your scores"}
             </Heading>
           </Flex>
 
@@ -118,40 +202,19 @@ const Result = () => {
             ml="32px"
             mr="20px"
           >
-            {/* results contianer first row */}
-
-            <Flex alignItems="flex-start" gap="24px" wrap="wrap">
-              {/* First section scorecard */}
-
-              <ScoreCard name={"Coding Test"} result={"Passed"} marks={"88"} />
-
-              {/* Second section scorecard */}
-
-              <ScoreCard
-                name={"Verbal communication"}
-                result={"Passed"}
-                marks={"78"}
-              />
-            </Flex>
-
-            {/* results contianer second row */}
-
-            <Flex alignItems="flex-start" gap="24px" wrap="wrap">
-              {/* Third section scorecard */}
-
-              <ScoreCard
-                name={"Logical Thinking"}
-                result={"Not clear"}
-                marks={"20"}
-              />
-
-              {/* Fourth section scorecard */}
-
-              <ScoreCard
-                name={"Aptitude & Reasoning"}
-                result={"Passed"}
-                marks={"63"}
-              />
+            <Flex alignItems="flex-start" gap={2} wrap="wrap">
+              {sectionScores.map((section) => (
+                <ScoreCard
+                  name={section.sectionName}
+                  result={
+                    (section.sectionScore / section.sectionMaxMarks) * 100 >= 30
+                      ? "Passed"
+                      : "Failed"
+                  }
+                  marks={section.sectionScore}
+                  maxMarks={section.sectionMaxMarks}
+                />
+              ))}
             </Flex>
           </Box>
         </Box>
@@ -160,7 +223,7 @@ const Result = () => {
 
         <Box
           w="531px"
-          h={["550px","424px"]}
+          h={["550px", "424px"]}
           borderRadius="16px"
           border="1px solid var(--neutral-grey-100, #E5E5E5)"
           bgColor="#FFF"
@@ -179,7 +242,17 @@ const Result = () => {
             bgColor="var(--extended-yellow-100, #FFF3CC)"
           >
             <Box>
-              Based on your MSAT result you have cleared cut off for 2 courses.
+              Based on your MSAT result you have cleared cut off for{" "}
+              {percentageScore >= 50
+                ? "1"
+                : percentageScore >= 60
+                ? "2"
+                : percentageScore >= 70
+                ? "3"
+                : percentageScore >= 80
+                ? "4"
+                : "0"}{" "}
+              courses.
             </Box>
             <Heading
               m="0px"
@@ -244,7 +317,7 @@ const Result = () => {
                 mt="20px"
                 ml="24px"
               >
-                <Radio value="1">
+                <Radio disabled={percentageScore < 50}>
                   {" "}
                   <Box
                     color="var(--primary-red-900, #0A0103)"
@@ -269,7 +342,7 @@ const Result = () => {
                     </Text>
                   </Box>
                 </Radio>
-                <Radio value="2">
+                <Radio value="2" disabled={percentageScore < 60}>
                   {" "}
                   <Box
                     color="var(--primary-red-900, #0A0103)"
@@ -294,7 +367,7 @@ const Result = () => {
                     </Text>
                   </Box>
                 </Radio>
-                <Radio value="3" disabled="true">
+                <Radio value="3" disabled={percentageScore < 70}>
                   {" "}
                   <Box
                     color="var(--neutral-grey-300, #CCC)"
@@ -307,7 +380,7 @@ const Result = () => {
                     Data Analyst{" "}
                   </Box>
                 </Radio>
-                <Radio value="4">
+                <Radio value="4" disabled={percentageScore < 80}>
                   {" "}
                   <Box
                     color="var(--neutral-grey-300, #CCC)"
@@ -343,60 +416,16 @@ const Result = () => {
               top="71px"
               left="436px"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M21 6.99984L9 18.9998L3.5 13.4998L4.91 12.0898L9 16.1698L19.59 5.58984L21 6.99984Z"
-                  fill="#6FCD9E"
-                />
-              </svg>
+              {percentageScore >= 50 ? correctSvg : crossSvg}
             </Box>
             <Box position="absolute" w="24px" h="24px" top="119px" left="436px">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M21 6.99984L9 18.9998L3.5 13.4998L4.91 12.0898L9 16.1698L19.59 5.58984L21 6.99984Z"
-                  fill="#6FCD9E"
-                />
-              </svg>
+              {percentageScore >= 60 ? correctSvg : crossSvg}
             </Box>
             <Box position="absolute" w="24px" h="24px" top="163px" left="436px">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
-                  fill="#ED0331"
-                />
-              </svg>
+              {percentageScore >= 70 ? correctSvg : crossSvg}
             </Box>
             <Box position="absolute" w="24px" h="24px" top="211px" left="436px">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
-                  fill="#ED0331"
-                />
-              </svg>
+              {percentageScore >= 80 ? correctSvg : crossSvg}
             </Box>
           </Box>
           {/* buttons */}
