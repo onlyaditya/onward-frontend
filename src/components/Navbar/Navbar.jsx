@@ -55,12 +55,22 @@ export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const { isOpen:NavDrawerisOpen, onOpen:NavDraweronOpen, onClose:NavDraweronClose } = useDisclosure()
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   SetUserlogin(JSON.parse(localStorage.getItem("user")));
+  // }, []);
+
   useEffect(() => {
     dispatch(getUserDetails());
   }, []);
   const navigate = useNavigate();
 
   const { userDetails } = useSelector((store) => store.authReducer);
+
+  function SignoutButton() {
+    localStorage.removeItem("user");
+    navigate("/");
+  }
   return (
     <>
       <Box
@@ -174,11 +184,17 @@ export default function Navbar() {
                 </Flex>
               </MenuButton>
               <MenuList>
-                <MenuItem w>My Profile</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/profile");
+                  }}
+                >
+                  My Profile
+                </MenuItem>
                 <MenuItem>My Tutorials</MenuItem>
                 <MenuItem>My BookMark</MenuItem>
                 <MenuItem>My Certificates</MenuItem>
-                <MenuItem>Sign Out</MenuItem>
+                <MenuItem onClick={SignoutButton}>Sign Out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>

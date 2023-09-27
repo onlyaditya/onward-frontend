@@ -25,17 +25,19 @@ export const Navbar = ({ btnRef, onOpen }) => {
     onClose: onCloseDrawer1,
   } = useDisclosure();
   const navigate = useNavigate();
+  const [userlogin, SetUserlogin] = useState(false);
 
-  var userlogin;
   useEffect(() => {
-    userlogin = JSON.parse(localStorage.getItem("user"));
-  }, [userlogin]);
+    SetUserlogin(JSON.parse(localStorage.getItem("user")));
+  }, []);
 
   const HandleSIgnOutButton = () => {
-    if (userlogin != "") {
-      onOpen();
-    } else {
+    console.log(!!userlogin);
+    if (userlogin) {
       localStorage.removeItem("user");
+      SetUserlogin(false);
+    } else {
+      onOpen();
     }
   };
 
@@ -240,8 +242,8 @@ export const Navbar = ({ btnRef, onOpen }) => {
             bg={"none"}
             _hover={{ backgroundColor: "#fffafb" }}
           >
-            SIGN UP
-            {/* {userlogin == "" ? "SIGN UP" : "SIGN OUT"} */}
+            {/* SIGN UP */}
+            {userlogin ? "SIGN OUT" : "SIGN UP"}
           </Button>
         </Flex>
       </Box>
